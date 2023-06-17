@@ -1,0 +1,8 @@
+@include('includes.header')
+@include('home.component.trending')
+@include('home.component.live_auction')
+@include('home.component.top_bidders')
+@include('home.component.upcoming')
+@include('home.component.completed')
+@include('home.component.latest_winners')
+@include('includes.footer')
