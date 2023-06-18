@@ -94,3 +94,9 @@ watchAccount((account) => {
       }
   }); 
 })
+
+
+$(document).on('submit', '#create_form', (e)=>{
+  e.preventDefault()
+  console.log(e.target)
+}); 

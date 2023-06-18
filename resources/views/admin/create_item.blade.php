@@ -55,7 +55,7 @@
              </div>
              <div class="col-xl-9 col-lg-6 col-md-12 col-12">
                  <div class="form-create-item">
-                    <form action="create-item.html#">
+                    <form  id="create_form">
                         <div class="row">
                             <div class="col-lg-6">
                                 <h4 class="title-create-item">Image/Video (URL)</h4>
@@ -80,7 +80,6 @@
                             <h4 class="title-create-item">Title</h4>
                             <input type="text" name="title" placeholder="Item Name">
                         </p>
-
                         <br>
                         <p>
                             <div class="row">
@@ -119,7 +118,8 @@
                                 <input type="text" name="symbol" placeholder="If erc-20”">
                             </div>
                         </div>
-
+                        <br>
+                        <br>
                         <div class="row">
                             <div class="col-lg-6">
                                 <h4 class="title-create-item">Type</h4>
@@ -143,7 +143,6 @@
                             <button class="sc-button style bag">Create</button>
                         </p>
                     </form>
-                       
                  </div>
              </div>
         </div>
