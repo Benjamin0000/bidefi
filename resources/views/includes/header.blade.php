@@ -6,11 +6,11 @@
 <head>
     <meta charset="utf-8">
     <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
-    <title>Axies | NFT Marketplace HTML Template</title>
+    <title>BiDefi: Play and win huge crypto prices and digital collectibles.</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
-    <link rel="shortcut icon" href="/assets/icon/Favicon.png">
-    <link rel="apple-touch-icon-precomposed" href="/assets/icon/Favicon.png">
+    <link rel="shortcut icon" href="/assets/images/logo/logo.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/images/logo/logo.png">
     <style>
         .select_tag{
             border: 1px solid rgba(138,138,160,0.3);
@@ -26,6 +26,7 @@
             background: transparent;
             color: #8A8AA0;
         }
+        .tags{width: 70px !important;}
     </style>
 </head>
 <body class="body header-fixed is_dark">
@@ -43,8 +44,8 @@
                                     <div id="site-logo" class="clearfix">
                                         <div id="site-logo-inner">
                                             <a href="/" rel="home" class="main-logo">
-                                                <img id="logo_header" src="assets/images/logo/logo_dark.png" alt="nft-gaming" width="133" height="56"
-                                                    data-retina="assets/images/logo/logo_dark@2x.png" data-width="133"
+                                                <img id="logo_header" src="/assets/images/logo/logo.png" alt="nft-gaming" width="50" height="56"
+                                                    data-retina="/assets/images/logo/logo_dark@2x.png" data-width="133"
                                                     data-height="56">
                                             </a>
                                         </div>
@@ -53,13 +54,13 @@
                                     <nav id="main-nav" class="main-nav">
                                         <ul id="menu-primary-menu" class="menu">
                                             <li class="menu-item">
-                                                <a href="home6.html#">Home</a>
+                                                <a href="/">Home</a>
                                             </li>
                                             <li class="menu-item">
-                                                <a href="home6.html#">FAQ</a>
+                                                <a href="">FAQ</a>
                                             </li>
                                             <li class="menu-item">
-                                                <a href="home6.html#">Contact</a>
+                                                <a href="">Contact</a>
                                             </li>
                                         </ul>
                                     </nav><!-- /#main-nav -->   
@@ -82,10 +83,10 @@
                 <div class="mode_switcher">
                     <h6>Dark mode <strong>Available</strong></h6>
                     <a href="#" class="light d-flex align-items-center">
-                        <img src="assets/images/icon/sun.png" alt="">
+                        <img src="/assets/images/icon/sun.png" alt="">
                     </a>
                     <a href="#" class="dark d-flex align-items-center is_active">
-                        <img id="moon_dark" src="assets/images/icon/moon-2.png" alt="">
+                        <img id="moon_dark" src="/assets/images/icon/moon-2.png" alt="">
                     </a>
                 </div>
             </header>

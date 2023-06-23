@@ -22,3 +22,11 @@ export function bytestohex() {
     let msg = "Hi there! We just need you to sign this message to confirm that you have access to this wallet."
     return msg+ hexstring + Date.now();
 }
+
+export function paramsToObject(entries) {
+    const result = {}
+    for(const [key, value] of entries) { // each 'entry' is a [key, value] tupple
+      result[key] = value;
+    }
+    return result;
+}

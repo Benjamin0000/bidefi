@@ -6,8 +6,8 @@
                     <div class="widget widget-logo">
                         <div class="logo-footer" id="logo-footer">
                             <a href="index.html">
-                                <img id="logo_footer" src="assets/images/logo/logo_dark.png" alt="nft-gaming" width="135" height="56"
-                                data-retina="assets/images/logo/logo_dark@2x.png" data-width="135"
+                                <img id="logo_footer" src="/assets/images/logo/logo.png" alt="nft-gaming" width="50" height="56"
+                                data-retina="/assets/images/logo/logo_dark@2x.png" data-width="135"
                                 data-height="56">
                             </a>
                         </div>
@@ -94,13 +94,12 @@
 <script src="/assets/js/jquery.easing.js"></script> 
 <script src="/assets/js/popper.min.js"></script> 
 <script src="/assets/js/bootstrap.min.js"></script> 
-<script src="/assets/js/wow.min.js"></script> 
+<script src="/assets/js/wow.min.js"></script>  
 <script src="/assets/js/plugin.js"></script> 
 <script src="/assets/js/count-down.js"></script> 
 <script src="/assets/js/shortcodes.js"></script> 
 <script src="/assets/js/swiper-bundle.min.js"></script>
 <script src="/assets/js/swiper.js"></script>
-<script src="/assets/js/app.js"></script>
 @vite('resources/js/app.js')
 </body> 
-</html>
+</html> 

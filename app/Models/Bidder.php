@@ -9,4 +9,11 @@ use App\Traits\Uuids;
 class Bidder extends Model
 {
     use HasFactory, Uuids;
+
+    protected $fillable = [
+        'user_id',
+        'item_id',
+        'address',
+        'points'
+    ]; 
 }

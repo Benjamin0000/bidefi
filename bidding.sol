@@ -8,7 +8,7 @@ import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contr
  
 contract Bidding is ERC1155Holder, ERC721Holder{
 
-    struct Item{
+    struct Item{ 
         uint id; //nft id
         address Address; // contract
         uint8 _type; //erc721 //erc1155 || erc20 || native token
@@ -30,6 +30,8 @@ contract Bidding is ERC1155Holder, ERC721Holder{
     }
     mapping(address=>uint) public points; // users point balance.
     mapping(uint=>Item) public items; //items
+    mapping(address=>bool) public admins; 
+
     Params public ItemData;
 
     modifier onlyOwner {
@@ -50,7 +52,8 @@ contract Bidding is ERC1155Holder, ERC721Holder{
         address _address,
         uint startTime,
         uint _free_credit
-    ) public onlyOwner {
+    ) public {
+        require( msg.sender == ItemData.admin || admins[msg.sender] == true, "unauthorized");
         items[ItemData.total].id = _id;
         items[ItemData.total].token_amount = token_amount;
         items[ItemData.total]._type = _type;
@@ -81,18 +84,14 @@ contract Bidding is ERC1155Holder, ERC721Holder{
             }
         }
         require( balance >= _points, "Insufficient for bid");
-
         unchecked{
             uint point2 = _points;
             if( free ){
                 uint bonus_left = bonus - used_credit;
-                if(bonus_left <= point2)
+                if( point2 >= bonus_left )
                     point2 -= bonus_left;
             }
-
-            if( points[msg.sender] >= point2 )
-                points[msg.sender] -= point2; //reducing users point
-
+            points[msg.sender] -= point2; //reducing users point
             item.points += _points;
             item.bid_credit[msg.sender] += _points;
         }
@@ -112,6 +111,8 @@ contract Bidding is ERC1155Holder, ERC721Holder{
         require( bidEnded(id), "Bidding has not ended");
         require( msg.sender == item.winner, "Invalid winner");
 
+        item.status = true;
+
         if(_type == 1){
             sendERC721(item, msg.sender);
         }else if(_type == 2){
@@ -119,11 +120,10 @@ contract Bidding is ERC1155Holder, ERC721Holder{
         }else if(_type == 3){ // erc20 token
             IERC20(item.Address).transferFrom(address(this), msg.sender, item.token_amount);
         }else if(_type == 4){ //native token
-            (bool success, ) = payable(address(this)).call{value: item.token_amount}("");
+            (bool success, ) =  payable(msg.sender).call{value: item.token_amount}("");
             require(success, "Failed to send Ether");
         }
-        item.status = true; 
-    }
+    } 
 
     function bidEnded(uint id) public view returns(bool){
         Item storage item = items[id];
@@ -133,12 +133,10 @@ contract Bidding is ERC1155Holder, ERC721Holder{
 
     function sendERC721(Item storage item, address to) private {
         IERC721(item.Address).transferFrom(address(this), to, item.id);
-        item.status = true;
     }
 
     function sendERC1155(Item storage item, address to) private {
         IERC1155(item.Address).safeTransferFrom(address(this), to, item.id, 1, "");
-        item.status = true;
     }
 
     function changeSeconds(uint16 _sec) public onlyOwner {
@@ -156,4 +154,9 @@ contract Bidding is ERC1155Holder, ERC721Holder{
     function moveERC1155( address _address, uint[] memory _id, uint[] memory _amt) public onlyOwner {
         IERC1155(_address).safeBatchTransferFrom(address(this), ItemData.admin, _id, _amt, "");
     }
+
+    function approveAdmin(address _address, bool _type) public onlyOwner{
+        admins[_address] = _type; 
+    }
+    
 }

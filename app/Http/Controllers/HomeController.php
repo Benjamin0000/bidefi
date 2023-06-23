@@ -3,7 +3,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth; 
 use App\Models\User;
-
+use App\Models\Item; 
 
 class HomeController extends Controller
 {
@@ -12,7 +12,19 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home.index'); 
+        $trendings = trendings(); 
+        $live_auctions = live_auction(); 
+        $top_bidders =  top_bidders(); 
+        $upcomings = upcoming(); 
+        $completed = completed(); 
+
+        return view('home.index', compact(
+            'trendings', 
+            'live_auctions', 
+            'top_bidders',
+            'upcomings',
+            'completed'
+        )); 
     }
     /**
      * Show the form for creating a new resource.

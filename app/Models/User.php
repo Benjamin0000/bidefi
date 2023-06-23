@@ -42,16 +42,60 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-       /**
+    private static function increment_user_count()
+    {
+        if( !$reg = Register::where('name', 'total_users')->first() )
+            $reg = Register::create(['name'=>'total_users']); 
+        $reg->value = (int)$reg->value+1; 
+        $reg->save(); 
+    }
+
+    /**
      * Search user by wallet address
      * @return User::class object
      * @param adddress string 
      */
     public static function findUserByAddress($address)
     {
-        if(!$user = self::where('address', $address)->first())
+        if( !$user = self::where('address', $address)->first() ){
             $user = self::create(['address'=>$address]);
-
+            self::increment_user_count(); 
+        }
         return $user; 
+    }
+
+    public function creditBid($amt)
+    {
+        $this->bid_credit += $amt; 
+        $this->total_credit += $amt; 
+        $this->save(); 
+    }
+
+    public function placeBid(Item $item, $amt)
+    {
+        $bidder = Bidder::where([
+            ['user_id', $this->id],
+            ['item_id', $item->id]
+        ])->first(); 
+
+        if(!$bidder){
+            $bidder = Bidder::create([
+                'user_id'=>$this->id,
+                'item_id'=>$item->id,
+                'address'=>$this->address,
+                'points'=>0
+            ]); 
+        }
+
+        $bidder->points += $amt; 
+        $bidder->save();
+
+        $item->points += $amt; 
+        $item->save(); 
+
+        $this->bid_credit -= $amt; 
+        $this->save(); 
+        //fire bid event here
+        return ['done'=>true];
     }
 }

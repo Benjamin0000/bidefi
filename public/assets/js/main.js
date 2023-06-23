@@ -78,77 +78,85 @@
     // Start things up
     themesflatTheme.init();
 
-    var ajaxContactForm = function () {
-        $('#contactform,#commentform').each(function () {
-            $(this).validate({
-                submitHandler: function (form) {
-                    var $form = $(form),
-                        str = $form.serialize(),
-                        loading = $('<div />', { 'class': 'loading' });
+    // var ajaxContactForm = function () {
+    //     $('#contactform,#commentform').each(function () {
+    //         $(this).validate({
+    //             submitHandler: function (form) {
+    //                 var $form = $(form),
+    //                     str = $form.serialize(),
+    //                     loading = $('<div />', { 'class': 'loading' });
 
-                    $.ajax({
-                        type: "POST",
-                        url: $form.attr('action'),
-                        data: str,
-                        beforeSend: function () {
-                            $form.find('.form-submit,comment-form').append(loading);
-                        },
-                        success: function (msg) {
-                            var result, cls;
-                            if (msg === 'Success') {
-                                result = 'Message Sent Successfully To Email Administrator. ( You can change the email management a very easy way to get the message of customers in the user manual )';
-                                cls = 'msg-success';
-                            } else {
-                                result = 'Error sending email.';
-                                cls = 'msg-error';
-                            }
+    //                 $.ajax({
+    //                     type: "POST",
+    //                     url: $form.attr('action'),
+    //                     data: str,
+    //                     beforeSend: function () {
+    //                         $form.find('.form-submit,comment-form').append(loading);
+    //                     },
+    //                     success: function (msg) {
+    //                         var result, cls;
+    //                         if (msg === 'Success') {
+    //                             result = 'Message Sent Successfully To Email Administrator. ( You can change the email management a very easy way to get the message of customers in the user manual )';
+    //                             cls = 'msg-success';
+    //                         } else {
+    //                             result = 'Error sending email.';
+    //                             cls = 'msg-error';
+    //                         }
 
-                            $form.prepend(
-                                $('<div />', {
-                                    'class': 'flat-alert ' + cls,
-                                    'text': result
-                                }).append(
-                                    $('<a class="close" href="#"><i class="fa fa-close"></i></a>')
-                                )
-                            );
+    //                         $form.prepend(
+    //                             $('<div />', {
+    //                                 'class': 'flat-alert ' + cls,
+    //                                 'text': result
+    //                             }).append(
+    //                                 $('<a class="close" href="#"><i class="fa fa-close"></i></a>')
+    //                             )
+    //                         );
 
-                            $form.find(':input').not('.submit').val('');
-                        },
-                        complete: function (xhr, status, error_thrown) {
-                            $form.find('.loading').remove();
-                        }
-                    });
-                }
-            });
-        }); // each contactform
-    };
-
+    //                         $form.find(':input').not('.submit').val('');
+    //                     },
+    //                     complete: function (xhr, status, error_thrown) {
+    //                         $form.find('.loading').remove();
+    //                     }
+    //                 });
+    //             }
+    //         });
+    //     }); // each contactform
+    // };
+ 
     // Dark Light Mode
-    $("body", ".dark").on('click', function (e) {
+    $("body").on('click', ".dark", function (e) {
         e.preventDefault();
-        $(".body").addClass("is_dark")
-        $(".light").removeClass("is_active")
-        $(".dark").addClass("is_active")
-
-        $(".tf-text").removeClass("style")
-        $(".tf-text").addClass("s1")
-        document.getElementById("logo_header").src = "assets/images/logo/logo_dark.png";
-        document.getElementById("logo_footer").src = "assets/images/logo/logo_dark.png";
-        document.getElementById("moon_dark").src = "assets/images/icon/moon-2.png";
+        make_dark(); 
+    });
+    $("body").on('click', ".light", function (e) {
+        e.preventDefault();
+        make_light(); 
     });
 
-    $("body", ".light").on('click', function (e) {
-        e.preventDefault();
+    function make_light(){
         $(".body").removeClass("is_dark")
         $(".light").addClass("is_active")
         $(".dark").removeClass("is_active")
-
         $(".tf-text").addClass("style")
         $(".tf-text").removeClass("s1")
-        document.getElementById("logo_header").src = "assets/images/logo/logo.png";
-        document.getElementById("logo_footer").src = "assets/images/logo/logo2.png";
-        document.getElementById("moon_dark").src = "assets/images/icon/moon.png";
-    });
+        document.getElementById("moon_dark").src = "/assets/images/icon/moon-2.png";
+        localStorage.setItem("dark", 0);
+    }
+    function make_dark(){
+        $(".body").addClass("is_dark")
+        $(".light").removeClass("is_active")
+        $(".dark").addClass("is_active")
+        $(".tf-text").removeClass("style")
+        $(".tf-text").addClass("s1")
+        document.getElementById("moon_dark").src = "/assets/images/icon/moon-2.png";
+        localStorage.setItem("dark", 1);
+    }
+
+    if(localStorage.getItem('dark') == 1){
+        make_dark(); 
+    }else{
+        make_light();
+    }
 
     // Header Connect
 
@@ -425,7 +433,7 @@
         headerFixed();
         mobileNav();
         ajaxSubscribe.eventLoad();
-        ajaxContactForm();
+        // ajaxContactForm();
         alertBox();
         avatar_popup1();
         avatar_popup2();

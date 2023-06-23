@@ -13,11 +13,13 @@ return new class extends Migration
     {
         Schema::create('bidders', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('item_id');
+            $table->uuid('user_id');
+            $table->bigInteger('item_id');
             $table->string('address'); // address of bidder
             $table->integer('points'); // total lodged points
             $table->integer('used')->default(0); // total used. 
             $table->tinyInteger('switch')->default(0);
+            $table->boolean('winner')->default(0); 
             $table->timestamps();
         });
     }
