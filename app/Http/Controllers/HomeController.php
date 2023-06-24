@@ -17,15 +17,23 @@ class HomeController extends Controller
         $top_bidders =  top_bidders(); 
         $upcomings = upcoming(); 
         $completed = completed(); 
+        $latest_winners = latest_winners(); 
 
         return view('home.index', compact(
             'trendings', 
             'live_auctions', 
             'top_bidders',
             'upcomings',
-            'completed'
+            'completed',
+            'latest_winners'
         )); 
     }
+
+    public function profile()
+    {
+        return view('home.profile'); 
+    }
+
     /**
      * Show the form for creating a new resource.
      */

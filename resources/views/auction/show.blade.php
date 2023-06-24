@@ -129,5 +129,10 @@
         </div>
     </div>
 </div>
+<script>
+    setTimeout(() => {
+        window.count_views({{$item->id}})
+    }, 2000);
+</script>
 @include('auction.component.bid_modal')
 @include('includes.footer')

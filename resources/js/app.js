@@ -224,6 +224,14 @@ $(document).on('click', '#claim_price', (event) => {
   });
 })
 
+window.likeItem = function (id){
+  axios.post('/IN31Wd5njhG', {id:id}) 
+}
+
+window.count_views = function (id){
+  axios.post('/fAbAsLr7Zs', {id:id}) 
+}
+
 
 
 $(document).on('submit', '#create_form', (event) => {

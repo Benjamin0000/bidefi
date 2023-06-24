@@ -9,4 +9,9 @@ use App\Traits\Uuids;
 class Likes extends Model
 {
     use HasFactory, Uuids;
+
+    protected $fillable = [
+        'user_id',
+        'item_id'
+    ]; 
 }

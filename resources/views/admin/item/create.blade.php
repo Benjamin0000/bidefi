@@ -9,7 +9,7 @@
         </div>
     </div>
 </div>
-<form id="create_form" method="POST" action="/items">
+<form id="create_form" method="POST" action="/admin/items">
     <div class="row">
         <div class="col-lg-6">
             <h4 class="title-create-item">Image/Video (URL)</h4>

@@ -2,8 +2,10 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Events\BidEvent; 
 use App\Models\Item;
 use App\Models\Bidder;
+use App\Models\Likes; 
 
 class AuctionController extends Controller
 {
@@ -69,10 +71,6 @@ class AuctionController extends Controller
         return ['done'=>true]; 
     }
 
-
-
-
-
     // buy credit
     public function buy_credit()
     {
@@ -85,5 +83,40 @@ class AuctionController extends Controller
         $user = Auth::user(); 
         $user->creditBid($amt);  
         return ['done'=>true]; 
+    }
+
+    public function like(Request $request)
+    {
+        $id = $request->input('id');
+        $user = Auth::user();
+        $item = Item::find($id); 
+
+        if(!$item || !$user) return ; 
+
+        $like = Likes::where([ 
+            ['user_id', $user->id],
+            ['item_id', $id]
+        ])->first();
+        
+        if($like){
+            $like->delete(); 
+            $item->likes -= 1;
+        }else{
+            Likes::create([
+                'user_id'=>$user->id,
+                'item_id'=>$id
+            ]); 
+            $item->likes += 1;
+        }
+        $item->save(); 
+    }
+
+    public function add_views(Request $request)
+    {
+        $id = $request->input('id');
+        $item = Item::find($id); 
+        if(!$item) return ; 
+        $item->views += 1; 
+        $item->save(); 
     }
 }

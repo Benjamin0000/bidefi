@@ -1,10 +1,12 @@
 <?php
 use Elliptic\EC;
+use Web3\Contract;
 use kornrunner\Keccak;
 use App\Models\Register; 
 use App\Models\Item; 
 use App\Models\User; 
-use App\Models\Bidder; 
+use App\Models\Bidder;
+use App\Models\Likes; 
 
 function tableNumber( int $total ) : int
 {
@@ -94,7 +96,8 @@ function completed()
 
 function latest_winners()
 {
-    // Bidder::where('winner', 1)->latest()
+   return Bidder::where('winner', 1)->distinct('user_id')
+   ->latest()->take(10)->get(); 
 }
 
 function truncateAddress($text)
@@ -122,4 +125,68 @@ function eth_to_usd($token)
 {
     $price = (float)get_register('eth_price'); 
     return $price * $token; 
+}
+
+function opos($val) : int
+{
+    if($val == 0) return 1;
+    return 0;
+}
+
+function startBid()
+{
+    $items = Item::where('status', 0)->oldest();
+    if( $items->exists() ){
+        foreach( $items->get() as $item ){
+            if( now()->greaterThanOrEqualTo($item->start_time) ){
+                $item->startBid();
+            }
+        }
+    }
+}
+
+function get_abi()
+{
+    return file_get_contents('../resources/js/Bidding_ABI.json'); 
+}
+
+function getWinner($id)
+{
+    $contract = new Contract(env('NODE_ENDPOINT'), get_abi());
+    $result =  ""; 
+    try{
+        $contract->at('0x3733104daE61D6dA13aF964449bB41F9d6C5FE3c')->call('items', $id, function($error, $data) use(&$result){
+            $result = $data;
+        });
+    }catch(\Exception $e){
+        $result = $e->getMessage(); 
+    }
+    if(gettype($result) != 'string')
+        $winner = $result['winner']; 
+    else 
+        $winner = getWinner($id); 
+
+    $bidder = Bidder::where([
+        ['item_id', $id],
+        ['address', $winner]
+    ])->first();
+
+    if($bidder){
+        $bidder->winner = 1; 
+        $bidder->save(); 
+    }
+    return $winner; 
+}
+
+function liked($id, $user_id)
+{
+    return Likes::where([
+        ['item_id', $id],
+        ['user_id', $user_id]
+    ])->exists(); 
+}
+
+function get_bid_value($amt)
+{
+    return $amt * (float)get_register('bid_price'); 
 }

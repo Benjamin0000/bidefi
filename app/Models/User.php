@@ -98,4 +98,16 @@ class User extends Authenticatable
         //fire bid event here
         return ['done'=>true];
     }
+
+    public function get_name()
+    {
+        if($this->fname || $this->lname)
+            $name = $this->fname." ".$this->lname;  
+        else 
+            $name = truncateAddress($this->address); 
+
+        return $name; 
+    }
+
+    
 }

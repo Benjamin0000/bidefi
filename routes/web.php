@@ -6,6 +6,8 @@ use App\Http\Controllers\AdminController;
 
 Route::get('/', [HomeController::class, 'index']);
 
+Route::get('/profile', [HomeController::class, 'profile']); 
+
 
 Route::get('/live-auction', [AuctionController::class, 'live']);
 Route::get('/upcoming-auction', [AuctionController::class, 'upcoming'])->name('auction.upcoming');
@@ -17,12 +19,19 @@ Route::post('/FapHqrwPfkewSHq', [AuctionController::class, 'claim_winner']);
 Route::get('/buy-credit', [AuctionController::class, 'buy_credit']);
 Route::post('/LETBOrwenhvqRifu7Lu', [AuctionController::class, 'credit_point']); 
 
+Route::post('/IN31Wd5njhG', [AuctionController::class, 'like']); 
+Route::post('/fAbAsLr7Zs', [AuctionController::class, 'add_views']); 
+
+
+
 
 //auth route
 Route::post('/VgtFB', [HomeController::class, 'sign_in']); 
 Route::get('/RVgtFB', [HomeController::class, 'sign_out']); 
 Route::get('/ogNkV', [HomeController::class, 'check_auth']);
 //end auth
+
+
 
 
 
@@ -58,3 +67,8 @@ Route::prefix('admin')->group(function () {
 
 });
 //---end admin   
+
+
+Route::get('/test', function(){
+    return getWinner(1); 
+}); 
