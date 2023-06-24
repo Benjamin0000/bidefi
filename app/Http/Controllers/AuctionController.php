@@ -48,7 +48,12 @@ class AuctionController extends Controller
         if($check){
             if( $amt < $item->min_bid )
                 return ['error'=>"Min bid is ".$item->min_bid.' credits']; 
-            if( $user->bid_credit < $amt )
+
+            $used = get_used($user->id, $item->id); 
+            if($used <= $item->free_bid)
+                $user->bid_credit += ($item->free_bid - $used); 
+                
+            if($user->bid_credit  < $amt )
                 return ['error'=>"Insufficient bid credit"]; 
             
             return ['done'=>true]; 

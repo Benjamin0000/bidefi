@@ -190,3 +190,14 @@ function get_bid_value($amt)
 {
     return $amt * (float)get_register('bid_price'); 
 }
+
+function get_used($user_id, $item_id)
+{
+    $bidder = Bidder::where([
+        ['user_id', $user_id],
+        ['item_id', $item_id]
+    ])->first(); 
+
+    if(!$bidder) return 0; 
+    return $bidder->points; 
+}

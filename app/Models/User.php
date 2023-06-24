@@ -93,6 +93,9 @@ class User extends Authenticatable
         $item->points += $amt; 
         $item->save(); 
 
+        if($bidder->points <= $item->free_bid)
+            $amt = $item->free_bid - $bidder->points; 
+         
         $this->bid_credit -= $amt; 
         $this->save(); 
         //fire bid event here
@@ -109,5 +112,5 @@ class User extends Authenticatable
         return $name; 
     }
 
-    
+
 }
