@@ -1,5 +1,10 @@
 @include('includes.header')
 @include('includes.page_title', ['name'=>$item->name])
+<style>
+    #claim_price:hover{
+        color:white; 
+    }
+</style>
 <div class="tf-section tf-item-details">
     <div class="themesflat-container">
         <div class="row">
@@ -35,9 +40,11 @@
                             </div>
                             <div class="meta-info">
                                 <div class="author">
-                                    <div class="avatar">
-                                        <img src="" alt="">
-                                    </div>
+                                    @if($item->status > 0)
+                                        <div class="avatar">
+                                            <img src="" alt="">
+                                        </div>
+                                    @endif 
                                     <div class="info">
                                         @if($item->status == 1)
                                             <span>Last Bidder</span>
@@ -69,8 +76,11 @@
                                     data-labels=" :  ,  : , : , "></span>
                             </div>
                         </div>
-                        <a href="item-details.html#" data-toggle="modal" data-target="#popup_bid" class="sc-button loadmore style bag fl-button pri-3"><span>Place a bid</span></a>
-                        
+                        @if($item->status == 0)
+                            <a href="#" data-toggle="modal" data-target="#popup_bid" class="sc-button loadmore style bag fl-button pri-3"><span>Place a bid</span></a>
+                        @elseif($item->status == 2 && $item->bidder_id == Auth::user()->id)
+                            <button id="claim_price" idd="{{$item->id}}" class="sc-button sc-button loadmore style bag fl-button pri-3 btn-block">Claim</button>
+                        @endif 
                         <div class="flat-tabs themesflat-tabs">
                             {{-- <ul class="menu-tab tab-title">
                                 <li class="item-title active">

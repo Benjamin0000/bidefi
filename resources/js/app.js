@@ -110,8 +110,8 @@ $(document).on('keyup', '#bid_amt', (e) => {
   let total = value * window.bid_price;
   $('#bid_eth_price').val(total);
 
-  if(value < window.min_bid)
-    $("#min_bid_info").show(); 
+  if (value < window.min_bid)
+    $("#min_bid_info").show();
 });
 
 
@@ -123,7 +123,7 @@ $(document).on('submit', '#buy_credit_form', (event) => {
   btn.attr('disabled', true)
   let cost = amt * window.bid_price;
 
-  if ( amt < window.min_bid ) return; 
+  if (amt < window.min_bid) return;
 
   writeContract({
     address: bidding_contract,
@@ -151,32 +151,32 @@ $(document).on('submit', '#buy_credit_form', (event) => {
 //place a bid
 $(document).on('submit', '#place_bid_form', (event) => {
   event.preventDefault()
-  let msg =  $(event.target).find('#bid_msg');
+  let msg = $(event.target).find('#bid_msg');
   let btn = $(event.target).find('button');
   let data = $(event.target).serialize();
   let params = new URLSearchParams(data);
-  let id = params.get('id'); 
-  let amt = params.get('amt'); 
+  let id = params.get('id');
+  let amt = params.get('amt');
 
   btn.html("Please wait...")
   btn.attr('disabled', true)
-  msg.html(''); 
+  msg.html('');
 
-  axios.post('/ho8OJ92Bs9RyEW67', {id:id, amt:amt, check:true}).then(res=>{
-    if(res.data.error){
-      msg.html("<div class='alert alert-danger'><h5>"+res.data.error+"</h5></div>");
+  axios.post('/ho8OJ92Bs9RyEW67', { id: id, amt: amt, check: true }).then(res => {
+    if (res.data.error) {
+      msg.html("<div class='alert alert-danger'><h5>" + res.data.error + "</h5></div>");
       btn.html("Place a bid")
       btn.attr('disabled', false)
-      return; 
+      return;
     }
 
-    axios.post('/ho8OJ92Bs9RyEW67', {id:id, amt:amt}).then(res=>{
+    axios.post('/ho8OJ92Bs9RyEW67', { id: id, amt: amt }).then(res => {
       msg.html("<div class='alert alert-success'><h5> Bid placed successfully </h5></div>");
       setTimeout(() => {
         window.location.reload()
       }, 2000);
     })
-    
+
     // writeContract({
     //   address: bidding_contract,
     //   abi: Abi,
@@ -196,9 +196,33 @@ $(document).on('submit', '#place_bid_form', (event) => {
     //   btn.attr('disabled', false)
     // });
 
-  }); 
+  });
 
-}); 
+});
+
+//claim price
+
+$(document).on('click', '#claim_price', (event) => {
+  let btn = $(event.target);
+  let id = btn.attr('idd'); 
+  btn.html('Please wait...');
+  writeContract({
+    address: bidding_contract,
+    abi: Abi,
+    functionName: 'claimPrice',
+    args: [id]
+  }).then(res => {
+    waitForTransaction({ confirmations: 1, hash:res.hash }).then(res => {
+      axios.post('/FapHqrwPfkewSHq', {id:id, hash:res.hash}).then(res=>{
+          alert("Price claimed")
+          window.location.reload()
+      })
+    });
+  }).catch(error => {
+    btn.html("Claim");
+    btn.attr('disabled', false); 
+  });
+})
 
 
 

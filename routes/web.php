@@ -12,6 +12,7 @@ Route::get('/upcoming-auction', [AuctionController::class, 'upcoming'])->name('a
 Route::get('/completed-auction', [AuctionController::class, 'completed'])->name('auction.completed');
 Route::get('/auction/{item_id}', [AuctionController::class, 'show'])->name('auction.show');
 Route::post('/ho8OJ92Bs9RyEW67', [AuctionController::class, 'place_bid']); 
+Route::post('/FapHqrwPfkewSHq', [AuctionController::class, 'claim_winner']);
 
 Route::get('/buy-credit', [AuctionController::class, 'buy_credit']);
 Route::post('/LETBOrwenhvqRifu7Lu', [AuctionController::class, 'credit_point']); 
@@ -56,4 +57,4 @@ Route::prefix('admin')->group(function () {
     Route::delete('/admins/{id}', [AdminController::class, 'remove_admin']); 
 
 });
-//---end admin
+//---end admin   

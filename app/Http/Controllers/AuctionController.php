@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Item;
+use App\Models\Bidder;
 
 class AuctionController extends Controller
 {
@@ -52,8 +53,27 @@ class AuctionController extends Controller
         }
         return $user->placeBid($item, $amt); 
     }
-    
-// buy credit
+
+    public function claim_winner(Request $request)
+    {
+        $id = $request->input('id'); 
+        $hash = $request->input('hash'); 
+        $item = Item::find($id);
+        
+        $bidder = Bidder::find($item->bidder_id); 
+        $bidder->hash = $hash; 
+        $bidder->save();  
+
+        $item->status = 3;
+        $item->save(); 
+        return ['done'=>true]; 
+    }
+
+
+
+
+
+    // buy credit
     public function buy_credit()
     {
         return view('buy_credit'); 

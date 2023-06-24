@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('used')->default(0); // total used. 
             $table->tinyInteger('switch')->default(0);
             $table->boolean('winner')->default(0); 
+            $table->string('hash', 1000)->nullable(); 
             $table->timestamps();
         });
     }
