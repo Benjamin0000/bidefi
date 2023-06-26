@@ -2,6 +2,8 @@
 
 namespace App\Console\Commands;
 use Illuminate\Console\Command;
+use App\Models\Item; 
+
 class startBid extends Command
 {
     /**
@@ -16,7 +18,7 @@ class startBid extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'start the bidding';
 
     /**
      * Execute the console command.
@@ -24,7 +26,7 @@ class startBid extends Command
     public function handle()
     {
         while(1){
-            startBid();
+            Item::start_bid();
         }
         return; 
     }

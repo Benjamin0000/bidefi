@@ -11,13 +11,26 @@ class Item extends Model
 {
     use HasFactory;
 
+    public static function start_bid()
+    {
+        $items = Self::where('status', 0)->oldest();
+        if( $items->exists() ){
+            foreach( $items->get() as $item ){
+                if( now()->greaterThanOrEqualTo($item->start_time) ){
+                    $item->startBid();
+                }
+            }
+        }
+    }
+
     public static function execute_bid()
     {
         $items = Self::where('status', 1)->oldest();
         if( $items->exists() ){
             foreach( $items->get() as $item ){
                 $timer = Carbon::parse($item->timer);
-                if( $timer->diffInSeconds() <= 0 ){
+                $timer2 = $timer->diffInSeconds(); 
+                if($timer2  == 0 || $timer2 > 15){
                     $bidder = Bidder::where([
                         ['item_id', $item->id],
                         ['switch', $item->switch]
@@ -50,7 +63,7 @@ class Item extends Model
     {  
         if( $this->points <= $this->used ){
             $this->status = 2;
-            $this->winner = getWinner($this->id2);
+            $this->winner = getWinner($this->id);
             $this->save();
             $data = [
                 'id'=>$this->id,

@@ -133,21 +133,14 @@ function opos($val) : int
     return 0;
 }
 
-function startBid()
-{
-    $items = Item::where('status', 0)->oldest();
-    if( $items->exists() ){
-        foreach( $items->get() as $item ){
-            if( now()->greaterThanOrEqualTo($item->start_time) ){
-                $item->startBid();
-            }
-        }
-    }
-}
+
 
 function get_abi()
 {
-    return file_get_contents('../resources/js/Bidding_ABI.json'); 
+    
+    if( !$file = @file_get_contents('../resources/js/Bidding_ABI.json') )
+        $file = file_get_contents('resources/js/Bidding_ABI.json'); 
+    return $file; 
 }
 
 function getWinner($id)
@@ -170,6 +163,11 @@ function getWinner($id)
         ['item_id', $id],
         ['address', $winner]
     ])->first();
+
+    if( $item = Item::find($id) && $bidder){
+        $item->bidder_id = $bidder->id; 
+        $item->save(); 
+    }
 
     if($bidder){
         $bidder->winner = 1; 

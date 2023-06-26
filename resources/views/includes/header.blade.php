@@ -27,6 +27,10 @@
             color: #8A8AA0;
         }
         .tags{width: 70px !important;}
+        .counter{
+            font-weight: 600;
+            font-size: 15px;
+        }
     </style>
 </head>
 <body class="body header-fixed is_dark">

@@ -15,21 +15,21 @@ export const truncateAddress = (address) => {
 };
 
 export function bytestohex() {
-    let bytes = window.crypto.getRandomValues(new Uint8Array(32)); 
-    var hexstring='', h;
-    for(var i=0; i<bytes.length; i++) {
-        h=bytes[i].toString(16);
-        if(h.length==1) { h='0'+h; }
-        hexstring+=h;
-    } 
+    let bytes = window.crypto.getRandomValues(new Uint8Array(32));
+    var hexstring = '', h;
+    for (var i = 0; i < bytes.length; i++) {
+        h = bytes[i].toString(16);
+        if (h.length == 1) { h = '0' + h; }
+        hexstring += h;
+    }
     let msg = "Hi there! We just need you to sign this message to confirm that you have access to this wallet."
-    return msg+ hexstring + Date.now();
+    return msg + hexstring + Date.now();
 }
 
 export function paramsToObject(entries) {
     const result = {}
-    for(const [key, value] of entries) { // each 'entry' is a [key, value] tupple
-      result[key] = value;
+    for (const [key, value] of entries) { // each 'entry' is a [key, value] tupple
+        result[key] = value;
     }
     return result;
 }
@@ -45,9 +45,39 @@ window.Echo = new Echo({
     disableStats: true,
 });
 
-
-
 window.Echo.channel(`main-channel`)
     .listen('.adgedds', (e) => {
-        console.log(e.data);
+        let data = e.data;
+        switch (data.type) {
+            case 'started':
+                    window.location.reload(); 
+                break;
+            case 'ended':
+                window.location.reload(); 
+                break;
+            case 'bid':
+                let date = moment.utc(data.timer);
+                if (window.show_id && window.show_id == data.id) {
+                    $("#the_author").html(data.bidder);
+
+                    $('#the_timer').countdown(date.toDate(), function(event) {
+                        $(this).html("<span class='counter'>"+event.strftime('%S')+"</span>");
+                    });
+
+                    $("#the_bid_price_eth").html(data.bid_price);
+                    $("#the_bid_price_usd").html('$'+data.bid_price_usd);
+                } else {
+                    $("#timer" + data.id).countdown(date.toDate(), function(event) {
+                        $(this).html("<span class='counter'>"+event.strftime('%S')+"</span>");
+                    });
+                    $("#c_bid" + data.id).html(data.bid_price); 
+                    $("#author" + data.id).html(data.bidder2); 
+                }
+                break;
+            case 'bidders':
+                if (window.show_id && window.show_id == data.id) {
+                    $("#show_bidders").html(data.bidders);
+                }
+                break;
+        }
     });

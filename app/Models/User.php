@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Traits\Uuids;
+use App\Events\BidEvent; 
 
 class User extends Authenticatable
 {
@@ -99,6 +100,12 @@ class User extends Authenticatable
         $this->bid_credit -= $amt; 
         $this->save(); 
         //fire bid event here
+        $bidders = Bidder::where('item_id', $item->id)->orderBy('updated_at', 'desc')->take(10)->get();
+        $data = [
+            'bidders'=>"$bidders",
+            'type'=>'bidders'
+        ];
+        BidEvent::dispatch($data);
         return ['done'=>true];
     }
 

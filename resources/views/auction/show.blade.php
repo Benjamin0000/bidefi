@@ -1,10 +1,7 @@
 @include('includes.header')
 @include('includes.page_title', ['name'=>$item->name])
-<style>
-    #claim_price:hover{
-        color:white; 
-    }
-</style>
+@php $user = Auth::user(); @endphp
+<style>#claim_price:hover{color:white;}</style>
 <div class="tf-section tf-item-details">
     <div class="themesflat-container">
         <div class="row">
@@ -22,7 +19,7 @@
                         <div class="meta-item">
                             <div class="left">
                                 <span class="viewed eye">{{$item->views}}</span>
-                                <span class="liked heart wishlist-button mg-l-8"><span class="number-like">{{$item->likes}}</span></span>
+                                <span class="liked heart wishlist-button mg-l-8 {{$user && liked($item->id, $user->id) ? 'active': ''}}"><span class="number-like" onclick="likeItem({{$item->id}})">{{$item->likes}}</span></span>
                             </div>
                             <div class="right">
                                 {{-- <a href="item-details.html#" class="share"></a>
@@ -34,27 +31,13 @@
                                 <div class="author">
                                     <div class="info">
                                         <span>Price</span>
-                                        <h6>${{number_format($item->price)}}</h6>
+                                        <h6>$<span>{{number_format($item->price)}}</span></h6>
                                     </div>
                                 </div>
                             </div>
                             <div class="meta-info">
-                                <div class="author">
-                                    @if($item->status > 0)
-                                        <div class="avatar">
-                                            <img src="" alt="">
-                                        </div>
-                                    @endif 
-                                    <div class="info">
-                                        @if($item->status == 1)
-                                            <span>Last Bidder</span>
-                                        @elseif($item->status > 1)
-                                            <span>Won By</span>
-                                        @endif 
-                                        @if($item->status > 0)
-                                            <h6> <a href="">{{get_bidder($item->bidder_id)}}</a> </h6>
-                                        @endif 
-                                    </div>
+                                <div id="the_author" class="author">
+                                  @include('bidder')
                                 </div>
                             </div>
                         </div>
@@ -65,15 +48,22 @@
                                 <span class="heading">Current Bid</span>
                                 <div class="price">
                                     <div class="price-box">
-                                        <h5> {{number_format($item->bid_price, 3)}} ETH</h5>
-                                        <span>= ${{number_format(eth_to_usd($item->bid_price))}}</span>
+                                        <h5><span id="the_bid_price_eth">{{number_format($item->bid_price, 3)}}</span> ETH</h5>
+                                        <span>=<span id="the_bid_price_usd">${{number_format(eth_to_usd($item->bid_price))}}</span></span>
                                     </div>
                                 </div>
                             </div>
                             <div class="item count-down">
                                 <span class="heading style-2">Countdown</span>
-                                <span class="js-countdown" data-timer="60"
-                                    data-labels=" :  ,  : , : , "></span>
+                                <span id="the_timer">
+                                    @if($item->status == 0) 
+                                        <span  class="js-countdown" data-timer="{{Carbon\Carbon::parse($item->start_time)->diffInSeconds()}}" data-labels=" :  ,  : , : , "></span>
+                                    @elseif($item->status == 1)
+                                        <span  class="js-countdown" data-timer="{{Carbon\Carbon::parse($item->timer)->diffInSeconds()}}" data-labels=" :  ,  : , : , "></span>
+                                    @else 
+                                        <span class="counter">0:0</span>
+                                    @endif 
+                                </span>
                             </div>
                         </div>
                         @if($item->status == 0)
@@ -91,38 +81,12 @@
                             <h5 class="text-center">Bid History</h5>
                             <div class="content-tab">
                                 <div class="content-inner tab-content">
-                                    <ul class="bid-history-list">
-                                        <li>
-                                            <div class="content">
-                                                <div class="client">
-                                                    <div class="sc-author-box style-2">
-                                                        <div class="author-avatar">
-                                                            <a href="item-details.html#">
-                                                                <img src="assets/images/avatar/avt-3.jpg" alt="" class="avatar">
-                                                            </a>
-                                                            <div class="badge"></div>
-                                                        </div>
-                                                        <div class="author-infor">
-                                                            <div class="name">
-                                                                <h6><a href="author02.html">Mason Woodward </a></h6> <span> place a bid</span>
-                                                            </div>
-                                                            <span class="time">8 hours ago</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="price">
-                                                    <h5> 4.89 ETH</h5>
-                                                    <span>= $12.246</span>
-                                                </div>
-                                            </div>
-                                        </li>
-                                     
-
+                                    <ul class="bid-history-list" id="show_bidders">
+                                      @include('bidders', compact('bidders'))
                                     </ul>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -133,6 +97,7 @@
     setTimeout(() => {
         window.count_views({{$item->id}})
     }, 2000);
+    window.show_id = {{$item->id}}
 </script>
 @include('auction.component.bid_modal')
 @include('includes.footer')

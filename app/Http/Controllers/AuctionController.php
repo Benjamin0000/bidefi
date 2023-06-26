@@ -28,7 +28,8 @@ class AuctionController extends Controller
     public function show($item_id)
     {
         $item = Item::findOrFail($item_id);
-        return view('auction.show', compact('item')); 
+        $bidders = Bidder::where('item_id', $item->id)->orderBy('updated_at', 'desc')->take(10)->get(); 
+        return view('auction.show', compact('item', 'bidders')); 
     }
 
     public function place_bid(Request $request)
@@ -52,7 +53,7 @@ class AuctionController extends Controller
             $used = get_used($user->id, $item->id); 
             if($used <= $item->free_bid)
                 $user->bid_credit += ($item->free_bid - $used); 
-                
+
             if($user->bid_credit  < $amt )
                 return ['error'=>"Insufficient bid credit"]; 
             

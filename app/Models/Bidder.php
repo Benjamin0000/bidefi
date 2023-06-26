@@ -20,29 +20,27 @@ class Bidder extends Model
     ]; 
 
     public function bid(Item $item)
-    { 
+    {
         $item->used += 1;
-        $item->timer = now()->addSeconds($item->bid_sec);
+        $item->timer = now()->addSeconds(15);
         // $item->sec = mt_rand(7, $item->bid_sec);
         $item->bid_price = $item->used * $item->start_price;
+        $item->bidder_id = $this->id; 
         $item->save();
 
         $this->used += 1;
         $this->switch = opos($this->switch);
         $this->save();
 
-       
-
-        $bidders = Self::where('item_id', $item->id)->orderBy('updated_at', 'desc')->take(10)->get();
-        $bidders = view('bidders', compact('bidders'));
-        $bidders = "$bidders";
-
+        $bidder = view('bidder', compact('item'));
+        $bidder2 = view('bidder2', compact('item'));
         $data = [ 
             'id'=>$item->id,
-            'bidders'=>"$bidders",
-            'address'=>$this->address,
-            'timer'=>Carbon::parse($item->timer)->diffInSeconds(),
-            'bid_price'=>$item->bid_price,
+            'bidder'=>"$bidder",
+            'bidder2'=>"$bidder2",
+            'timer'=>$item->timer,
+            'bid_price'=>number_format($item->bid_price, 2),
+            'bid_price_usd'=>number_format(eth_to_usd($item->bid_price), 2),
             'status'=>$item->status,
             'type'=>'bid'
         ];
