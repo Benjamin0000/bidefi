@@ -2,8 +2,8 @@
   "_browser-e933942f.js": {
     "file": "assets/browser-e933942f.js"
   },
-  "_http-61f6a033.js": {
-    "file": "assets/http-61f6a033.js",
+  "_http-e43c37ed.js": {
+    "file": "assets/http-e43c37ed.js",
     "imports": [
       "resources/js/app.js"
     ]
@@ -12,18 +12,18 @@
     "dynamicImports": [
       "node_modules/@walletconnect/modal/dist/index.js"
     ],
-    "file": "assets/index.es-1ef91345.js",
+    "file": "assets/index.es-c5246ddc.js",
     "imports": [
       "resources/js/app.js",
-      "_http-61f6a033.js"
+      "_http-e43c37ed.js"
     ],
     "isDynamicEntry": true,
     "src": "node_modules/@walletconnect/ethereum-provider/dist/index.es.js"
   },
   "node_modules/@walletconnect/legacy-provider/dist/esm/index.js": {
-    "file": "assets/index-b0947ad1.js",
+    "file": "assets/index-9cdf0d05.js",
     "imports": [
-      "_http-61f6a033.js",
+      "_http-e43c37ed.js",
       "resources/js/app.js",
       "_browser-e933942f.js"
     ],
@@ -34,7 +34,7 @@
     "dynamicImports": [
       "node_modules/@web3modal/ui/dist/index.js"
     ],
-    "file": "assets/index-2acf940c.js",
+    "file": "assets/index-5143996d.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -42,7 +42,7 @@
     "src": "node_modules/@walletconnect/modal/dist/index.js"
   },
   "node_modules/@web3modal/ui/dist/index.js": {
-    "file": "assets/index-2cbcc5ec.js",
+    "file": "assets/index-28895bc1.js",
     "imports": [
       "resources/js/app.js",
       "_browser-e933942f.js"
@@ -51,7 +51,7 @@
     "src": "node_modules/@web3modal/ui/dist/index.js"
   },
   "node_modules/viem/dist/esm/utils/ccip.js": {
-    "file": "assets/ccip-28ee2f1d.js",
+    "file": "assets/ccip-3985d798.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -76,7 +76,7 @@
       "node_modules/@walletconnect/legacy-provider/dist/esm/index.js",
       "node_modules/@web3modal/ui/dist/index.js"
     ],
-    "file": "assets/app-e3091460.js",
+    "file": "assets/app-6d5c537f.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   }
