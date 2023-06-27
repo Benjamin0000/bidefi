@@ -41,7 +41,7 @@ $("#logout").click((e) => {
 
 watchNetwork((network) => { // when you disconnect & connect this will handle it. 
   let account = getAccount();
-  if (account && account.address && network.chain.id == 97) {
+  if (account && account.address && network.chain.id == 5) {
     axios.get('/ogNkV').then(res => {
       if (!res.data.auth) {
         const msg = bytestohex();
