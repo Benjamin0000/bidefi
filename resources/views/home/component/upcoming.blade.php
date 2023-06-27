@@ -5,7 +5,7 @@
                 <div class="heading-live-auctions mg-bt-24">
                     <h2 class="tf-title">
                         Upcoming</h2>
-                    <a href="explore-3.html" class="exp style2">EXPLORE MORE</a>
+                    <a href="/upcoming-auction" class="exp style2">EXPLORE MORE</a>
                 </div>
             </div>
             @include('auction.component.item', ['auctions'=>$upcomings])

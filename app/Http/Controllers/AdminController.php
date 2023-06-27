@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Image; 
 use App\Models\Item; 
 use App\Models\User;
@@ -12,6 +13,13 @@ use App\Models\Admins;
 
 class AdminController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $user = Auth::user(); 
+        if($user && !$user->admin)
+            return redirect('/'); 
+    }
 
     /**
      * Display a listing of the resource.

@@ -22,6 +22,9 @@ Route::post('/LETBOrwenhvqRifu7Lu', [AuctionController::class, 'credit_point']);
 Route::post('/IN31Wd5njhG', [AuctionController::class, 'like']); 
 Route::post('/fAbAsLr7Zs', [AuctionController::class, 'add_views']); 
 
+#load more
+Route::get('/kSHhWd/{type}', [AuctionController::class, 'load_more']); 
+
 
 
 

@@ -355,3 +355,25 @@ $(document).on('submit', '.remove_admin', (event) => {
     btn.attr('disabled', false);
   });
 });
+
+window.pg = 2; //for the loadmore
+$(document).on('click', "#llmore", (e)=>{
+  let id = $(e.target).attr('data-id');
+
+  $(e.target).html("Loading..."); 
+  $(e.target).attr("disabled", true); 
+
+  axios.get('/kSHhWd/'+id+'?page='+window.pg).then(res=>{
+    $(e.target).html("Load more"); 
+    $(e.target).attr("disabled", false); 
+    let data = res.data; 
+    if(data.count == 8){
+      window.pg+=1; 
+    }else{
+      $(e.target).hide(); 
+    }
+    if(data.count > 0){
+      $("#item_con").append(data.view); 
+    }
+  });  
+})

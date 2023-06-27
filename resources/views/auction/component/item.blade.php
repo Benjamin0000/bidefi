@@ -2,7 +2,7 @@
     $user = Auth::user(); 
 @endphp 
 @foreach($auctions as $auction)
-<div class="fl-item col-xl-3 col-lg-4 col-md-6 col-sm-6">
+<div class="fl-item col-xl-3 col-lg-4 col-md-6 col-sm-6" style="display: block;">
     <div class="sc-card-product">
         <div class="card-media style2">
             <a href="{{route('auction.show', $auction->id)}}"><img src="{{$auction->image}}" alt="Image"></a>

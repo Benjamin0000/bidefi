@@ -4,7 +4,7 @@
             <div class="col-md-12">
                 <div class="heading-live-auctions">
                     <h2 class="tf-title pb-23">Completed Auctions</h2>
-                    <a href="/live-auction" class="exp style2">EXPLORE MORE</a>
+                    <a href="/completed-auction" class="exp style2">EXPLORE MORE</a>
                 </div>
             </div> 
             @include('auction.component.item', ['auctions'=>$completed])

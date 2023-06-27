@@ -12,17 +12,42 @@ class AuctionController extends Controller
 
     public function live()
     {
-        return view('auction.live'); 
+        $items = live_auction(); 
+        return view('auction.live', compact('items')); 
+    }
+
+    public function load_more($type)
+    {
+        switch($type){
+            case '1': //live
+                $items = live_auction();
+                break; 
+            case '2':  //upcoming
+                $items = upcoming(); 
+                break; 
+            case '3':  //completed
+                $items = completed(); 
+                break; 
+            default: 
+                return; 
+        }
+        $views = view('auction.component.item', ['auctions'=>$items]); 
+        return [
+            'view'=>"$views",
+            'count'=> $items->count()
+        ]; 
     }
 
     public function upcoming()
     {
-        return view('auction.upcoming');
+        $items = upcoming(); 
+        return view('auction.upcoming', compact('items'));
     }
 
     public function completed()
     {
-        return view('auction.completed');
+        $items = completed(); 
+        return view('auction.completed', compact('items'));
     }
 
     public function show($item_id)
@@ -126,3 +151,4 @@ class AuctionController extends Controller
         $item->save(); 
     }
 }
+    

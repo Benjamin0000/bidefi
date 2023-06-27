@@ -86,12 +86,12 @@ function top_bidders()
 
 function upcoming()
 {
-    return Item::where('status', 0)->take(8)->get(); 
+    return Item::where('status', 0)->paginate(8);
 }
 
 function completed()
 {
-    return Item::where('status', '>', 1)->take(8)->get(); 
+    return Item::where('status', '>', 1)->paginate(8); 
 }
 
 function latest_winners()
@@ -164,7 +164,9 @@ function getWinner($id)
         ['address', $winner]
     ])->first();
 
-    if( $item = Item::find($id) && $bidder){
+    $item = Item::find($id);
+
+    if( $item && $bidder ){
         $item->bidder_id = $bidder->id; 
         $item->save(); 
     }
