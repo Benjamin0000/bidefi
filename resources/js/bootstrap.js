@@ -43,6 +43,8 @@ window.Echo = new Echo({
     forceTLS: false,
     disableStats: true,
     encrypted: true,
+    wsPath: '/ws',
+    wsPort: 443,
     enabledTransports: ['ws', 'wss'],
 });
 
