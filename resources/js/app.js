@@ -170,31 +170,24 @@ $(document).on('submit', '#place_bid_form', (event) => {
       return;
     }
 
-    axios.post('/ho8OJ92Bs9RyEW67', { id: id, amt: amt }).then(res => {
-      msg.html("<div class='alert alert-success'><h5> Bid placed successfully </h5></div>");
-      setTimeout(() => {
-        window.location.reload()
-      }, 2000);
-    })
-
-    // writeContract({
-    //   address: bidding_contract,
-    //   abi: Abi,
-    //   functionName: 'placeBid',
-    //   args: [id, amt]
-    // }).then(res => {
-    //   waitForTransaction({ confirmations: 1, hash: res.hash }).then(res => {
-    //     axios.post('/ho8OJ92Bs9RyEW67', {id:id, amt:amt}).then(res=>{
-    //       msg.html("<div class='alert alert-success'><h5> Bid placed successfully </h5></div>");
-    //       setTimeout(() => {
-    //         window.location.reload()
-    //       }, 2000);
-    //     })
-    //   });
-    // }).catch(error => {
-    //   btn.html("Place a bid");
-    //   btn.attr('disabled', false)
-    // });
+    writeContract({
+      address: bidding_contract,
+      abi: Abi,
+      functionName: 'placeBid',
+      args: [id, amt]
+    }).then(res => {
+      waitForTransaction({ confirmations: 1, hash: res.hash }).then(res => {
+        axios.post('/ho8OJ92Bs9RyEW67', {id:id, amt:amt}).then(res=>{
+          msg.html("<div class='alert alert-success'><h5> Bid placed successfully </h5></div>");
+          setTimeout(() => {
+            window.location.reload()
+          }, 2000);
+        })
+      });
+    }).catch(error => {
+      btn.html("Place a bid");
+      btn.attr('disabled', false)
+    });
 
   });
 
