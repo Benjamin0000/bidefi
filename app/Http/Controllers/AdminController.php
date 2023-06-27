@@ -8,7 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Image; 
 use App\Models\Item; 
 use App\Models\User;
-use App\Models\Admins; 
+use App\Models\Admins;
+use App\Models\WHistory; 
 
 
 class AdminController extends Controller
@@ -159,6 +160,19 @@ class AdminController extends Controller
         }
         $find->delete(); 
         return back()->with('success', 'Admin removed'); 
+    }
+
+    public function withdrawal()
+    {
+        $histories = WHistory::latest()->paginate(10); 
+        return view('admin.withdrawal.index', compact('histories')); 
+    }
+
+    public function create_withdrawal(Request $request)
+    {
+        $amt = $request->input('amt'); 
+        WHistory::create(['amt'=>$amt]); 
+        return back()->with('success', 'Withdrawal created'); 
     }
 
     

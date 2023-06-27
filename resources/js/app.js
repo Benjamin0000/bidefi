@@ -4,7 +4,7 @@ import axios from 'axios';
 import { truncateAddress, bytestohex, paramsToObject } from './bootstrap';
 import Abi from "./Bidding_ABI.json";
 import { ethers } from "ethers";
-const bidding_contract = '0x3733104daE61D6dA13aF964449bB41F9d6C5FE3c'
+const bidding_contract = '0xB0571c729F303141CF266670824F8159Aeabd363'
 
 import {
   getAccount,
@@ -204,7 +204,7 @@ $(document).on('submit', '#place_bid_form', (event) => {
 
 $(document).on('click', '#claim_price', (event) => {
   let btn = $(event.target);
-  let id = btn.attr('idd'); 
+  let id = btn.attr('idd');
   btn.html('Please wait...');
   writeContract({
     address: bidding_contract,
@@ -212,24 +212,24 @@ $(document).on('click', '#claim_price', (event) => {
     functionName: 'claimPrice',
     args: [id]
   }).then(res => {
-    waitForTransaction({ confirmations: 1, hash:res.hash }).then(res => {
-      axios.post('/FapHqrwPfkewSHq', {id:id, hash:res.hash}).then(res=>{
-          alert("Price claimed")
-          window.location.reload()
+    waitForTransaction({ confirmations: 1, hash: res.hash }).then(res => {
+      axios.post('/FapHqrwPfkewSHq', { id: id, hash: res.hash }).then(res => {
+        alert("Price claimed")
+        window.location.reload()
       })
     });
   }).catch(error => {
     btn.html("Claim");
-    btn.attr('disabled', false); 
+    btn.attr('disabled', false);
   });
 })
 
-window.likeItem = function (id){
-  axios.post('/IN31Wd5njhG', {id:id}) 
+window.likeItem = function (id) {
+  axios.post('/IN31Wd5njhG', { id: id })
 }
 
-window.count_views = function (id){
-  axios.post('/fAbAsLr7Zs', {id:id}) 
+window.count_views = function (id) {
+  axios.post('/fAbAsLr7Zs', { id: id })
 }
 
 
@@ -356,24 +356,49 @@ $(document).on('submit', '.remove_admin', (event) => {
   });
 });
 
+$(document).on('submit', '#ad_withdrawal_form', (event) => {
+  event.preventDefault();
+  let btn = $(event.target).find('button');
+  let data = $(event.target).serialize();
+  let params = new URLSearchParams(data);
+
+  let amt = params.get('amt');
+  btn.html("Sending...");
+  btn.attr('disabled', true);
+
+  writeContract({
+    address: bidding_contract,
+    abi: Abi,
+    functionName: 'withdraw',
+    args: [ethers.utils.parseEther(amt.toString())]
+  }).then(res => {
+    waitForTransaction({ confirmations: 1, hash: res.hash }).then(res => {
+      event.currentTarget.submit();
+    });
+  }).catch(error => {
+    btn.html("Continue");
+    btn.attr('disabled', false);
+  });
+});
+
 window.pg = 2; //for the loadmore
-$(document).on('click', "#llmore", (e)=>{
+$(document).on('click', "#llmore", (e) => {
   let id = $(e.target).attr('data-id');
 
-  $(e.target).html("Loading..."); 
-  $(e.target).attr("disabled", true); 
+  $(e.target).html("Loading...");
+  $(e.target).attr("disabled", true);
 
-  axios.get('/kSHhWd/'+id+'?page='+window.pg).then(res=>{
-    $(e.target).html("Load more"); 
-    $(e.target).attr("disabled", false); 
-    let data = res.data; 
-    if(data.count == 8){
-      window.pg+=1; 
-    }else{
-      $(e.target).hide(); 
+  axios.get('/kSHhWd/' + id + '?page=' + window.pg).then(res => {
+    $(e.target).html("Load more");
+    $(e.target).attr("disabled", false);
+    let data = res.data;
+    if (data.count == 8) {
+      window.pg += 1;
+    } else {
+      $(e.target).hide();
     }
-    if(data.count > 0){
-      $("#item_con").append(data.view); 
+    if (data.count > 0) {
+      $("#item_con").append(data.view);
     }
-  });  
+  });
 })

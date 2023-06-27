@@ -72,11 +72,11 @@
                     <span><i class="ri-account-box-line"></i></span>
                     <span class="nav-text">Admins</span></a>
             </li>
-            <!-- <li class="">
-                <a href="./profile.html">
-                    <span><i class="ri-account-box-line"></i></span>
-                    <span class="nav-text">Profile</span></a>
-            </li> -->
+            <li class="">
+                <a href="/admin/withdrawal">
+                    <span><i class="ri-heart-line"></i></span>
+                    <span class="nav-text">Withdrawal</span></a>
+            </li> 
             <li class="">
                 <a href="/admin/settings">
                     <span><i class="ri-settings-3-line"></i></span>

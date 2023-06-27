@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth; 
 use App\Models\User;
 use App\Models\Item; 
+use App\Models\Message; 
 
 class HomeController extends Controller
 {
@@ -63,6 +64,33 @@ class HomeController extends Controller
     {
         Auth::logout(); 
         return ['done'=>true]; 
+    }
+
+    public function contact_us()
+    {
+        return view('home.contact'); 
+    }
+
+    public function save_message(Request $request)
+    {
+        $this->validate($request, [
+            'name'=>['required', 'max:100'], 
+            'email'=>['required', 'max:100'],
+            'mobile'=>['required', 'max:100'],
+            'message'=>['required', 'max:1000']
+        ]); 
+        $name = $request->input('name'); 
+        $email = $request->input('email'); 
+        $mobile = $request->input('mobile');
+        $message = $request->input('message'); 
+        
+        Message::create([
+            'name'=>$name,
+            'email'=>$email,
+            'mobile'=>$mobile,
+            'message'=>$message
+        ]);
+        return back()->with('success', 'message created'); 
     }
 
 }

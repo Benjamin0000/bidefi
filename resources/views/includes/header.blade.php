@@ -64,7 +64,7 @@
                                                 <a href="">FAQ</a>
                                             </li>
                                             <li class="menu-item">
-                                                <a href="">Contact</a>
+                                                <a href="/contact-us">Contact</a>
                                             </li>
                                         </ul>
                                     </nav><!-- /#main-nav -->   

@@ -6,12 +6,15 @@ use App\Http\Controllers\AuctionController;
 use App\Http\Controllers\AdminController; 
 
 Route::get('/', [HomeController::class, 'index']);
+Route::get('/contact-us', [HomeController::class, 'contact_us']);
+Route::post('/contact-us', [HomeController::class, 'save_message']);
 
 Route::get('/profile', [ProfileController::class, 'index']);
 Route::post('/aK0qQq62l', [ProfileController::class, 'update_avater']); 
 Route::post('/pAMY', [ProfileController::class, 'delete_profile_image']); 
 Route::post('/Ryi71', [ProfileController::class, 'update_name']); 
 
+Route::get('/activity', [ProfileController::class, 'activity']); 
 
 Route::get('/live-auction', [AuctionController::class, 'live']);
 Route::get('/upcoming-auction', [AuctionController::class, 'upcoming'])->name('auction.upcoming');
@@ -72,10 +75,8 @@ Route::prefix('admin')->group(function () {
     Route::post('/admins', [AdminController::class, 'create_admin']); 
     Route::delete('/admins/{id}', [AdminController::class, 'remove_admin']); 
 
+    //withdrawal
+    Route::get('/withdrawal', [AdminController::class, 'withdrawal']); 
+    Route::post('/withdrawal', [AdminController::class, 'create_withdrawal']);
 });
 //---end admin   
-
-
-Route::get('/test', function(){
-    return getWinner(1); 
-}); 

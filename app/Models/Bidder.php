@@ -47,5 +47,10 @@ class Bidder extends Model
         BidEvent::dispatch($data);
     }
 
+    public function item()
+    {
+        return $this->belongsTo(Item::class, 'item_id'); 
+    }
+
 
 }
