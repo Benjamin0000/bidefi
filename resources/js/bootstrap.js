@@ -39,10 +39,12 @@ window.Echo = new Echo({
     broadcaster: 'pusher',
     key: import.meta.env.VITE_PUSHER_APP_KEY,
     cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER,
-    wsHost: window.location.hostname+'/ws',
+    wsHost: window.location.hostname + '/ws',
     wsPort: 443,
     forceTLS: false,
     disableStats: true,
+    encrypted: true,
+
 });
 
 window.Echo.channel(`main-channel`)
@@ -50,28 +52,28 @@ window.Echo.channel(`main-channel`)
         let data = e.data;
         switch (data.type) {
             case 'started':
-                    window.location.reload(); 
+                window.location.reload();
                 break;
             case 'ended':
-                window.location.reload(); 
+                window.location.reload();
                 break;
             case 'bid':
                 let date = moment.utc(data.timer);
                 if (window.show_id && window.show_id == data.id) {
                     $("#the_author").html(data.bidder);
 
-                    $('#the_timer').countdown(date.toDate(), function(event) {
-                        $(this).html("<span class='counter'>"+event.strftime('%S')+"</span>");
+                    $('#the_timer').countdown(date.toDate(), function (event) {
+                        $(this).html("<span class='counter'>" + event.strftime('%S') + "</span>");
                     });
 
                     $("#the_bid_price_eth").html(data.bid_price);
-                    $("#the_bid_price_usd").html('$'+data.bid_price_usd);
+                    $("#the_bid_price_usd").html('$' + data.bid_price_usd);
                 } else {
-                    $("#timer" + data.id).countdown(date.toDate(), function(event) {
-                        $(this).html("<span class='counter'>"+event.strftime('%S')+"</span>");
+                    $("#timer" + data.id).countdown(date.toDate(), function (event) {
+                        $(this).html("<span class='counter'>" + event.strftime('%S') + "</span>");
                     });
-                    $("#c_bid" + data.id).html(data.bid_price); 
-                    $("#author" + data.id).html(data.bidder2); 
+                    $("#c_bid" + data.id).html(data.bid_price);
+                    $("#author" + data.id).html(data.bidder2);
                 }
                 break;
             case 'bidders':
