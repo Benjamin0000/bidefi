@@ -259,10 +259,10 @@ $(document).on('submit', '#create_form', (event) => {
     functionName: 'listItem',
     args: [_id, token_amount, _type, _address, startTime, _free_credit]
   }).then(res => {
-    waitForTransaction({ confirmations: 1, hash: res.hash }).then(res => {
+    // waitForTransaction({ confirmations: 1, hash: res.hash }).then(res => {
       event.currentTarget.submit();
 
-    });
+    // });
   }).catch(error => {
     btn.html("Create");
     btn.attr('disabled', false)
@@ -285,9 +285,9 @@ $(document).on('submit', '#bid_price_form', (event) => {
       functionName: 'changePointPrice',
       args: [ethers.utils.parseEther(price.toString())]
     }).then(res => {
-      waitForTransaction({ confirmations: 1, hash: res.hash }).then(res => {
+      // waitForTransaction({ confirmations: 1, hash: res.hash }).then(res => {
         event.currentTarget.submit();
-      });
+      // });
     }).catch(error => {
       btn.html("Update");
       btn.attr('disabled', false);
@@ -320,9 +320,9 @@ $(document).on('submit', '#create_admin_form', (event) => {
       functionName: 'approveAdmin',
       args: [address, true]
     }).then(res => {
-      waitForTransaction({ confirmations: 1, hash: res.hash }).then(res => {
+      // waitForTransaction({ confirmations: 1, hash: res.hash }).then(res => {
         event.currentTarget.submit();
-      });
+      // });
     }).catch(error => {
       btn.html("Create");
       btn.attr('disabled', false);
@@ -347,9 +347,9 @@ $(document).on('submit', '.remove_admin', (event) => {
     functionName: 'approveAdmin',
     args: [address, false]
   }).then(res => {
-    waitForTransaction({ confirmations: 1, hash: res.hash }).then(res => {
+    // waitForTransaction({ confirmations: 1, hash: res.hash }).then(res => {
       event.currentTarget.submit();
-    });
+    // });
   }).catch(error => {
     btn.html("Delete");
     btn.attr('disabled', false);
@@ -372,9 +372,9 @@ $(document).on('submit', '#ad_withdrawal_form', (event) => {
     functionName: 'withdraw',
     args: [ethers.utils.parseEther(amt.toString())]
   }).then(res => {
-    waitForTransaction({ confirmations: 1, hash: res.hash }).then(res => {
+    // waitForTransaction({ confirmations: 1, hash: res.hash }).then(res => {
       event.currentTarget.submit();
-    });
+    // });
   }).catch(error => {
     btn.html("Continue");
     btn.attr('disabled', false);
