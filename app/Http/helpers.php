@@ -1,4 +1,5 @@
 <?php
+use Illuminate\Support\Facades\Http;
 use Elliptic\EC;
 use Web3\Contract;
 use kornrunner\Keccak;
@@ -7,6 +8,25 @@ use App\Models\Item;
 use App\Models\User; 
 use App\Models\Bidder;
 use App\Models\Likes; 
+
+function setEthPrice() 
+{
+    $data = Http::get('https://api.coingecko.com/api/v3/coins/ethereum');
+    $price = isset($data['market_data']) && 
+    isset($data['market_data']['current_price']) && 
+    isset($data['market_data']['current_price']['usd']) ? 
+    $data['market_data']['current_price']['usd'] : 0;
+    $reg = Register::where('name', 'eth_price')->first();
+
+    if($price){
+        if(!$reg){
+           $reg = new Register();
+           $reg->name = 'eth_price';
+        }
+        $reg->value = $price;
+        $reg->save();
+    }
+}
 
 function tableNumber( int $total ) : int
 {

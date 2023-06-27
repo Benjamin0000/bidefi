@@ -1,12 +1,16 @@
 <?php
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProfileController; 
 use App\Http\Controllers\AuctionController;
 use App\Http\Controllers\AdminController; 
 
 Route::get('/', [HomeController::class, 'index']);
 
-Route::get('/profile', [HomeController::class, 'profile']); 
+Route::get('/profile', [ProfileController::class, 'index']);
+Route::post('/aK0qQq62l', [ProfileController::class, 'update_avater']); 
+Route::post('/pAMY', [ProfileController::class, 'delete_profile_image']); 
+Route::post('/Ryi71', [ProfileController::class, 'update_name']); 
 
 
 Route::get('/live-auction', [AuctionController::class, 'live']);
