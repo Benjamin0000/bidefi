@@ -132,7 +132,7 @@ $(document).on('submit', '#buy_credit_form', (event) => {
     args: [amt],
     value: ethers.utils.parseEther(cost.toString()),
   }).then(res => {
-    waitForTransaction({ confirmations: 1, hash: res.hash }).then(res => {
+    //  waitForTransaction({ confirmations: 1, hash: res.hash }).then(res => {
       axios.post('/LETBOrwenhvqRifu7Lu', { ffffxfr: amt }).then(res => {
         if (res.data.done) {
           $("#bid_info").show();
@@ -141,7 +141,7 @@ $(document).on('submit', '#buy_credit_form', (event) => {
           }, 3000);
         }
       })
-    });
+    // });
   }).catch(error => {
     btn.html("Buy Credit");
     btn.attr('disabled', false)
@@ -176,14 +176,14 @@ $(document).on('submit', '#place_bid_form', (event) => {
       functionName: 'placeBid',
       args: [id, amt]
     }).then(res => {
-      waitForTransaction({ confirmations: 1, hash: res.hash }).then(res => {
+      // waitForTransaction({ confirmations: 1, hash: res.hash }).then(res => {
         axios.post('/ho8OJ92Bs9RyEW67', {id:id, amt:amt}).then(res=>{
           msg.html("<div class='alert alert-success'><h5> Bid placed successfully </h5></div>");
           setTimeout(() => {
             window.location.reload()
           }, 2000);
         })
-      });
+      // });
     }).catch(error => {
       btn.html("Place a bid");
       btn.attr('disabled', false)
@@ -205,12 +205,12 @@ $(document).on('click', '#claim_price', (event) => {
     functionName: 'claimPrice',
     args: [id]
   }).then(res => {
-    waitForTransaction({ confirmations: 1, hash: res.hash }).then(res => {
+    // waitForTransaction({ confirmations: 1, hash: res.hash }).then(res => {
       axios.post('/FapHqrwPfkewSHq', { id: id, hash: res.hash }).then(res => {
         alert("Price claimed")
         window.location.reload()
       })
-    });
+    // });
   }).catch(error => {
     btn.html("Claim");
     btn.attr('disabled', false);
