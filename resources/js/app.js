@@ -4,7 +4,7 @@ import axios from 'axios';
 import { truncateAddress, bytestohex, paramsToObject } from './bootstrap';
 import Abi from "./Bidding_ABI.json";
 import { ethers } from "ethers";
-const bidding_contract = '0xB0571c729F303141CF266670824F8159Aeabd363'
+const bidding_contract = '0x0c94C4d8Cd13CD9dD75282F991e4fc4B4263cCfB'
 
 import {
   getAccount,
