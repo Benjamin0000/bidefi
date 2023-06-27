@@ -11,7 +11,7 @@
     </div>
 </div>
 <div class="col-md-6">
-    <form action="/images" method="POST" enctype="multipart/form-data">
+    <form action="/admin/media" method="POST" enctype="multipart/form-data">
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
@@ -69,7 +69,7 @@
                     </div>
                 </td>
                 <td class="text-center">
-                    <form method="POST" action="/media/{{$media->id}}">
+                    <form method="POST" action="/admin/media/{{$media->id}}">
                         @csrf
                         @method('delete')
                         <button onclick="return confirm('are you sure?')" class="btn btn-danger btn-sm">Delete</button>

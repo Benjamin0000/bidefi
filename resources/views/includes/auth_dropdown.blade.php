@@ -22,9 +22,13 @@
                     </ul>
                 </div>
             </div>
-        </div> --}}
+        </div> --}} 
         <div class="popup-user">
-            <img class="avatar" src="/assets/images/avatar/avt-5.jpg" alt="avatar"/>
+            @if($user->avatar)   
+                <img class="avatar" src="{{Storage::url($user->avatar)}}" alt="avatar"/>
+            @else 
+                <img class="avatar" src="/assets/images/avatar/avt-5.jpg" alt="avatar"/>
+            @endif 
             <div class="avatar_popup mt-20">
                 <h4>{{$user->fname .' '. $user->lname}}</h4>
                 <div class="d-flex align-items-center mt-20 mg-bt-12">
