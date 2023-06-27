@@ -39,12 +39,9 @@ window.Echo = new Echo({
     broadcaster: 'pusher',
     key: import.meta.env.VITE_PUSHER_APP_KEY,
     cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER,
-    wsHost: window.location.hostname,
-    forceTLS: false,
+    wsHost: 'bidefi.io',
+    forceTLS: true,
     disableStats: true,
-    encrypted: true,
-    wsPath: '/ws',
-    wsPort: 443,
     enabledTransports: ['ws', 'wss'],
 });
 
