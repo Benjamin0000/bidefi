@@ -13,7 +13,7 @@
                                         <div class="cart_item style2 style3">
                                             <div class="inner-cart">
                                                 <div class="overlay"></div>
-                                                <img src="{{$trending->image}}" alt="Image">
+                                                <img src="{{$trending->image}}" class="img-fluid" alt="Image">
                                                 <div class="content">
                                                     <div class="fs-16"><a href="{{route('auction.show', $trending->id)}}">{{$trending->name}}</a></div>
                                                     {{-- <p>Graphic Art 3D</p> --}}

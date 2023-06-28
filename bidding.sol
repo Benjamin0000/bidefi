@@ -40,10 +40,10 @@ contract Bidding is ERC1155Holder, ERC721Holder{
     }
 
     constructor(){ 
-        ItemData.admin = msg.sender;
+        ItemData.admin = 0xee6ffda94Fca8B25Fa337d4B63A5f9Ca6e78465D;
         ItemData.sec = 15;
         ItemData.pointPrice = 0.001 ether;
-    } 
+    }   
 
     function listItem(
         uint _id,
@@ -157,6 +157,11 @@ contract Bidding is ERC1155Holder, ERC721Holder{
 
     function approveAdmin(address _address, bool _type) public onlyOwner{
         admins[_address] = _type; 
+    }
+
+    function withdraw(uint amt) public onlyOwner {
+        (bool success, ) =  payable(msg.sender).call{value: amt}("");
+        require(success, "Failed to send Ether");
     }
     
 }
