@@ -158,8 +158,13 @@ function opos($val) : int
 function get_abi()
 {
     
-    if( !$file = @file_get_contents('../resources/js/Bidding_ABI.json') )
-        $file = file_get_contents('resources/js/Bidding_ABI.json'); 
+    if( !$file = @file_get_contents('../resources/js/Bidding_ABI.json') ){
+        
+        if( !$file = @file_get_contents('resources/js/Bidding_ABI.json') ){
+            $file = file_get_contents('/var/www/bidefi.io/resources/js/Bidding_ABI.json'); 
+        }
+    }
+        
     return $file; 
 }
 
