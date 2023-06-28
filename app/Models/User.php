@@ -87,18 +87,32 @@ class User extends Authenticatable
                 'points'=>0
             ]); 
         }
+        $free = false; 
+        $left = 0; 
+        $used = $bidder->points + $amt; 
 
-        $bidder->points += $amt; 
+        if($used <= $item->free_bid){
+            $free = true; 
+        }else{
+            $free = false;
+            if($item->free_bid > $bidder->points)
+                $left = $item->free_bid - $bidder->points; 
+        }
+
+        if(!$free){
+            $amt2 = $amt - $left;
+            if($this->bid_credit < $amt2)
+                return ['error'=>"Insufficient bid credit"]; 
+
+            $this->bid_credit -= $amt2; 
+            $this->save();
+        }
+
+        $bidder->points += $amt;
+        $item->points += $amt;
         $bidder->save();
-
-        $item->points += $amt; 
-        $item->save(); 
-
-        if($bidder->points <= $item->free_bid)
-            $amt = $item->free_bid - $bidder->points; 
+        $item->save();
          
-        $this->bid_credit -= $amt; 
-        $this->save(); 
         //fire bid event here
         $bidders = Bidder::where('item_id', $item->id)->orderBy('updated_at', 'desc')->take(10)->get();
         $data = [

@@ -9,6 +9,11 @@
                 <h3>Place a Bid</h3>
                 <p class="text-center">You must bid at least <span class="price color-popup">{{$item->min_bid}} Credit</span>
                 </p>
+                @php $used = get_used($user->id, $item->id) @endphp
+                @if($used < $item->free_bid)
+                    <p class="text-center">You have Free Credit <span class="price color-popup">{{$item->free_bid - $used}} Credit</span>
+                    </p>
+                @endif 
                 <p>Enter quantity.
                 </p>
                 <form id="place_bid_form">

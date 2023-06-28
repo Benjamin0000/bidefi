@@ -81,7 +81,7 @@ class AuctionController extends Controller
 
             if($user->bid_credit  < $amt )
                 return ['error'=>"Insufficient bid credit"]; 
-            
+             
             return ['done'=>true]; 
         }
         return $user->placeBid($item, $amt); 

@@ -104,5 +104,7 @@
     }, 2000);
     window.show_id = {{$item->id}}
 </script>
+@if($user)
 @include('auction.component.bid_modal')
+@endif 
 @include('includes.footer')
