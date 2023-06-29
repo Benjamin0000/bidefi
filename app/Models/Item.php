@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Storage; 
 use Illuminate\Database\Eloquent\Model;
 use App\Events\BidEvent; 
 use Carbon\Carbon; 
@@ -86,5 +87,18 @@ class Item extends Model
             'type'=>'started'
         ];
         BidEvent::dispatch($data);
+    }
+
+    public function get_last_bidder_avatar()
+    {
+        if(!$this->bidder_id) return ""; 
+        if( $bidder = Bidder::find($this->bidder_id) ){
+            if($user = User::find($bidder->user_id)){
+                if($user->avatar)
+                    return Storage::url($user->avatar); 
+            }
+                
+        }
+        return ""; 
     }
 }

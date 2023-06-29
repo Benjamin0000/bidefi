@@ -5,7 +5,7 @@
 <div class="fl-item col-xl-3 col-lg-4 col-md-6 col-sm-6" style="display: block;">
     <div class="sc-card-product">
         <div class="card-media style2">
-            <a href="{{route('auction.show', $auction->id)}}"><img src="{{$auction->image}}" alt="Image"></a>
+            <a href="{{route('auction.show', $auction->id)}}"><img src="{{$auction->image}}" style="height: 30vh" alt="Image"></a>
             <button class="wishlist-button heart @if( $user && liked($auction->id, $user->id) ) active @endif"><span  onclick="likeItem({{$auction->id}})" class="number-like">{{$auction->likes}}</span></button>
             @if($auction->status < 2)
                 <div class="featured-countdown style2">
@@ -37,11 +37,15 @@
         <div class="meta-info">
             <div class="author" id="author{{$auction->id}}">
                 <div class="avatar">
-                    <img src="/assets/images/avatar/avt-12.jpg" style="height: 30vh" class="img-fluid" alt="Image">
+                    @if( $avatar = $auction->get_last_bidder_avatar() )
+                        <img src="{{Storage::url($avatar)}}" class="img-fluid" alt="Image">
+                    @else 
+                        <img src="/assets/images/avatar/avt-12.jpg"  class="img-fluid" alt="Image">
+                    @endif
                 </div>
                 <div class="info">
                     <span>Last bidder</span>
-                    <h6> <a href="#">{{get_bidder($auction->bidder_id)}}</a> </h6>
+                    <h6> <a href="{{route('auction.show', $auction->id)}}">{{get_bidder($auction->bidder_id)}}</a> </h6>
                 </div>
             </div>
             <div class="price">

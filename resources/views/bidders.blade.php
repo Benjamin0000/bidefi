@@ -5,7 +5,11 @@
             <div class="sc-author-box style-2">
                 <div class="author-avatar">
                     <a href="item-details.html#">
-                        <img src="/assets/images/avatar/avt-3.jpg" alt="" class="avatar">
+                        @if($bidder->user && $bidder->user->avatar)
+                            <img src="{{Storage::url($bidder->user->avatar)}}" alt="" class="avatar">
+                        @else 
+                            <img src="/assets/images/avatar/avt-2.jpg" alt="" class="avatar">
+                        @endif 
                     </a>
                     <div class="badge"></div>
                 </div>
