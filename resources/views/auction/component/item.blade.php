@@ -37,7 +37,7 @@
         <div class="meta-info">
             <div class="author" id="author{{$auction->id}}">
                 <div class="avatar">
-                    <img src="/assets/images/avatar/avt-12.jpg" alt="Image">
+                    <img src="/assets/images/avatar/avt-12.jpg" class="img-fluid" alt="Image">
                 </div>
                 <div class="info">
                     <span>Last bidder</span>
