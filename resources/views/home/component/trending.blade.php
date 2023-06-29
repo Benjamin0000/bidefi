@@ -7,13 +7,13 @@
                 <div class="swiper-container carousel8 pad-t-17 auctions">
                     <div class="swiper-wrapper">
                         @foreach($trendings as $trending)
-                            <div class="swiper-slide">
+                            <div class="swiper-slide" >
                                 <div class="slider-item">	
                                     <div class="wrap-cart">
-                                        <div class="cart_item style2 style3">
-                                            <div class="inner-cart">
+                                        <div class="cart_item style2 style3" >
+                                            <div class="inner-cart" style="height: 50vh">
                                                 <div class="overlay"></div>
-                                                <img src="{{$trending->image}}" class="img-fluid" style="height: 50vh" alt="Image">
+                                                <img src="{{$trending->image}}" style="max-height:100%;max-width:100%;" alt="Image">
                                                 <div class="content">
                                                     <div class="fs-16"><a href="{{route('auction.show', $trending->id)}}">{{$trending->name}}</a></div>
                                                     {{-- <p>Graphic Art 3D</p> --}}

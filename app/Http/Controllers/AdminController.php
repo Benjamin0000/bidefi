@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -17,9 +16,13 @@ class AdminController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $user = Auth::user(); 
-        if($user && !$user->admin)
-            return redirect('/'); 
+        $this->middleware(function ($request, $next) {
+            $user = Auth::user();  
+            if($user && !$user->admin)
+                return redirect('/');  
+
+            return $next($request);
+        });
     }
 
     /**

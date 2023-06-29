@@ -50,8 +50,6 @@ Route::get('/ogNkV', [HomeController::class, 'check_auth']);
 //---admin start
 
 Route::prefix('admin')->group(function () {
-
-    Route::get('/create-item', [AuctionController::class, 'create']); 
     Route::get('/dashboard', [AdminController::class, 'index']); 
 
     //admin image

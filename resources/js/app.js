@@ -70,6 +70,9 @@ watchNetwork((network) => { // when you disconnect & connect this will handle it
       }
     });
   }
+  if(network.chain && network.chain.id != 5){
+    alert('please switch to the Goerli Network')
+  }
 });
 
 window.onload = () => {
@@ -258,6 +261,7 @@ $(document).on('submit', '#create_form', (event) => {
 
     // });
   }).catch(error => {
+    console.log(error)
     btn.html("Create");
     btn.attr('disabled', false)
   });
