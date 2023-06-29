@@ -241,6 +241,7 @@ $(document).on('submit', '#create_form', (event) => {
   let token_amount = params.get('prize') ? params.get('prize') : 0;
   let _type = params.get('type');
   let _address = params.get('contract_address');
+  _address = _address ? _address : '0x0000000000000000000000000000000000000000'; 
   let startTime = params.get('start_time');
   let _free_credit = params.get('free');
   btn.html("Sending...")

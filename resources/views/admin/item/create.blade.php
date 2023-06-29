@@ -40,7 +40,7 @@
         <div class="row">
             <div class="col-lg-4">
                 <h4 class="title-create-item">Price Est.</h4>
-                <input type="text" name="price" class="form-control" required placeholder="Enter price for item (ETH)">
+                <input type="text" name="price" class="form-control" required placeholder="Enter price for item (USD)">
             </div>
             <div class="col-lg-4">
                 <h4 class="title-create-item">Bid start price</h4>
@@ -92,7 +92,7 @@
         </div>
         <div class="col-lg-6">
             <h4 class="title-create-item">Contract address</h4>
-            <input type="text" name="contract_address" required class="form-control" placeholder="If NFT or erc20">
+            <input type="text" name="contract_address" class="form-control" placeholder="If NFT or erc20">
         </div>
     </div>
     <br>
