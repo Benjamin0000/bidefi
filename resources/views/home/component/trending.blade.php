@@ -11,9 +11,9 @@
                                 <div class="slider-item">	
                                     <div class="wrap-cart">
                                         <div class="cart_item style2 style3" >
-                                            <div class="inner-cart" style="height: 50vh">
+                                            <div class="inner-cart" >
                                                 <div class="overlay"></div>
-                                                <img src="{{$trending->image}}" style="max-height:100%;max-width:100%;" alt="Image">
+                                                <img src="{{$trending->image}}" style="display: block; width: 100%; height: 40vh;object-fit:contain" alt="Image">
                                                 <div class="content">
                                                     <div class="fs-16"><a href="{{route('auction.show', $trending->id)}}">{{$trending->name}}</a></div>
                                                     {{-- <p>Graphic Art 3D</p> --}}
