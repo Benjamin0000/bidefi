@@ -1,9 +1,12 @@
 @extends('admin.layout')
 @section('content')
+<br>
+<br>
 <div class="page-title">
     <div class="row align-items-center justify-content-between">
         <div class="col-6">
             <div class="page-title-content">
+
                 <h3>Items  <a href="/admin/create-items" class="btn btn-primary btn-sm">Create</a></h3>
             </div>
         </div>
@@ -22,7 +25,9 @@
             <th>Start Price</th>
             <th>Start time</th>
             <th>Free credit</th>
+            <th>Credits</th>
             <th>Created</th>
+            <th>Status</th>
             <th>More</th>
         </tr>
     </thead>
@@ -39,27 +44,37 @@
                         ERC-1155
                     @elseif($item->type == 3)
                         <div>ERC-20</div> 
-                        {{$item->prize}} {{$item->symbol}}
+                        {{number_format($item->prize, 3)}} {{$item->symbol}}
                     @elseif($item->type == 4)
                         <div>Native token</div> 
-                        {{$item->prize}} {{$item->symbol}}
+                        {{number_format($item->prize, 3)}} {{$item->symbol}}
                     @endif 
                 </td>
                 <td>
-                    ETH {{number_format($item->price, 2)}}
+                    ${{number_format($item->price, 2)}}
                 </td>
                 <td>
-                    ETH {{number_format($item->bid_price,2)}}
+                    ETH {{number_format($item->bid_price, 5)}}
                 </td>
                 <td>
-                    ETH {{number_format($item->start_price, 2)}}
+                    ETH {{number_format($item->start_price, 5)}}
                 </td>
                 <td>
-                    {{$item->start_time}}
-                    <div>{{Carbon\Carbon::create($item->start_time)->diffForHumans()}}</div> 
+                    <div>{{$item->ctd_timer}} Minutes</div> 
+                    @if($item->start_time)
+                        {{$item->start_time->diffForHumans()}}
+                    @else 
+                        <span>waiting...</span>
+                    @endif 
                 </td>
                 <td>
                     {{$item->free_bid}} Points
+                </td>
+                <td>
+                    <div>Required</div> 
+                    <div>{{$item->start_points}}</div> 
+                    <div>Total</div> 
+                    <div>{{$item->points}}</div> 
                 </td>
                 <td>
                     {{$item->created_at->isoFormat('lll')}}
@@ -68,10 +83,21 @@
                     </div> 
                 </td>
                 <td>
+                    @if($item->status == 1)
+                        <span class="badge bg-info">Started</span>
+                    @elseif($item->status == 2)
+                        <span class="badge bg-danger">Ended</span>
+                    @elseif($item->status == 3)
+                        <span class="badge bg-success">Claimed</span>
+                    @else 
+                        <span>waiting..</span>
+                    @endif
+                </td>
+                <td>
                     <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#vm{{$item->id}}">View more</button>
                 </td>
             </tr>
-            <div  class="modal fade" id="vm{{$item->id}}" tabindex="-1" role="dialog"  aria-hidden="true">
+            <div class="modal fade" id="vm{{$item->id}}" tabindex="-1" role="dialog"  aria-hidden="true">
                 <div class="modal-dialog modal-lg" >
                     <div class="modal-content">
                       <div class="modal-header">
@@ -87,8 +113,15 @@
                         <br>
                         <h5>Contract Address</h5>
                         {{$item->contract_address}}
+                        <br>
                         <h5>Description</h5>
                         {{$item->description}}
+                        <br>
+                        <h5>Winner</h5>
+                        @if($item->status > 1)
+                            {{$item->the_winner->fname.' '.$item->the_winner->lname}}
+                            <div>{{$item->winner}}</div>
+                        @endif 
                       </div>
                     </div>
                 </div>

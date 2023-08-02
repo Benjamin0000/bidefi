@@ -21,6 +21,7 @@
             <p>
                 <button class="btn btn-primary">Continue</button>
             </p>
+            <div id="msg"></div>
         </form>
     </div>
     <div class="col-md-8">

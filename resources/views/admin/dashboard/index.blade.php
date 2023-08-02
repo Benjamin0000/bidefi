@@ -32,8 +32,8 @@
         <div class="stat-widget d-flex align-items-center">
             <div class="widget-icon me-3 bg-warning"><span><i class="ri-file-paper-line"></i></span></div>
             <div class="widget-content">
-                <h3>Think</h3>
-                <p></p>
+                <h3>{{(int)get_register('total_credits')}}</h3>
+                <p>Total credit purchased</p>
             </div>
         </div>
     </div>

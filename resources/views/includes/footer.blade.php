@@ -85,7 +85,7 @@
 {{-- On page load track auth --}}
 @auth 
 <script>
-    window.auth_address = {{Auth::user()->address}}; 
+    window.auth_address = '{{Auth::user()->address}}'; 
 </script>
 @endauth
 <script src="/assets/js/jquery.min.js"></script>

@@ -81,7 +81,7 @@ class AdminController extends Controller
 
     public function save_item(Request $request)
     {
-        $item = new Item(); 
+        $item = new Item; 
         $item->name = $request->input('title');
         $item->description = $request->input('description');
         $item->image = $request->input('image'); 
@@ -89,13 +89,14 @@ class AdminController extends Controller
         $item->url = $request->input('url'); 
         $item->price = $request->input('price');
         $item->start_price = $request->input('start_price');
-        $item->start_time = now()->addMinutes($request->input('start_time')); 
+        $item->ctd_timer = $request->input('start_time'); 
         $item->free_bid = $request->input('free')?:0;
         $item->prize = $request->input('prize')?:0;
         $item->symbol = $request->input('symbol');
         $item->type = $request->input('type'); 
         $item->contract_address = $request->input('contract_address'); 
         $item->min_bid = $request->input('min_bid'); 
+        $item->start_points = $request->input('start_points'); 
         $item->save(); 
         increase_items(); 
         return back()->with('success', 'item created'); 

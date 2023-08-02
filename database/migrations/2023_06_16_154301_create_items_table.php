@@ -26,12 +26,14 @@ return new class extends Migration
             $table->decimal('bid_price', 64, 5)->default(0); //current bid price
             $table->decimal('start_price', 64, 5); //incremental price 
 
-            $table->tinyInteger('status')->default(false); //1=started, 2=ended //3=claimed
+            $table->tinyInteger('status')->default(0); //1=started, 2=ended //3=claimed
             $table->tinyInteger('switch')->default(0);
-            $table->timestamp('start_time'); //
+            $table->integer('ctd_timer'); 
+            $table->timestamp('start_time')->nullable(); //
             $table->timestamp('timer')->nullable(); //current timer
 
             $table->bigInteger('points')->default(0); //total lodged
+            $table->bigInteger('start_points')->default(0); //total points acumulated before countdown
             $table->bigInteger('used')->default(0);  //points used
             $table->integer('free_bid')->default(0); //free bid aloted
             $table->integer('min_bid'); //min bid

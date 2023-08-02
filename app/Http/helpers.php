@@ -79,6 +79,15 @@ function get_register($name)
     return $reg->value; 
 }
 
+function increase_total_credits($amt)
+{
+    $reg = Register::where('name', 'total_credits')->first(); 
+    if(!$reg)
+        $reg = Register::create(['name'=>'total_credits']); 
+    $reg->value = (int)$reg->value + $amt;
+    $reg->save();  
+} 
+
 function increase_items()
 {
     $reg = Register::where('name', 'total_items')->first(); 

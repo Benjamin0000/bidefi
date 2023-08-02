@@ -68,4 +68,5 @@
         {{$admins->links()}}
     </div>
 </div>
+<div id="msg"></div> 
 @stop 

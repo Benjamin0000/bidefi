@@ -10,7 +10,7 @@
                 <div class="flat-form box-login-email">
                     <div class="form-inner">
                         <form id="buy_credit_form">
-                            <input id="bid_amt" name="amount" required type="number" placeholder="Enter amount" >
+                            <input id="bid_amt" name="amount" required type="number" placeholder="Enter amount">
                             <input id="bid_eth_price" name="eth" placeholder="ETH" type="number" readonly >
                             <div class="alert alert-success" style="font-size: 20px; font-weight:bold; display:none"  id="bid_info">
                                 Bid purchase successful
@@ -19,6 +19,7 @@
                                 Minimum purchase is {{(float)get_register('min_bid_purchase')}} Credits
                             </div> 
                             <button class="submit">Buy Credit</button>
+                            <div id="msg"></div>
                         </form>
                     </div>
                 </div>

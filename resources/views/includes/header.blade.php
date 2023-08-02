@@ -76,7 +76,7 @@
                                             </div>
                                         @endguest
                                         @auth
-                                            @include('includes.auth_dropdown')
+                                            @include('includes.auth_dropdown') 
                                         @endauth
                                     </div>
                                 </div> 

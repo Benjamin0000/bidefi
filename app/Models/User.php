@@ -69,6 +69,7 @@ class User extends Authenticatable
     {
         $this->bid_credit += $amt; 
         $this->total_credit += $amt; 
+        
         $this->save(); 
     }
 

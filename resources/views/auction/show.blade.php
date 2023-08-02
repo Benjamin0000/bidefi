@@ -55,25 +55,28 @@
                             </div>
                             <div class="item count-down">
                                 <span class="heading style-2">Countdown</span>
-                                <span id="the_timer">
-                                    @if($item->status == 0) 
-                                        <span  class="js-countdown" data-timer="{{Carbon\Carbon::parse($item->start_time)->diffInSeconds()}}" data-labels=" :  ,  : , : , "></span>
-                                    @elseif($item->status == 1)
-                                        <span  class="js-countdown" data-timer="{{Carbon\Carbon::parse($item->timer)->diffInSeconds()}}" data-labels=" :  ,  : , : , "></span>
-                                    @else 
-                                        <span class="counter">0:0</span>
-                                    @endif 
-                                </span>
+                                @if($item->points >= $item->start_points)
+                                    <span id="the_timer">
+                                        @if($item->status == 0) 
+                                            <span  class="js-countdown" data-timer="{{Carbon\Carbon::parse($item->start_time)->diffInSeconds()}}" data-labels=" :  ,  : , : , "></span>
+                                        @elseif($item->status == 1)
+                                            <span  class="js-countdown" data-timer="{{Carbon\Carbon::parse($item->timer)->diffInSeconds()}}" data-labels=" :  ,  : , : , "></span>
+                                        @else 
+                                            <span class="counter">0:0</span>
+                                        @endif 
+                                    </span>
+                                @endif 
                             </div>
                         </div>
                         @if(!$user)
                             <h5 class="text-center text-danger">Connect wallet to bid</h5>
                             <br>
                         @else 
-                            @if($item->status == 0)
+                            @if($item->status < 2)
                                 <a href="#" data-toggle="modal" data-target="#popup_bid" class="sc-button loadmore style bag fl-button pri-3"><span>Place a bid</span></a>
                             @elseif($user && $item->status == 2 && $item->bidder_id == $user->id)
                                 <button id="claim_price" idd="{{$item->id}}" class="sc-button sc-button loadmore style bag fl-button pri-3 btn-block">Claim</button>
+                                <div id="c_msg"></div> 
                             @endif 
                         @endif 
                         <div class="flat-tabs themesflat-tabs">

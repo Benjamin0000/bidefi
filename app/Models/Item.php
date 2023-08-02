@@ -12,21 +12,43 @@ class Item extends Model
 {
     use HasFactory;
 
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'start_time' => 'datetime'
+    ];
+
+    public function the_winner()
+    {
+        return User::where('address', $this->winner)->first(); 
+    }
+    
+
     public static function start_bid()
     {
-        $items = Self::where('status', 0)->oldest();
+        $items = self::where('status', 0)->oldest();
         if( $items->exists() ){
             foreach( $items->get() as $item ){
-                if( now()->greaterThanOrEqualTo($item->start_time) ){
-                    $item->startBid();
+                if(!$item->start_time){
+                    if($item->points >= $item->start_points){
+                        $item->start_time = now()->addMinutes($item->ctd_timer); 
+                        $item->save(); 
+                    }
+                }else{
+                    if( now()->greaterThanOrEqualTo($item->start_time) ){
+                        $item->startBid();
+                    }
                 }
             }
         }
     }
-
+  
     public static function execute_bid()
     {
-        $items = Self::where('status', 1)->oldest();
+        $items = self::where('status', 1)->oldest();
         if( $items->exists() ){
             foreach( $items->get() as $item ){
                 $timer = Carbon::parse($item->timer);

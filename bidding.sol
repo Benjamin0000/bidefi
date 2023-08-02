@@ -8,7 +8,7 @@ import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contr
  
 contract Bidding is ERC1155Holder, ERC721Holder{
 
-    struct Item{ 
+    struct Item{
         uint id; //nft id
         address Address; // contract
         uint8 _type; //erc721 //erc1155 || erc20 || native token
@@ -16,10 +16,12 @@ contract Bidding is ERC1155Holder, ERC721Holder{
         bool status; // 0||1 claimed or not
         mapping(address=>uint) bid_credit; //spent by the bidder
         uint points; // total point lodged 
-        address winner;
-        uint lastPoint;
+        uint reqPoints; //required points 
+        address winner; // the winner 
+        uint lastPoint; // last point lodged
         uint token_amount; // erc20 || native token
-        uint free_credit; 
+        uint free_credit;
+        uint exp_time; 
     }
     //bidding parameters
     struct Params{
@@ -28,9 +30,10 @@ contract Bidding is ERC1155Holder, ERC721Holder{
         uint pointPrice; // cost of bid points
         address admin;
     }
+
     mapping(address=>uint) public points; // users point balance.
     mapping(uint=>Item) public items; //items
-    mapping(address=>bool) public admins; 
+    mapping(address=>bool) public admin; 
 
     Params public ItemData;
 
@@ -40,7 +43,7 @@ contract Bidding is ERC1155Holder, ERC721Holder{
     }
 
     constructor(){ 
-        ItemData.admin = 0xee6ffda94Fca8B25Fa337d4B63A5f9Ca6e78465D;
+        ItemData.admin = msg.sender;
         ItemData.sec = 15;
         ItemData.pointPrice = 0.001 ether;
     }   
@@ -51,15 +54,17 @@ contract Bidding is ERC1155Holder, ERC721Holder{
         uint8 _type,
         address _address,
         uint startTime,
-        uint _free_credit
+        uint _free_credit,
+        uint _reqPoints
     ) public {
-        require( msg.sender == ItemData.admin || admins[msg.sender] == true, "unauthorized");
+        require( msg.sender == ItemData.admin || admin[msg.sender] == true, "unauthorized");
         items[ItemData.total].id = _id;
         items[ItemData.total].token_amount = token_amount;
         items[ItemData.total]._type = _type;
         items[ItemData.total].Address = _address;
         items[ItemData.total].free_credit = _free_credit;
-        items[ItemData.total].startTime = block.timestamp + (startTime  * 60);  
+        items[ItemData.total].startTime = startTime;  
+        items[ItemData.total].reqPoints = _reqPoints; 
         ItemData.total+=1;
     }
 
@@ -73,44 +78,61 @@ contract Bidding is ERC1155Holder, ERC721Holder{
     
     function placeBid(uint id, uint _points) public {
         Item storage item = items[id];
-        require( block.timestamp <= item.startTime, "Bidding started or ended");
+        if(item.exp_time > 0)
+            require(block.timestamp < item.exp_time, 'Bidding ended');
+        
         uint balance = points[msg.sender];
         uint used_credit = item.bid_credit[msg.sender]; //already alotted point
         uint bonus = item.free_credit;
         bool free = used_credit < bonus; 
+
         if( free ){
             unchecked{
                 balance += ( bonus - used_credit );
             }
         }
         require( balance >= _points, "Insufficient for bid");
+
         unchecked{
-            uint point2 = _points;
+            uint cost = _points;
             if( free ){
-                uint bonus_left = bonus - used_credit;
-                if( point2 >= bonus_left )
-                    point2 -= bonus_left;
+                uint free_credit = bonus - used_credit;
+                if( cost >= free_credit )
+                    cost -= free_credit;
+                else 
+                    cost = 0; 
             }
-            points[msg.sender] -= point2; //reducing users point
+            points[msg.sender] -= cost; //reducing users point
             item.points += _points;
             item.bid_credit[msg.sender] += _points;
         }
+
         uint bid = item.bid_credit[msg.sender];
-        if( bid > item.lastPoint ){
+        if( bid >= item.lastPoint ){
             item.winner = msg.sender;
             item.lastPoint = bid;
+        }
+        if(item.points >= item.reqPoints){
+            if(item.exp_time == 0){
+                uint sec = ItemData.sec * item.points;  
+                unchecked{
+                    item.exp_time = block.timestamp + (item.startTime  * 60) + sec; 
+                }
+            }else{
+                unchecked{
+                    item.exp_time += ItemData.sec * _points;
+                }
+            }
         }
     }
 
     function claimPrice(uint id) public {
         Item storage item = items[id];
-        uint8 _type= item._type; 
+        uint8 _type = item._type; 
 
-        require( block.timestamp >= item.startTime, "Bidding has not started" );
-        require( !item.status, "Already claimed");
-        require( bidEnded(id), "Bidding has not ended");
+        require(!item.status, "Already claimed");
+        require(item.exp_time > 0 && block.timestamp >= item.exp_time, 'Bidding has not ended');
         require( msg.sender == item.winner, "Invalid winner");
-
         item.status = true;
 
         if(_type == 1){
@@ -124,12 +146,6 @@ contract Bidding is ERC1155Holder, ERC721Holder{
             require(success, "Failed to send Ether");
         }
     } 
-
-    function bidEnded(uint id) public view returns(bool){
-        Item storage item = items[id];
-        uint endTime = item.startTime + ( ItemData.sec * item.points );
-        return block.timestamp >= endTime;
-    }
 
     function sendERC721(Item storage item, address to) private {
         IERC721(item.Address).transferFrom(address(this), to, item.id);
@@ -156,7 +172,7 @@ contract Bidding is ERC1155Holder, ERC721Holder{
     }
 
     function approveAdmin(address _address, bool _type) public onlyOwner{
-        admins[_address] = _type; 
+        admin[_address] = _type; 
     }
 
     function withdraw(uint amt) public onlyOwner {

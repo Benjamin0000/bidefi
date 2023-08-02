@@ -58,7 +58,7 @@ class HomeController extends Controller
             'auth'=>$user ? true : false ,
             'address'=>$user ? $user->address : ''
         ]; 
-    }
+    } 
 
     public function sign_out()
     {

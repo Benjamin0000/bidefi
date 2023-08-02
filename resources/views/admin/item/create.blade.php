@@ -4,7 +4,7 @@
     <div class="row align-items-center justify-content-between">
         <div class="col-6">
             <div class="page-title-content">
-                <h3>Create items</h3>
+                <h3>Create Items</h3>
             </div>
         </div>
     </div>
@@ -60,21 +60,27 @@
     <br>
 
     <div class="row">
-        <div class="col-md-3">
+        <div class="col">
             <h4 class="title-create-item">Start Time</h4>
             <input type="text" name="start_time" class="form-control" required placeholder="In minutes">
         </div>
-        <div class="col-md-3">
-            <h4 class="title-create-item">Free Bid?</h4>
-            <input type="text" name="free" class="form-control" required placeholder="eg: 100">
-        </div>
-        <div class="col-md-3">
+        <div class="col">
             <h4 class="title-create-item">Symbol</h4>
             <input type="text" name="symbol" class="form-control" placeholder="If erc-20”">
         </div>
-        <div class="col-md-3">
-            <h4 class="title-create-item">Min. Bid</h4>
-            <input type="text" name="min_bid" class="form-control" placeholder="Minimum bid allowed">
+        <div class="col">
+            <h4 class="title-create-item">Free Bid?</h4>
+            <input type="text" name="free" class="form-control" required placeholder="eg: 100">
+        </div>
+
+        <div class="col">
+            <h4 class="title-create-item">Min. Bid per entry</h4>
+            <input type="text" name="min_bid" class="form-control" required placeholder="Minimum bid allowed">
+        </div>
+
+        <div class="col">
+            <h4 class="title-create-item">Required total Bid</h4>
+            <input type="text" name="start_points" class="form-control" required placeholder="Bid required before countdown">
         </div>
     </div>
     <br>
@@ -104,5 +110,6 @@
     <p>
         <button class="btn btn-primary" id="create_btn">Create</button>
     </p>
+    <div id="msg"></div> 
 </form>
 @stop 

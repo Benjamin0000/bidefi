@@ -72,7 +72,8 @@ class ProfileController extends Controller
     }
 
     public function activity()
-    {   $user = Auth::user(); 
+    {   
+        $user = Auth::user(); 
         $activities = Bidder::where('user_id', $user->id)->latest()->paginate(10); 
         return view('profile.activity', compact('activities')); 
     }

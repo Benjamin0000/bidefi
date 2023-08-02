@@ -32,9 +32,11 @@ jQuery(document).ready(function () {
 (function () {
     let onpageLoad = localStorage.getItem("theme") || "";
     let element = document.body;
-    element.classList.add(onpageLoad);
-    document.getElementById("theme").textContent =
-        localStorage.getItem("theme") || "light";
+    if(onpageLoad){
+        element.classList.add(onpageLoad);
+        if( document.getElementById("theme") )
+            document.getElementById("theme").textContent = localStorage.getItem("theme") || "light";
+    }
 })();
 
 function themeToggle() {

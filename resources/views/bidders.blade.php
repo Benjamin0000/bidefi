@@ -18,7 +18,7 @@
                         <h6><a href="#">{{get_bidder($bidder->id)}}</a></h6> 
                         <span> placed a bid</span>
                     </div>
-                    <span class="time">{{$bidder->created_at->diffForHumans()}}</span>
+                    <span class="time">{{$bidder->updated_at->diffForHumans()}}</span>
                 </div>
             </div>
         </div>

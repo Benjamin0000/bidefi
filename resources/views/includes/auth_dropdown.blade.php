@@ -30,7 +30,11 @@
                 <img class="avatar" src="/assets/images/avatar/avt-5.jpg" alt="avatar"/>
             @endif 
             <div class="avatar_popup mt-20">
+                @if($user->fname)
                 <h4>{{$user->fname .' '. $user->lname}}</h4>
+                @else 
+                    <a href="/profile">Set name</a>
+                @endif 
                 <div class="d-flex align-items-center mt-20 mg-bt-12">
                     <div class="info">
                         <p>Balance</p>

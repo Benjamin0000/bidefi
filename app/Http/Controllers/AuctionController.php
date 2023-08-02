@@ -6,6 +6,7 @@ use App\Events\BidEvent;
 use App\Models\Item;
 use App\Models\Bidder;
 use App\Models\Likes; 
+use App\Models\BidHistory; 
 
 class AuctionController extends Controller
 {
@@ -66,9 +67,7 @@ class AuctionController extends Controller
         $user = Auth::user(); 
         $item = Item::find($id);
 
-        if($item->status == 1)
-            return ['error'=>"Bidding already started!"];
-        else if($item->status > 1)
+        if($item->status > 1)
             return ['error'=>"Bidding has ended!"];
 
         if($check){
@@ -76,6 +75,7 @@ class AuctionController extends Controller
                 return ['error'=>"Min bid is ".$item->min_bid.' credits']; 
 
             $used = get_used($user->id, $item->id); 
+
             if($used <= $item->free_bid)
                 $user->bid_credit += ($item->free_bid - $used); 
 
@@ -84,6 +84,8 @@ class AuctionController extends Controller
              
             return ['done'=>true]; 
         }
+
+
         return $user->placeBid($item, $amt); 
     }
 
@@ -112,7 +114,12 @@ class AuctionController extends Controller
     {
         $amt = (int)$request->input('ffffxfr'); 
         $user = Auth::user(); 
-        $user->creditBid($amt);  
+        $user->creditBid($amt);
+        increase_total_credits($amt);
+        BidHistory::create([
+            'user_id'=>$user->id, 
+            'amt'=>$amt
+        ]); 
         return ['done'=>true]; 
     }
 
