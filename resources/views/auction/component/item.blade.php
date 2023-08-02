@@ -7,13 +7,13 @@
         <div class="card-media style2">
             <a href="{{route('auction.show', $auction->id)}}"><img src="{{$auction->image}}" style="height: 30vh" alt="Image"></a>
             <button class="wishlist-button heart @if( $user && liked($auction->id, $user->id) ) active @endif"><span  onclick="likeItem({{$auction->id}})" class="number-like">{{$auction->likes}}</span></button>
-            @if($auction->points >= $auction->start_points)
+            @if($auction->points >= $auction->start_points && $auction->status < 2)
                 <div class="featured-countdown style2">
                     <span class="slogan"></span>
                     <span id="timer{{$auction->id}}">
                         @if($auction->status == 1)
                             <span class="js-countdown"  data-timer="{{Carbon\Carbon::parse($auction->timer)->diffInSeconds()}}" data-labels=" :  ,  : , : , "></span>
-                        @else 
+                        @elseif($auction->status == 0)
                             <span class="js-countdown"  data-timer="{{Carbon\Carbon::parse($auction->start_time)->diffInSeconds()}}" data-labels=" :  ,  : , : , "></span>
                         @endif 
                     </span>
