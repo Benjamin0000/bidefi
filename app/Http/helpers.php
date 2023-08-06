@@ -182,7 +182,7 @@ function getWinner($id)
     $contract = new Contract(env('NODE_ENDPOINT'), get_abi());
     $result =  ""; 
     try{
-        $contract->at('0x0c94C4d8Cd13CD9dD75282F991e4fc4B4263cCfB')->call('items', $id, function($error, $data) use(&$result){
+        $contract->at('0xb66E5c378558e55015E0Da71b3dB99938c77879B')->call('items', $id, function($error, $data) use(&$result){
             $result = $data;
         });
     }catch(\Exception $e){

@@ -4,7 +4,7 @@ import axios from 'axios';
 import { truncateAddress, bytestohex, paramsToObject } from './bootstrap';
 import Abi from "./Bidding_ABI.json";
 import { ethers } from "ethers";
-const bidding_contract = '0x33DDb6cC12D6c595d234B5AAa23BDA8Cd3E5Af6C'
+const bidding_contract = '0xb66E5c378558e55015E0Da71b3dB99938c77879B'
 
 import {
   getAccount,
@@ -50,7 +50,7 @@ $("#logout").click((e) => {
 
 watchNetwork((network) => {
   let account = getAccount();
-  if(account && account.address && network.chain.id == 5) {
+  if(account && account.address && network.chain.id == 97) {
       axios.get('/ogNkV').then(res => { //check auth 
         if(!res.data.auth) {
             const msg = bytestohex();
@@ -75,9 +75,9 @@ watchNetwork((network) => {
         }
       });
   }
-  if(network.chain && network.chain.id != 5){
-      alert('we only support the Goerli test Network'); 
-      switchNetwork({chainId: 5}); 
+  if(network.chain && network.chain.id != 97){
+      alert('we only support the Sepolia Testnet'); 
+      switchNetwork({chainId: 97}); 
   }
 });
 
@@ -321,15 +321,19 @@ $(document).on('submit', '#bid_price_form', (event) => {
         functionName: 'changePointPrice',
         args: [ethers.parseEther(price.toString())]
       }).then(config=>{
-        writeContract(config).then(res => {
-          waitForTransaction({ confirmations: 2, hash: res.hash }).then(res => {
+        writeContract(config).then(res => { 
+          waitForTransaction({confirmations: 2, hash: res.hash }).then(res => {
             event.currentTarget.submit();
           }).catch(error => {
+            console.log("from wait"); 
+            console.log(res); 
             $("#msg").html("<div class='alert alert-danger'>"+error.message+"</div>");
             btn.html("Update");
             btn.attr('disabled', false);
           });
         }).catch(error => {
+          console.log('from the write contract'); 
+          console.log(res)
           $("#msg").html("<div class='alert alert-danger'>"+error.message+"</div>");
           btn.html("Update");
           btn.attr('disabled', false);
