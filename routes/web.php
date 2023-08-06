@@ -8,12 +8,17 @@ use App\Http\Controllers\AdminController;
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/contact-us', [HomeController::class, 'contact_us']);
 Route::post('/contact-us', [HomeController::class, 'save_message']);
+//auth route
+Route::post('/VgtFB', [HomeController::class, 'sign_in']); 
+Route::get('/RVgtFB', [HomeController::class, 'sign_out']); 
+Route::get('/ogNkV', [HomeController::class, 'check_auth']);
+//end auth
+
 
 Route::get('/profile', [ProfileController::class, 'index']);
 Route::post('/aK0qQq62l', [ProfileController::class, 'update_avater']); 
 Route::post('/pAMY', [ProfileController::class, 'delete_profile_image']); 
 Route::post('/Ryi71', [ProfileController::class, 'update_name']); 
-
 Route::get('/activity', [ProfileController::class, 'activity']); 
 
 Route::get('/live-auction', [AuctionController::class, 'live']);
@@ -25,26 +30,10 @@ Route::post('/FapHqrwPfkewSHq', [AuctionController::class, 'claim_winner']);
 
 Route::get('/buy-credit', [AuctionController::class, 'buy_credit']);
 Route::post('/LETBOrwenhvqRifu7Lu', [AuctionController::class, 'credit_point']); 
-
 Route::post('/IN31Wd5njhG', [AuctionController::class, 'like']); 
 Route::post('/fAbAsLr7Zs', [AuctionController::class, 'add_views']); 
-
 #load more
 Route::get('/kSHhWd/{type}', [AuctionController::class, 'load_more']); 
-
-
-
-
-//auth route
-Route::post('/VgtFB', [HomeController::class, 'sign_in']); 
-Route::get('/RVgtFB', [HomeController::class, 'sign_out']); 
-Route::get('/ogNkV', [HomeController::class, 'check_auth']);
-//end auth
-
-
-
-
-
 
 
 //---admin start
