@@ -72,9 +72,12 @@
                             <h5 class="text-center text-danger">Connect wallet to bid</h5>
                             <br>
                         @else 
+                            @php 
+                               $last_bidder = $item->last_bidder(); 
+                            @endphp 
                             @if($item->status < 2)
                                 <a href="#" data-toggle="modal" data-target="#popup_bid" class="sc-button loadmore style bag fl-button pri-3"><span>Place a bid</span></a>
-                            @elseif($user && $item->status == 2 && $item->bidder_id == $user->id)
+                            @elseif($user && $item->status == 2 && $last_bidder && $last_bidder->id == $user->id)
                                 <button id="claim_price" idd="{{$item->id}}" class="sc-button sc-button loadmore style bag fl-button pri-3 btn-block">Claim</button>
                                 <div id="c_msg"></div> 
                             @endif 

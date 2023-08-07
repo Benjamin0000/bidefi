@@ -25,6 +25,13 @@ class Item extends Model
     {
         return User::where('address', $this->winner)->first(); 
     }
+
+    public function last_bidder()
+    {
+        if( $bidder = Bidder::find($this->bidder_id) ){
+            return User::find($bidder->user_id); 
+        }
+    }
     
 
     public static function start_bid()
@@ -60,7 +67,7 @@ class Item extends Model
                     ])->whereRaw('points > used')->oldest()->first();
     
                     if($bidder)
-                        $bidder->bid($item);
+                        $bidder->bid($item); 
                         
                     $item->switchBidders();
                 }
