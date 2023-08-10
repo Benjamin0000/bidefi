@@ -8,7 +8,7 @@
     <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
     <title>BiDefi: Play and win huge crypto prices and digital collectibles.</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/style.css?v=2">
     <link rel="shortcut icon" href="/assets/images/logo/logo.png">
     <link rel="apple-touch-icon-precomposed" href="/assets/images/logo/logo.png">
     <style>
