@@ -20,6 +20,12 @@
                 </div>
             @endif 
         </div>
+        @if($auction->points < $auction->start_points && $auction->status == 0)
+            <div class="progress" style="height: 20px;">
+                <div class="progress-bar bg-success" role="progressbar" style="width:{{get_pct($auction->points, $auction->start_points)}}%;height: 100%;font-size:15px;line-height:20px;" aria-valuenow="{{get_pct($auction->points, $auction->start_points)}}" aria-valuemin="0" aria-valuemax="{{get_pct($auction->points, $auction->start_points)}}">{{get_pct($auction->points, $auction->start_points)}}%</div>
+            </div>
+            <br>
+        @endif 
         <div class="card-title">
             <h5 class="style2"><a href="{{route('auction.show', $auction->id)}}">{{$auction->name}}</a></h5>
             <div class="tags">

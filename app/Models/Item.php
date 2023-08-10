@@ -33,7 +33,6 @@ class Item extends Model
         }
     }
     
-
     public static function start_bid()
     {
         $items = self::where('status', 0)->oldest();

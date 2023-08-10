@@ -14,9 +14,9 @@
                         <div class="content">
                             <div class="media">
                                 <img src="{{$activity->item->image}}" alt="">
-                            </div>
+                            </div> 
                             <div class="infor">
-                                <h3><a href="item-details.html">{{$activity->item->name}}</a></h3>
+                                <h3><a href="{{route('auction.show', $activity->item->id)}}">{{$activity->item->name}}</a></h3>
                                 <div class="time">{{$activity->created_at->isoFormat('lll')}}</div>
                                 <div class="time"><b>Total Bid: {{$activity->points}} Credit</b></div>
                             </div>

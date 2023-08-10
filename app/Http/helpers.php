@@ -9,6 +9,11 @@ use App\Models\User;
 use App\Models\Bidder;
 use App\Models\Likes; 
 
+function get_pct($min, $max)
+{
+    return round($min/$max *100); 
+}
+
 function setEthPrice() 
 {
     $data = Http::get('https://api.coingecko.com/api/v3/coins/ethereum');

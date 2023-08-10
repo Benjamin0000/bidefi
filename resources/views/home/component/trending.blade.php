@@ -6,29 +6,25 @@
             <div class="col-md-12">
                 <div class="swiper-container carousel8 pad-t-17 auctions">
                     <div class="swiper-wrapper">
-                        @foreach($trendings as $trending)
-                            <div class="swiper-slide" >
+                         @foreach($trendings as $trending)
+                            <div class="swiper-slide">
                                 <div class="slider-item">	
                                     <div class="wrap-cart">
-                                        <div class="cart_item style2 style3" >
+                                        <div class="cart_item style2 style3">
                                             <div class="inner-cart">
                                                 <div class="overlay"></div>
-                                                <img src="{{$trending->image}}" alt="Image">
+                                                <img class="img-fluid" src="{{$trending->image}}" alt="Image">
                                                 <div class="content">
                                                     <div class="fs-16">
                                                         <a href="{{route('auction.show', $trending->id)}}">{{$trending->name}}</a>
                                                     </div>
-                                                    {{-- <p>Graphic Art 3D</p> --}}
                                                 </div>   
-                                                <div class="progress">
-                                                    <div class="progress-bar"></div>      
-                                                </div>
                                             </div>
                                         </div>
                                     </div> 	
-                                </div>
+                                </div><!-- item-->
                             </div>
-                        @endforeach
+                        @endforeach                       
                     </div>
                     <div class="swiper-pagination mg-t22"></div>
                 </div>  

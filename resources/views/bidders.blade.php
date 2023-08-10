@@ -4,7 +4,7 @@
         <div class="client">
             <div class="sc-author-box style-2">
                 <div class="author-avatar">
-                    <a href="item-details.html#">
+                    <a href="#">
                         @if($bidder->user && $bidder->user->avatar)
                             <img src="{{Storage::url($bidder->user->avatar)}}" alt="" class="avatar">
                         @else 

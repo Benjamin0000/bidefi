@@ -68,6 +68,12 @@
                                 @endif 
                             </div>
                         </div>
+                        @if($item->points < $item->start_points && $item->status == 0)
+                        <div class="progress" style="height: 20px;">
+                            <div class="progress-bar bg-success" role="progressbar" style="width:{{get_pct($item->points, $item->start_points)}}%;height: 100%;font-size:15px;line-height:20px;" aria-valuenow="{{get_pct($item->points, $item->start_points)}}" aria-valuemin="0" aria-valuemax="{{get_pct($item->points, $item->start_points)}}">{{get_pct($item->points, $item->start_points)}}%</div>
+                        </div>
+                        <br>
+                    @endif 
                         @if(!$user)
                             <h5 class="text-center text-danger">Connect wallet to bid</h5>
                             <br>

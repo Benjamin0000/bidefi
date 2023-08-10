@@ -26,7 +26,7 @@
 
 /* PreLoad
 -------------------------------------------------------------- */
- .preload {
+.preload {
     overflow: hidden;
 } 
 
@@ -5269,15 +5269,15 @@ section.today-picks {
 
 .wrap-cart .cart_item img{
     border-radius: 12px;
-    width: 100%;
+    /* width: 100%; */
 }
 
 .wrap-cart .cart_item .inner-cart{
     position: relative;
-    margin-bottom: 30px;
-    border-radius: 12px;
-    overflow: hidden !important;
-    height: 50vh !important;
+    /* margin-bottom: 30px;
+    border-radius: 12px; */
+    overflow: hidden;
+    height: 62vh;
 }
 
 .wrap-cart .cart_item .fs-16{
@@ -5462,8 +5462,9 @@ section.today-picks {
 }
 
 .inner-cart img {
-    /* width: 100%; */
-    height: 100% !important;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
     webkit-filter: grayscale(100%);
     -ms-filter: grayscale(100%);
     -moz-filter: grayscale(100%);
