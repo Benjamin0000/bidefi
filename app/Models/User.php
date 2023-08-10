@@ -72,7 +72,7 @@ class User extends Authenticatable
         
         $this->save(); 
     }
-
+ 
     public function placeBid(Item $item, $amt)
     {
         $bidder = Bidder::where([

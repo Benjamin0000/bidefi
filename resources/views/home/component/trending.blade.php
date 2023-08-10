@@ -4,9 +4,9 @@
     <div class="themesflat-container">
         <div class="row">
             <div class="col-md-12">
-                <div class="swiper-container carousel8 pad-t-17 auctions">
+                <div class="swiper-container carousel8  auctions" style="width: 80% !important; height:50vh">
                     <div class="swiper-wrapper">
-                         @foreach($trendings as $trending)
+                        @foreach($trendings as $trending)
                             <div class="swiper-slide">
                                 <div class="slider-item">	
                                     <div class="wrap-cart">
@@ -22,7 +22,7 @@
                                             </div>
                                         </div>
                                     </div> 	
-                                </div><!-- item-->
+                                </div>
                             </div>
                         @endforeach                       
                     </div>
