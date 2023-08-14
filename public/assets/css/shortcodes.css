@@ -5281,7 +5281,6 @@ section.today-picks {
     align-items:center;
     overflow:hidden;
     height: 50vh;
-    width: 90%;
 }
 
 .wrap-cart .cart_item .fs-16{
@@ -5466,6 +5465,11 @@ section.today-picks {
 }
 
 .inner-cart img {
+    max-width:90%;
+    max-height:100%;
+    flex-shrink:0 !important;
+    -webkit-flex-shrink: 0 !important;
+
     webkit-filter: grayscale(100%);
     -ms-filter: grayscale(100%);
     -moz-filter: grayscale(100%);
