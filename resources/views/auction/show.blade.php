@@ -7,8 +7,8 @@
         <div class="row">
             <div class="col-xl-6 col-md-12">
                 <div class="content-left">
-                    <div class="media">
-                        <img src="{{$item->image}}" alt="">
+                    <div style="height: 600px">
+                        <img src="{{$item->image}}" style="height: 100%; width:100%; object-fit: contain;" alt="">
                     </div>
                 </div>
             </div>
