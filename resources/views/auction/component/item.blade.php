@@ -6,7 +6,9 @@
     <div class="sc-card-product">
         <div class="card-media style2">
             <a href="{{route('auction.show', $auction->id)}}">
-                <div style="height:35vh;display:flex;width:100%"><img src="{{$auction->image}}" style="object-fit: contain; width: 100%;" alt="Image"></div>
+                <div style="height:40vh;display:flex;width:100%">
+                    <img src="{{$auction->image}}" style="object-fit: contain;" alt="Image">
+                </div>
             </a>
             <button class="wishlist-button heart @if( $user && liked($auction->id, $user->id) ) active @endif"><span  onclick="likeItem({{$auction->id}})" class="number-like">{{$auction->likes}}</span></button>
             @if($auction->points >= $auction->start_points && $auction->status < 2)
