@@ -119,8 +119,9 @@
                         <br>
                         <h5>Winner</h5>
                         @if($item->status > 1)
-                            @if($item->winner)
-                                {{$item->the_winner()->fname.' '.$item->the_winner()->lname}}
+                            @php $winner = $item->the_winner() @endphp
+                            @if($winner)
+                                {{$winner->fname.' '.$winner->lname}}
                                 <div>{{$item->winner}}</div>
                             @endif 
                         @endif 
