@@ -5263,7 +5263,7 @@ section.today-picks {
 .wrap-cart .cart_item{
     position: relative;
     border-radius: 12px;
-    width: calc(19.445% - 30px);
+    /* width: calc(19.445% - 30px); */
     margin-left: 30px;
 }
 
@@ -5465,11 +5465,10 @@ section.today-picks {
 }
 
 .inner-cart img {
-    max-width:90%;
     max-height:100%;
     flex-shrink:0 !important;
     -webkit-flex-shrink: 0 !important;
-
+    object-fit: contain;
     webkit-filter: grayscale(100%);
     -ms-filter: grayscale(100%);
     -moz-filter: grayscale(100%);
@@ -6104,7 +6103,7 @@ section.today-picks {
 }
 
 .wrap-cart .cart_item.style2.style3 {
-    width: calc(100% - 30px);
+    width: calc(100% - 100px);
     margin-left: 30px;
 }
 

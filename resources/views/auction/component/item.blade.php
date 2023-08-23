@@ -5,7 +5,9 @@
 <div class="fl-item col-xl-3 col-lg-4 col-md-6 col-sm-6" style="display: block;">
     <div class="sc-card-product">
         <div class="card-media style2">
-            <a href="{{route('auction.show', $auction->id)}}"><img src="{{$auction->image}}" style="height: 30vh" alt="Image"></a>
+            <a href="{{route('auction.show', $auction->id)}}">
+                <div style="height:35vh;display:flex;width:100%"><img src="{{$auction->image}}" style="object-fit: contain; width: 100%;" alt="Image"></div>
+            </a>
             <button class="wishlist-button heart @if( $user && liked($auction->id, $user->id) ) active @endif"><span  onclick="likeItem({{$auction->id}})" class="number-like">{{$auction->likes}}</span></button>
             @if($auction->points >= $auction->start_points && $auction->status < 2)
                 <div class="featured-countdown style2">
