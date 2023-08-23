@@ -76,7 +76,7 @@ watchNetwork((network) => {
       });
   }
   if(network.chain && network.chain.id != 97){
-      alert('we only support the Sepolia Testnet'); 
+      alert('we only support the Binance Testnet'); 
       switchNetwork({chainId: 97}); 
   }
 });
