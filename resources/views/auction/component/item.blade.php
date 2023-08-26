@@ -10,6 +10,11 @@
                     <img src="{{$auction->image}}" style="object-fit: contain;" alt="Image">
                 </div>
             </a>
+        @if($auction->free_bid)
+            <button class="wishlist-button bg-success" style="left: 0 !important; width:50px; background:var(--primary-color3) !important">Free</button>
+        @endif 
+            
+
             <button class="wishlist-button heart @if( $user && liked($auction->id, $user->id) ) active @endif"><span  onclick="likeItem({{$auction->id}})" class="number-like">{{$auction->likes}}</span></button>
             @if($auction->points >= $auction->start_points && $auction->status < 2)
                 <div class="featured-countdown style2">

@@ -94,7 +94,24 @@
                     @endif
                 </td>
                 <td>
-                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#vm{{$item->id}}">View more</button>
+                    <p> 
+                        <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#vm{{$item->id}}">View more</button>
+                    </p> 
+  
+
+                    <p>
+                        <a href="{{route('item.create', $item->id)}}" class="btn btn-primary btn-sm">Re-use</a>
+                    </p> 
+                    <p>
+                        <a href="{{route('item.edit', $item->id)}}" class="btn btn-primary btn-sm">Edit</a>
+                    </p> 
+        
+                    <form action="{{route('item.delete', $item->id)}}" method="POST">
+                        @method('delete')
+                        @csrf 
+                        <button class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>
+                    </form>
+                    
                 </td>
             </tr>
             <div class="modal fade" id="vm{{$item->id}}" tabindex="-1" role="dialog"  aria-hidden="true">

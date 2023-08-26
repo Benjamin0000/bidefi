@@ -47,9 +47,12 @@ Route::prefix('admin')->group(function () {
     Route::delete('/media/{id}', [AdminController::class, 'delete_image']); 
 
     //items
-    Route::get('/items', [AdminController::class, 'items']); 
-    Route::get('/create-items', [AdminController::class, 'create_item']); 
+    Route::get('/items', [AdminController::class, 'items'])->name('admin.items'); 
+    Route::get('/create-items/{id?}', [AdminController::class, 'create_item'])->name('item.create'); 
     Route::post('/items', [AdminController::class, 'save_item']); 
+    Route::get('/items/{id}', [AdminController::class, 'edit'])->name('item.edit');
+    Route::put('/items/{id}', [AdminController::class, 'update_item'])->name('item.update'); 
+    Route::delete('/items/{id}', [AdminController::class, 'delete_item'])->name('item.delete'); 
 
 
     //settings

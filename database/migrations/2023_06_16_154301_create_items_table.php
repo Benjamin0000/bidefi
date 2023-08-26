@@ -28,8 +28,8 @@ return new class extends Migration
 
             $table->tinyInteger('status')->default(0); //1=started, 2=ended //3=claimed
             $table->tinyInteger('switch')->default(0);
-            $table->integer('ctd_timer'); 
-            $table->timestamp('start_time')->nullable(); //
+            $table->integer('ctd_timer'); //countdown timer before bid starts
+            $table->timestamp('start_time')->nullable(); //countdown timer before bid starts
             $table->timestamp('timer')->nullable(); //current timer
 
             $table->bigInteger('points')->default(0); //total lodged

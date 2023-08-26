@@ -104,7 +104,7 @@ function increase_items()
 
 function trendings()
 {
-    return Item::orderBy('points', 'desc')->take(6)->get(); 
+    return Item::where('h', 1)->latest()->take(6)->get(); 
 }
 
 function live_auction()

@@ -18,6 +18,9 @@
                         <h2 class="style2">{{$item->name}}</h2>
                         <div class="meta-item">
                             <div class="left">
+                                @if($item->free_bid)
+                                    <span class="bg-success" style="background:var(--primary-color3) !important; color:white;">Free</span>
+                                @endif 
                                 <span class="viewed eye">{{$item->views}}</span>
                                 <span class="liked heart wishlist-button mg-l-8 {{$user && liked($item->id, $user->id) ? 'active': ''}}"><span class="number-like" onclick="likeItem({{$item->id}})">{{$item->likes}}</span></span>
                             </div>
@@ -31,7 +34,7 @@
                                 <div class="author">
                                     <div class="info">
                                         <span>Price</span>
-                                        <h6>$<span>{{number_format($item->price)}}</span></h6>
+                                        <h6>${{number_format($item->price)}}</h6>
                                     </div>
                                 </div>
                             </div>

@@ -74,13 +74,25 @@ class AdminController extends Controller
         return view('admin.item.index', compact('items')); 
     }
 
-    public function create_item()
+    public function create_item($id=null)
     {
-        return view('admin.item.create'); 
+        $item = [];
+         
+        if($id) $item = Item::find($id);
+         
+        return view('admin.item.create', compact('item')); 
+    }
+
+    public function edit($id)
+    {
+        $item = Item::findOrFail($id); 
+        return view('admin.item.edit', compact('item')); 
     }
 
     public function save_item(Request $request)
     {
+        $h = (int)$request->input('h');
+
         $item = new Item; 
         $item->name = $request->input('title');
         $item->description = $request->input('description');
@@ -97,10 +109,43 @@ class AdminController extends Controller
         $item->contract_address = $request->input('contract_address'); 
         $item->min_bid = $request->input('min_bid'); 
         $item->start_points = $request->input('start_points'); 
+        $item->h = $h; 
         $item->save(); 
         increase_items(); 
         return back()->with('success', 'item created'); 
     }
+
+    public function update_item(Request $request, $id)
+    {
+        $item = Item::findOrFail($id);
+        $h = (int)$request->input('h');
+        $item->name = $request->input('title');
+        $item->description = $request->input('description');
+        $item->image = $request->input('image'); 
+        $item->image_type = $request->input('image_type');
+        $item->url = $request->input('url'); 
+        $item->price = $request->input('price');
+        $item->start_price = $request->input('start_price');
+        $item->ctd_timer = $request->input('start_time'); 
+        $item->symbol = $request->input('symbol');
+        $item->min_bid = $request->input('min_bid'); 
+        $item->start_points = $request->input('start_points'); 
+        $item->h = $h; 
+        $item->save(); 
+        return redirect(route('admin.items'))->with('success', 'Item updated');
+    }
+
+    public function delete_item($id)
+    {
+        $item = Item::findOrFail($id); 
+
+        if($item->points > 0)
+            return back()->with('error', 'This item cannot be deleted'); 
+
+        $item->delete(); 
+        return back()->with('success', "Item deleted");   
+    }
+
     /**
      * show the settings page
      */
