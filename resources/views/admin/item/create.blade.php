@@ -110,7 +110,7 @@
         <input type="text" name="id" class="form-control" placeholder="(optional)">
     </p>
     <p>
-        <label> Show in header <input name="h" value="1" @checked($item->h) type="checkbox"> </label>
+        <label> Show in header <input name="h" value="1" @checked($item ? $item->h: 0) type="checkbox"> </label>
     </p>
     <p>
         <button class="btn btn-primary" id="create_btn">Create</button>
