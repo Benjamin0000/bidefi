@@ -47,7 +47,7 @@
                                             </div>
                                             <br>
                                         @else 
-                                            <div style="height: 20px;">></div>
+                                            <div style="min-height: 20px;">></div>
                                             
                                         @endif 
                                         <div class="card-title">
