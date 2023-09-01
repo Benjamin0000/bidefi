@@ -15,6 +15,6 @@
                 <span class="price">{{get_bid_value($bidder->total_credit)}}ETH</span>
             </div>
         </div>    	
-    </div><!-- item-->
+    </div><!-- item--> 
 </div>
-@endforeach
+@endforeach 
