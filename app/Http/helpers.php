@@ -156,7 +156,7 @@ function increase_items()
 
 function trendings()
 {
-    return Item::where('h', 1)->latest()->take(4)->get(); 
+    return Item::where([ ['h', 1] , ['status', 0] ])->latest()->take(4)->get(); 
 }
 
 function live_auction()

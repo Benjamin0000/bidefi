@@ -5207,7 +5207,7 @@ section.today-picks {
 /* flat-cart_item */
 .flat-cart_item{
     position: relative;
-    padding: 140px 0 20px;
+    padding: 100px 0 0px;
     background-color: #fff;
 }
 
@@ -6297,7 +6297,7 @@ section.today-picks {
 }
 
 .home6 .sc-box-icon-inner.style2 .sc-box-icon .image{
-    margin-bottom: 25px;
+    /* margin-bottom: 25px; */
 }
 
 .flat-cart_item.home6 .auctions .swiper-pagination-bullet.swiper-pagination-bullet-active {

@@ -1,7 +1,7 @@
          
 <section class="flat-cart_item home6 style2">
     <div class="overlay"></div>
-    <div class="themesflat-container">
+    <div class="">
         <div class="row">
             <div class="col-md-12">
                 <div class="swiper-container carousel8  auctions" style="width: 80% !important;">
