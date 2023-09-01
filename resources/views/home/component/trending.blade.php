@@ -46,6 +46,8 @@
                                                 <div class="progress-bar bg-success" role="progressbar" style="width:{{get_pct($trending->points, $trending->start_points)}}%;height: 100%;font-size:15px;line-height:20px;" aria-valuenow="{{get_pct($trending->points, $trending->start_points)}}" aria-valuemin="0" aria-valuemax="{{get_pct($trending->points, $trending->start_points)}}">{{get_pct($trending->points, $trending->start_points)}}%</div>
                                             </div>
                                             <br>
+                                        @else 
+                                            <br>
                                         @endif 
                                         <div class="card-title">
                                             <h5 class="style2"><a href="{{route('auction.show', $trending->id)}}">{{$trending->name}}</a></h5>
