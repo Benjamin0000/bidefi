@@ -85,6 +85,8 @@ class AuctionController extends Controller
     public function buy_credit()
     {
         $user = Auth::user(); 
+        if(!$user)
+            return redirect('/');
         return view('buy_credit', compact('user')); 
     }
 

@@ -22,10 +22,13 @@ Route::post('/pAMY', [ProfileController::class, 'delete_profile_image']);
 Route::post('/Ryi71', [ProfileController::class, 'update_name']); 
 Route::get('/activity', [ProfileController::class, 'activity']); 
 
+Route::get('/buy-credit', [AuctionController::class, 'buy_credit']);
+
 Route::get('/live-auction', [AuctionController::class, 'live']);
 Route::get('/upcoming-auction', [AuctionController::class, 'upcoming'])->name('auction.upcoming');
 Route::get('/completed-auction', [AuctionController::class, 'completed'])->name('auction.completed');
 Route::get('/auction/{item_id}', [AuctionController::class, 'show'])->name('auction.show');
+
 
 Route::post('/PwbcHF5tYjZpghfV7O', [AuctionController::class, 'generate_bid_token']); 
 Route::post('/ho8OJ92Bs9RyEW67', [AuctionController::class, 'credit_bid']); 
