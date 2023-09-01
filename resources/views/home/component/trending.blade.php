@@ -4,7 +4,7 @@
     <div class="themesflat-container">
         <div class="row">
             <div class="col-md-12">
-                <div class="swiper-container carousel8  auctions" style="width: 80% !important; height:50vh">
+                <div class="swiper-container carousel8  auctions" style="width: 80% !important;">
                     <div class="swiper-wrapper">
                         @foreach($trendings as $trending)
                             <div class="swiper-slide">
