@@ -18,7 +18,7 @@ class HomeController extends Controller
                 $user = User::where('ref_id', $refID)->first(); 
                 if($user)
                     session(['ref_by' => $user->address]);
-            }
+            } 
         }
         $trendings = trendings(); 
         $live_auctions = live_auction(); 
@@ -26,6 +26,7 @@ class HomeController extends Controller
         $upcomings = upcoming(); 
         $completed = completed(); 
         $latest_winners = latest_winners(); 
+        $user = Auth::user(); 
 
         return view('home.index', compact(
             'trendings', 
@@ -33,7 +34,8 @@ class HomeController extends Controller
             'top_bidders',
             'upcomings',
             'completed',
-            'latest_winners'
+            'latest_winners',
+            'user'
         )); 
     }
 
