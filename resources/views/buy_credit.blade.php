@@ -18,8 +18,9 @@
                             <div class="alert alert-danger" id="min_bid_info" style="font-size: 20px; font-weight:bold; display:none" >
                                 Minimum purchase is {{(float)get_register('min_bid_purchase')}} Credits
                             </div> 
+                            <input type="hidden" name="ref" id="ref_val" value="{{$user? $user->ref_by: ''}}">
                             <button class="submit">Buy Credit</button>
-                            <div id="msg"></div>
+                            <div  style="font-size: 20px; font-weight:bold" id="msg"></div>
                         </form>
                     </div>
                 </div>
@@ -28,7 +29,6 @@
     </div>
 </section>
 <script>
-    window.bid_price = {{(float)get_register('bid_price')}}
     window.min_bid = {{(float)get_register('min_bid_purchase')}}
 </script>
 @include('includes.footer')

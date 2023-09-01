@@ -12,6 +12,14 @@ class BidHistory extends Model
 
     protected $fillable = [
         'user_id',
-        'amt'
+        'amt',
+        'secrete',
+        'time',
+        'item_id'
     ]; 
+
+    public function item()
+    {
+        return $this->belongsTo(Item::class); 
+    }
 }

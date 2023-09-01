@@ -22,11 +22,11 @@
                         <a href="profile.html#" class="btn-upload">Upload New Photo</a>
                         <input id="tf-upload-img" onchange="uploadPicture()" type="file" name="profile" required="">
                     </div>
-                    <a href="#" onclick="delete_pp()" class="btn-upload style2">Delete</a>
+                    <a href="javascript:void(0)" onclick="delete_pp()" class="btn-upload style2">Delete</a>
                 </form>
              </div>
              <div class="col-xl-6 col-lg-8 col-md-12 col-12">
-                 <div class="">
+                 <div class="sc-card-profile">
                     @if(session('success'))
                         <div class="alert alert-success text-center"><h5>Profile updated!</h5></div> 
                     @endif 
@@ -52,7 +52,19 @@
                             Update Profile
                         </button>           
                     </form>
-                </div>
+                
+                    <br>
+                    <br>
+                    <h5 style="margin-bottom:5px;">Your Referral Link</h5>
+                    <div class="input-group">
+                        <input type="text" id="address_input" style="color:black" class="form-control form-control-xl rounded-start-4"
+                            value="{{url('/')}}?ref={{$user->ref_id}}" readonly
+                            aria-label="Dollar amount (with dot and two decimal places)">
+                        <button id="copy_address" style="background:#5142FC; color:white; " class="input-group-text btn btn-primary rounded-end-4">
+                            <span class="ms-2">COPY LINK</span>
+                        </button>
+                    </div>
+                </div> 
              </div>
         </div>
     </div>
@@ -104,6 +116,18 @@
             }
         }).catch(error=>{
             Msg('error', "Something went wrong"); 
+        }); 
+    }
+    window.onload = ()=>{
+        $("#copy_address").on('click', ()=>{
+            var copyText = document.getElementById("address_input");
+            copyText.select();
+            copyText.setSelectionRange(0, 99999);
+            document.execCommand("copy");
+            $("#copy_address").html("Copied");
+            setTimeout(() => {
+                $("#copy_address").html("COPY LINK");
+            }, 2000);
         }); 
     }
 </script>

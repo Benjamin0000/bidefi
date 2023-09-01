@@ -88,11 +88,11 @@ class Item extends Model
         }
     }
 
-    public function endBid()
+    public function endBid() 
     {  
         if( $this->points <= $this->used ){
             $this->status = 2;
-            $this->winner = getWinner($this->id);
+            $this->winner = getWinner($this->id, $this->network);
             $this->save();
             $data = [
                 'id'=>$this->id,

@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->integer('bid_credit')->default(0); 
+            $table->string('ref_id'); 
+            $table->string('ref_by')->nullable();
             $table->integer('total_credit')->default(0); 
             $table->boolean('admin')->default(false); 
             $table->string('fname')->nullable();

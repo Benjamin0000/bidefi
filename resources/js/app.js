@@ -4,7 +4,31 @@ import axios from 'axios';
 import { truncateAddress, bytestohex, paramsToObject } from './bootstrap';
 import Abi from "./Bidding_ABI.json";
 import { ethers } from "ethers";
-const bidding_contract = '0xb66E5c378558e55015E0Da71b3dB99938c77879B'
+
+function get_contract() {
+  let id = window.network_id;
+  let arbitrum = ""; 
+  let optimism = ""; 
+  let zk = "";
+  let linea = "";
+  let base = ""; 
+  let bsc = '0xeE786C860418BB103853D9B519F819Dafb154182'; 
+
+  if (id == 324) {
+    return zk;
+  } else if (id == 59144) {
+    return linea;
+  } else if(id == 8453){
+    return base; 
+  } else if(id == 97){
+    return bsc; 
+  } else if(id == 42161){
+    return arbitrum;
+  }else if(id == 10){
+    return optimism; 
+  }
+  return 0;
+}
 
 import {
   getAccount,
@@ -19,6 +43,8 @@ import {
   readContract,
   switchNetwork
 } from '@wagmi/core'
+
+
 
 $(document).on('click', '#connectbtn', () => {
   web3modal.openModal()
@@ -43,6 +69,37 @@ function showUserLogin(account){
       $("#eth_bal").html(Number(balance.formatted).toFixed(5))
   }); 
 }
+
+//get item data
+//get user point balance 
+function setData(account) {
+  readContract({
+      address: get_contract(),
+      abi: Abi,
+      functionName: 'ItemData'
+  }).then(data => {
+      console.log(data)
+      $("#ad_bid_price").val(ethers.formatEther(data[3])); 
+      $("#ad_bid_com").val(data[2]);
+      $("#ad_bid_fee").val(ethers.formatEther(data[4])); 
+      readContract({
+          address: get_contract(),
+          abi: Abi,
+          functionName: 'points',
+          args: [account.address],
+      }).then(bal => {
+          let balance = Number(bal); 
+          $(".bid_credit_info").html(balance); 
+          window.info = {
+            bid_price: ethers.formatEther(data[3]),
+            bid_fee: ethers.formatEther(data[4]),
+            points: balance
+          }
+      });
+  });
+}
+
+
 
 $("#logout").click((e) => {
   logout()
@@ -70,7 +127,12 @@ watchNetwork((network) => {
           if(account.address != res.data.address){
               logout();
           }else{
+             $("#network_input").val(network.chain.id); 
+             window.network_id = network.chain.id;
+             $(".net_show").html(network.chain.name); 
              showUserLogin(account);
+             setData(account);
+             console.log("got here")
           }
         }
       });
@@ -92,12 +154,13 @@ watchAccount(user=>{
 $(document).on('keyup', '#bid_amt', (e) => {
   $("#min_bid_info").hide();
   let value = e.target.value;
-  let total = value * window.bid_price;
+  let total = value * window.info.bid_price;
   $('#bid_eth_price').val(total);
 
   if (value < window.min_bid)
     $("#min_bid_info").show();
 });
+
 
 
 $(document).on('submit', '#buy_credit_form', (event) => {
@@ -107,46 +170,61 @@ $(document).on('submit', '#buy_credit_form', (event) => {
   btn.html("Please wait...")
   btn.attr('disabled', true)
   $("#msg").html('')
-  let cost = amt * window.bid_price;
+  let cost = amt * window.info.bid_price;
   if (amt < window.min_bid) return;
-
+  let ref = $("#ref_val").val(); 
+  if(!ref){
+      ref = '0x0000000000000000000000000000000000000000'; 
+  }
   prepareWriteContract({
-    address: bidding_contract,
+    address: get_contract(),
     abi: Abi,
     functionName: 'buyPoint',
-    args: [amt],
+    args: [amt, ref],
     value: ethers.parseEther(cost.toString())
   }).then(config=>{
     writeContract(config).then(res => {
       waitForTransaction({ confirmations: 2, hash: res.hash }).then(res=>{
-        axios.post('/LETBOrwenhvqRifu7Lu', { ffffxfr: amt }).then(res=>{
-          if (res.data.done) {
-            $("#bid_info").show();
-            setTimeout(() => {
-              window.location.reload();
-            }, 3000);
-          }
-        }).catch(error => {
-          $("#msg").html("<div class='alert alert-danger'><h5>"+error.message+"</h5></div>");
-          btn.html("Buy Credit");
-          btn.attr('disabled', false)
-        }) 
-      }).catch(error => {
+        $("#bid_info").show();
+        setTimeout(()=>{
+            window.location.reload(); 
+        }, 2000); 
+      }).catch(error=>{
         $("#msg").html("<div class='alert alert-danger'><h5>"+error.message+"</h5></div>");
         btn.html("Buy Credit");
         btn.attr('disabled', false)
-      })
+      });
     }).catch(error=>{
       $("#msg").html("<div class='alert alert-danger'><h5>"+error.message+"</h5></div>");
       btn.html("Buy Credit");
       btn.attr('disabled', false)
-    });
-  }).catch(error=>{
+    })
+  }).catch(error => {
     $("#msg").html("<div class='alert alert-danger'><h5>"+error.message+"</h5></div>");
     btn.html("Buy Credit");
     btn.attr('disabled', false)
   })
 });
+
+function confirm_credit_trx(msg, btn, token)
+{
+  axios.post('/ho8OJ92Bs9RyEW67', {ffffxfr:token}).then(res=>{
+    if(res.data.done){
+        msg.html("<div class='alert alert-success'><h5> Bid placed successfully </h5></div>");
+        setTimeout(() => {
+          window.location.reload()
+        }, 2000);
+    }else if(res.data.trial){
+        return confirm_credit_trx(token); 
+    }else if(res.data.stop){
+        msg.html("<div class='alert alert-info'>Network error operation will still be completed in a short while</div>");
+        return; 
+    }
+    btn.attr("disabled", false); 
+  }).catch(error=>{
+      confirm_credit_trx(msg, btn, token)
+  }); 
+}
 
 //place a bid
 $(document).on('submit', '#place_bid_form', (event) => {
@@ -156,57 +234,58 @@ $(document).on('submit', '#place_bid_form', (event) => {
   let data = $(event.target).serialize();
   let params = new URLSearchParams(data);
   let id = params.get('id');
-  let amt = params.get('amt');
+  let amt = Number(params.get('amt'));
+  let min = Number(params.get('min')); 
+  let cost = window.info.bid_fee; 
+  msg.html('');
+
+  if(amt < min){
+    msg.html("<div class='alert alert-danger'><h5>Minimum bid is "+min+"</h5></div>");
+    return ;
+  }
+
+
+  if(amt > window.info.points){
+    msg.html("<div class='alert alert-danger'><h5>Insuficient bid credits</h5></div>");
+    return ;
+  }
 
   btn.html("Please wait...")
   btn.attr('disabled', true)
-  msg.html('');
+ 
 
-  axios.post('/ho8OJ92Bs9RyEW67', { id: id, amt: amt, check: true }).then(res => {
-    if(res.data.error) {
-      msg.html("<div class='alert alert-danger'><h5>" + res.data.error + "</h5></div>");
-      btn.html("Place a bid")
-      btn.attr('disabled', false)
-      return;
-    }
+  axios.post('/PwbcHF5tYjZpghfV7O', {id:id}).then(res=>{
+    let secrete = res.data.token; 
     prepareWriteContract({
-      address: bidding_contract,
+      address: get_contract(),
       abi: Abi,
       functionName: 'placeBid',
-      args: [id, amt]
+      args: [id, amt, secrete],
+      value: ethers.parseEther(cost.toString())
     }).then(config=>{
       writeContract(config).then(res => {
-        waitForTransaction({ confirmations: 2, hash: res.hash }).then(res => {
-          axios.post('/ho8OJ92Bs9RyEW67', {id:id, amt:amt}).then(res=>{
-            msg.html("<div class='alert alert-success'><h5> Bid placed successfully </h5></div>");
-            setTimeout(() => {
-              window.location.reload()
-            }, 2000);
-          }).catch(error => {
-            msg.html("<div class='alert alert-danger'><h5>"+error.message+"</h5></div>");
-            btn.html("Place a bid");
-            btn.attr('disabled', false);
-          });
-        }).catch(error => {
+        waitForTransaction({ confirmations: 2, hash: res.hash }).then(res=>{
+          confirm_credit_trx(msg, btn, secrete)
+        }).catch(error=>{
           msg.html("<div class='alert alert-danger'><h5>"+error.message+"</h5></div>");
           btn.html("Place a bid");
-          btn.attr('disabled', false);
+          btn.attr('disabled', false)
         });
-      }).catch(error => {
+      }).catch(error=>{
         msg.html("<div class='alert alert-danger'><h5>"+error.message+"</h5></div>");
         btn.html("Place a bid");
-        btn.attr('disabled', false);
-      });
-    }).catch(error=>{
+        btn.attr('disabled', false)
+      })
+    }).catch(error => {
       msg.html("<div class='alert alert-danger'><h5>"+error.message+"</h5></div>");
       btn.html("Place a bid");
-      btn.attr('disabled', false);
+      btn.attr('disabled', false)
     })
-  }).catch(error=>{
+  }).catch(error => {
     msg.html("<div class='alert alert-danger'><h5>"+error.message+"</h5></div>");
     btn.html("Place a bid");
     btn.attr('disabled', false);
-  })
+  });
 
 });
 
@@ -218,8 +297,10 @@ $(document).on('click', '#claim_price', (event) => {
     let msg = $("#c_msg");
     btn.html('Please wait...');
     msg.html(''); 
+    btn.attr('disabled', true);
+
     prepareWriteContract({
-      address: bidding_contract,
+      address: get_contract(),
       abi: Abi,
       functionName: 'claimPrice',
       args: [id]
@@ -245,7 +326,7 @@ $(document).on('click', '#claim_price', (event) => {
       btn.html("Claim");
       btn.attr('disabled', false);
     });
-  }); 
+}); 
 
 
 window.likeItem = function (id) {
@@ -263,26 +344,37 @@ $(document).on('submit', '#create_form', (event) => {
   let btn = $("#create_btn");
   let data = $(event.target).serialize();
   let params = new URLSearchParams(data);
-  let _id = params.get('id') ? params.get('id') : '0';
+  let _id = params.get('_id') ? params.get('_id') : '0'; //nft id
+  let id = params.get('id');
   let token_amount = params.get('prize') ? params.get('prize') : '0';
   let _type = params.get('type');
   let _address = params.get('contract_address');
   _address = _address ? _address : '0x0000000000000000000000000000000000000000'; 
+  let decimal = params.get('decimal');
   let startTime = params.get('start_time');
-  let free_credit = params.get('free');
-  let reqPoints = params.get('start_points'); 
+  let freeCredit = params.get('free');
+  let reqPoints = params.get('start_points');
 
   $("#msg").html(''); 
   if(token_amount > 0){
+    if(_type == 3){
+        if(!decimal){
+          alert('please enter a valid decimal for token'); 
+          return ;
+        }
+        token_amount = token_amount * (10**decimal); 
+    }else if(_type == 4){
       token_amount = ethers.parseEther(token_amount.toString())
+    }
   }
   btn.html("Sending...")
   btn.attr('disabled', true)
+
   prepareWriteContract({
-    address: bidding_contract, 
+    address: get_contract(), 
     abi: Abi,
     functionName: 'listItem',
-    args: [_id, token_amount, _type, _address, startTime, free_credit, reqPoints]
+    args: [id, _id, token_amount, _type, _address, startTime, freeCredit, reqPoints]
   }).then(config=>{
       writeContract(config).then(res => {
         waitForTransaction({ confirmations: 2, hash: res.hash }).then(res => {
@@ -311,42 +403,54 @@ $(document).on('submit', '#bid_price_form', (event) => {
   let data = $(event.target).serialize();
   let params = new URLSearchParams(data);
   let price = Number(params.get('price'));
+  let pct = Number(params.get('commission')); 
+  let fee = Number(params.get('bid_fee')); 
+
+  if (price <= 0) {
+    alert('please enter a valid price');
+    return ;
+  }
+
+  if (pct <= 0) {
+    alert('please enter a valid commission');
+    return ;
+  }
+
+  if (fee <= 0) {
+    alert('please enter a valid bid fee');
+    return ;
+  }
+
   btn.html("Sending...");
   $("#msg").html(''); 
-
-  if (price > 0) {
-      prepareWriteContract({
-        address: bidding_contract,
-        abi: Abi,
-        functionName: 'changePointPrice',
-        args: [ethers.parseEther(price.toString())]
-      }).then(config=>{
-        writeContract(config).then(res => { 
-          waitForTransaction({confirmations: 2, hash: res.hash }).then(res => {
-            event.currentTarget.submit();
-          }).catch(error => {
-            console.log("from wait"); 
-            console.log(res); 
-            $("#msg").html("<div class='alert alert-danger'>"+error.message+"</div>");
-            btn.html("Update");
-            btn.attr('disabled', false);
-          });
-        }).catch(error => {
-          console.log('from the write contract'); 
-          console.log(res)
-          $("#msg").html("<div class='alert alert-danger'>"+error.message+"</div>");
-          btn.html("Update");
-          btn.attr('disabled', false);
-        });
-      }).catch(error=>{
+  btn.attr('disabled', true);
+  
+  prepareWriteContract({
+    address: get_contract(),
+    abi: Abi,
+    functionName: 'changePointPrice',
+    args: [ethers.parseEther(price.toString()), pct, ethers.parseEther(fee.toString())]
+  }).then(config=>{
+    writeContract(config).then(res => { 
+      waitForTransaction({confirmations: 2, hash: res.hash }).then(res => {
+        $("#msg").html("<div class='alert alert-success'>Success!</div>");
+        btn.html("Update");
+        btn.attr('disabled', false);
+      }).catch(error => {
         $("#msg").html("<div class='alert alert-danger'>"+error.message+"</div>");
         btn.html("Update");
         btn.attr('disabled', false);
-      }); 
-  }else{
-    alert('please enter a valid number');
-  }
-  
+      });
+    }).catch(error => { 
+      $("#msg").html("<div class='alert alert-danger'>"+error.message+"</div>");
+      btn.html("Update");
+      btn.attr('disabled', false);
+    });
+  }).catch(error=>{
+    $("#msg").html("<div class='alert alert-danger'>"+error.message+"</div>");
+    btn.html("Update");
+    btn.attr('disabled', false);
+  }); 
 });
 
 $(document).on('submit', '#create_admin_form', (event) => {
@@ -367,7 +471,7 @@ $(document).on('submit', '#create_admin_form', (event) => {
       return;
     }
     prepareWriteContract({
-      address: bidding_contract,
+      address: get_contract(),
       abi: Abi,
       functionName: 'approveAdmin',
       args: [address, true]
@@ -408,7 +512,7 @@ $(document).on('submit', '.remove_admin', (event) => {
   btn.attr('disabled', true);
 
   prepareWriteContract({
-    address: bidding_contract,
+    address: get_contract(),
     abi: Abi,
     functionName: 'approveAdmin',
     args: [address, false]
@@ -444,7 +548,7 @@ $(document).on('submit', '#ad_withdrawal_form', (event) => {
   $("#msg").html(""); 
 
   prepareWriteContract({
-    address: bidding_contract,
+    address: get_contract(),
     abi: Abi,
     functionName: 'withdraw',
     args: [ethers.parseEther(amt.toString())]

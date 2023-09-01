@@ -50,7 +50,7 @@
             </div>
             <div class="col-lg-4">
                 <h4 class="title-create-item">Prize</h4>
-                <input type="text" name="prize" class="form-control" value="{{$item ? $item->prize: ''}}" placeholder="Only for tokens">
+                <input type="text" name="prize" class="form-control" value="{{$item ? $item->prize: ''}}" placeholder="Only for tokens or 1155 NFTs">
             </div>
         </div> 
     </p> 
@@ -88,9 +88,9 @@
     <br>
     <br>
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-2">
             <h4 class="title-create-item">Type</h4>
-            <select name="type" class="form-control" id="" required>
+            <select name="type" class="form-control" id="type_input" required>
                 <option value="">Select</option>
                 <option value="1" @selected($item ? $item->type == 1 : 0)>Erc-721</option>
                 <option value="2" @selected($item ? $item->type == 2 : 0)>Erc-1155</option>
@@ -98,17 +98,23 @@
                 <option value="4" @selected($item ? $item->type == 4 : 0)>ETH-Native</option>
             </select>
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-2">
+            <h4 class="title-create-item">Decimals</h4>
+            <input value="{{$item ? $item->decimal: ''}}" id="dec_input" type="number" name="decimal" class="form-control" placeholder="Eg: 18">
+        </div>
+        <div class="col-lg-8">
             <h4 class="title-create-item">Contract address</h4>
             <input type="text" name="contract_address" class="form-control" value="{{$item ? $item->contract_address: ''}}" placeholder="If NFT or erc20">
         </div>
     </div>
-    <br>
+    <input type="hidden" name="network" id="network_input" value="{{$item ? $item->network: ''}}">
     <br> @csrf 
     <p>
         <h4 class="title-create-item">NFT ID</h4>
-        <input type="text" name="id" class="form-control" placeholder="(optional)">
+        <input type="text" name="_id" class="form-control" placeholder="(optional)">
     </p>
+    <input type="hidden" name="id" value="{{$id}}">
+
     <p>
         <label> Show in header <input name="h" value="1" @checked($item ? $item->h: 0) type="checkbox"> </label>
     </p>
@@ -117,4 +123,16 @@
     </p>
     <div id="msg"></div> 
 </form>
+
+<script>
+window.onload = ()=>{
+    $("#type_input").on('change', (e)=>{
+        if(e.target.value == 4){
+            $("#dec_input").val(18)
+        }else{
+            $("#dec_input").val('')
+        }
+    }); 
+}
+</script>
 @stop 

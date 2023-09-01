@@ -58,37 +58,6 @@ class AuctionController extends Controller
         return view('auction.show', compact('item', 'bidders')); 
     }
 
-    public function place_bid(Request $request)
-    {
-        $id = $request->input('id'); 
-        $check = $request->input('check');
-        $amt = (int)$request->input('amt'); 
-
-        $user = Auth::user(); 
-        $item = Item::find($id);
-
-        if($item->status > 1)
-            return ['error'=>"Bidding has ended!"];
-
-        if($check){
-            if( $amt < $item->min_bid )
-                return ['error'=>"Min bid is ".$item->min_bid.' credits']; 
-
-            $used = get_used($user->id, $item->id); 
-
-            if($used <= $item->free_bid)
-                $user->bid_credit += ($item->free_bid - $used); 
-
-            if($user->bid_credit  < $amt )
-                return ['error'=>"Insufficient bid credit"]; 
-             
-            return ['done'=>true]; 
-        }
-
-
-        return $user->placeBid($item, $amt); 
-    }
-
     public function claim_winner(Request $request)
     {
         $id = $request->input('id'); 
@@ -104,23 +73,51 @@ class AuctionController extends Controller
         return ['done'=>true]; 
     }
 
+    public function generate_bid_token(Request $request)
+    {
+        if (!$request->ajax()) return;
+        $id = $request->input('id'); 
+        if( !Item::where([ ['id', $id], ['status', '<', 2] ])->first() ) return ;
+        return ["token" => generate_bid_secrete($id)];
+    }
+
     // buy credit
     public function buy_credit()
     {
-        return view('buy_credit'); 
+        $user = Auth::user(); 
+        return view('buy_credit', compact('user')); 
     }
 
-    public function credit_point(Request $request)
+    public function credit_bid(Request $request)
     {
-        $amt = (int)$request->input('ffffxfr'); 
-        $user = Auth::user(); 
-        $user->creditBid($amt);
-        increase_total_credits($amt);
-        BidHistory::create([
-            'user_id'=>$user->id, 
-            'amt'=>$amt
-        ]); 
-        return ['done'=>true]; 
+        if (!$request->ajax()) return;
+        $token = $request->input('ffffxfr'); 
+        $user = Auth::user();
+        $check = BidHistory::where([ ['user_id', $user->id], ['secrete', $token], ['status', 0] ])->first();
+ 
+        if ($check) {
+            if ($check->trial >= 5) return ['stop' => "don't call again"];
+            $item = $check->item; 
+            $confirm = confirm_bid($user->address, $item->id, $item->network);
+
+            if (isset($confirm['secrete'])) {
+                $points = hexdec($confirm['points']->toHex());
+                $time = hexdec($confirm['time']->toHex());
+                $check->amt = $points;
+                $check->time = $time;
+                $check->status = 1; 
+                $check->save();
+                $user->placeBid($item, $points);                  
+                increase_total_credits($points); 
+                return ["done" => true]; 
+            } else {
+                $check->trial += 1;
+                $check->save();
+                return ["trial" => "not found"];
+            }
+        }else{
+            return ["error" => true]; 
+        }
     }
 
     public function like(Request $request)

@@ -22,7 +22,7 @@ export function bytestohex() {
         if (h.length == 1) { h = '0' + h; }
         hexstring += h;
     }
-    let msg = "Hi there! \n We just need you to sign this message to confirm that you have access to this wallet.\n"
+    let msg = "Hi there! \nWe just need you to sign this message to confirm that this wallet belongs to you.\n"
     return msg + hexstring + Date.now();
 }
 

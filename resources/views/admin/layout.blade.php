@@ -87,6 +87,10 @@
                     <span class="nav-text">Leave</span>
                 </a>
             </li>
+            <li>
+                <span>Network:</span>
+                <div class="net_show"></div>
+            </li>
         </ul>
     </div>
 </div>

@@ -79,8 +79,13 @@ class AdminController extends Controller
         $item = [];
          
         if($id) $item = Item::find($id);
-         
-        return view('admin.item.create', compact('item')); 
+
+        if( $last_item = Item::latest()->first() )
+            $id = $last_item->id + 1; 
+        else
+            $id = 1; 
+
+        return view('admin.item.create', compact('item', 'id')); 
     }
 
     public function edit($id)
@@ -109,6 +114,8 @@ class AdminController extends Controller
         $item->contract_address = $request->input('contract_address'); 
         $item->min_bid = $request->input('min_bid'); 
         $item->start_points = $request->input('start_points'); 
+        $item->network = $request->input('network'); 
+        $item->decimal = $request->input('decimal') ?: 0;
         $item->h = $h; 
         $item->save(); 
         increase_items(); 
@@ -152,15 +159,6 @@ class AdminController extends Controller
     public function settings()
     {
         return view('admin.settings.index'); 
-    }
-    /**
-     * Update the bid price
-     */
-    public function update_bid_price(Request $request)
-    {
-        $price = (float)$request->input('price'); 
-        set_register('bid_price', $price); 
-        return back()->with('success', "Bid price updated"); 
     }
     /**
      * Update the minimum bid purchase by user

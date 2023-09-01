@@ -1,5 +1,7 @@
 @extends('admin.layout')
 @section('content')
+<br>
+<br>
 <div class="page-title">
     <div class="row align-items-center justify-content-between">
         <div class="col-6">
@@ -12,12 +14,20 @@
 
 <div class="row">
     <div class="col-md-3">
-        <form method="POST" action="/admin/update-bid-price" id="bid_price_form">
-            <label for="">Bid Price</label>
+        <form id="bid_price_form">
+            <label for="">Bid Price (ETH)</label>
             <p>
-                <input type="text" value="{{(float)get_register('bid_price')}}" class="form-control" name="price" required placeholder="Enter bid price">
+                <input type="text" value="" id="ad_bid_price" class="form-control" name="price" required placeholder="Enter bid price">
             </p>
-            @csrf 
+            <label for="">Referral commision (%)</label>
+            <p>
+                <input type="text" id="ad_bid_com" id="" class="form-control" name="commission" required placeholder="Enter referral commission">
+            </p>
+            <label for="">Bid fee (ETH)</label>
+            <p>
+                <input type="text" id="ad_bid_fee" class="form-control" name="bid_fee" required placeholder="Enter bid fee">
+            </p>
+            <div id="msg"></div> 
             <p>
                 <button class="btn btn-primary">Update</button>
             </p>
@@ -36,5 +46,4 @@
         </form>
     </div>
 </div>
-<div id="msg"></div> 
 @stop 

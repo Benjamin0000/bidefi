@@ -42,10 +42,15 @@ return new class extends Migration
             $table->string('winner')->nullable(); //store the winners address
             $table->uuid('bidder_id')->nullable();
             //token info
-            $table->decimal('prize', 64, 5)->default(0) ; //token amount
+            $table->decimal('prize', 64, 5)->default(0); //token amount
             $table->string('symbol')->nullable(); //symbol of normal token
             $table->tinyInteger('type'); //1=725 ,2=1155 , 3=erc20 token , 4=native token
             $table->string('contract_address')->nullable(); //=> contract address
+            
+            $table->integer('decimal')->default(0);
+            $table->string('network'); //where item is deployed to
+            $table->boolean('h')->default(0);
+            $table->text('hash')->nullable(); 
             $table->timestamps();
         });
     }

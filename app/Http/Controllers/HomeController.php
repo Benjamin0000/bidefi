@@ -13,6 +13,13 @@ class HomeController extends Controller
      */
     public function index()
     {
+        if($refID = request()->ref){
+            if(!Auth::check()){
+                $user = User::where('ref_id', $refID)->first(); 
+                if($user)
+                    session(['ref_by' => $user->address]);
+            }
+        }
         $trendings = trendings(); 
         $live_auctions = live_auction(); 
         $top_bidders =  top_bidders(); 

@@ -13,8 +13,13 @@ return new class extends Migration
     {
         Schema::create('bid_histories', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->bigInteger('item_id');
             $table->uuid('user_id');
-            $table->integer('amt'); 
+            $table->integer('amt')->default(0);
+            $table->string('secrete'); 
+            $table->string('time')->nullable();
+            $table->boolean('status')->default(0);
+            $table->integer('trial')->default(0); 
             $table->timestamps();
         });
     }

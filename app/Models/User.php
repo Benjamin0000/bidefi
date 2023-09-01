@@ -20,7 +20,9 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'address'
+        'address',
+        'ref_id', 
+        'ref_by'
     ];
 
     /**
@@ -50,7 +52,14 @@ class User extends Authenticatable
         $reg->value = (int)$reg->value+1; 
         $reg->save(); 
     }
-
+    private static function get_new_ref()
+    {
+        $ref_id = session('ref_by'); 
+        if ($ref_id){
+            session()->forget('ref_by');
+            return $ref_id; 
+        }
+    }
     /**
      * Search user by wallet address
      * @return User::class object
@@ -59,7 +68,11 @@ class User extends Authenticatable
     public static function findUserByAddress($address)
     {
         if( !$user = self::where('address', $address)->first() ){
-            $user = self::create(['address'=>$address]);
+            $user = self::create([
+                'address'=>$address,
+                'ref_id'=>generateRefCode(),
+                'ref_by'=>self::get_new_ref()
+            ]);
             self::increment_user_count(); 
         }
         return $user; 
@@ -67,10 +80,19 @@ class User extends Authenticatable
 
     public function creditBid($amt)
     {
-        $this->bid_credit += $amt; 
         $this->total_credit += $amt; 
-        
         $this->save(); 
+    }
+
+    public function creditRef($amt)
+    {
+        if($this->ref_by){
+            if( $user = self::find($this->ref_by) ){
+                $pct = (float)get_register('ref_pct'); 
+                $amt = cal_pct($amt, $pct); 
+                $user->creditBid($amt); 
+            }
+        }
     }
  
     public function placeBid(Item $item, $amt)
@@ -79,7 +101,6 @@ class User extends Authenticatable
             ['user_id', $this->id],
             ['item_id', $item->id]
         ])->first(); 
-
         if(!$bidder){
             $bidder = Bidder::create([
                 'user_id'=>$this->id,
@@ -87,26 +108,6 @@ class User extends Authenticatable
                 'address'=>$this->address,
                 'points'=>0
             ]); 
-        }
-        $free = false; 
-        $left = 0; 
-        $used = $bidder->points + $amt; 
-
-        if($used <= $item->free_bid){
-            $free = true; 
-        }else{
-            $free = false;
-            if($item->free_bid > $bidder->points)
-                $left = $item->free_bid - $bidder->points; 
-        }
-
-        if(!$free){
-            $amt2 = $amt - $left;
-            if($this->bid_credit < $amt2)
-                return ['error'=>"Insufficient bid credit"]; 
-
-            $this->bid_credit -= $amt2; 
-            $this->save();
         }
 
         $bidder->points += $amt;
@@ -116,12 +117,14 @@ class User extends Authenticatable
          
         //fire bid event here
         $bidders = Bidder::where('item_id', $item->id)->orderBy('updated_at', 'desc')->take(10)->get();
+        $bidders = view('bidders', compact('bidders')); 
         $data = [
             'bidders'=>"$bidders",
             'type'=>'bidders'
         ];
+        $this->creditBid($amt); 
         BidEvent::dispatch($data);
-        return ['done'=>true];
+        return ['done'=>true]; 
     }
 
     public function get_name()
