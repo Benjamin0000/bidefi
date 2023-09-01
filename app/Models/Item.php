@@ -123,7 +123,7 @@ class Item extends Model
         if( $bidder = Bidder::find($this->bidder_id) ){
             if($user = User::find($bidder->user_id)){
                 if($user->avatar)
-                    return Storage::url($user->avatar); 
+                    return $user->avatar; 
             }
                 
         }
