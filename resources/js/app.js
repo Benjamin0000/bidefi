@@ -236,6 +236,8 @@ $(document).on('submit', '#place_bid_form', (event) => {
   let id = params.get('id');
   let amt = Number(params.get('amt'));
   let min = Number(params.get('min')); 
+  let free_bid = Number(params.get('free_bid')); 
+  let used = Number(params.get('used')); 
   let cost = window.info.bid_fee; 
   msg.html('');
 
@@ -244,11 +246,21 @@ $(document).on('submit', '#place_bid_form', (event) => {
     return ;
   }
 
-
-  if(amt > window.info.points){
-    msg.html("<div class='alert alert-danger'><h5>Insuficient bid credits</h5></div>");
-    return ;
+  if(!free_bid){
+    if(amt > window.info.points){
+      msg.html("<div class='alert alert-danger'><h5>Insuficient bid credits</h5></div>");
+      return ;
+    }
+  }else{
+    if(used >= free_bid){
+      msg.html("<div class='alert alert-danger'><h5>You have exhausted your free credits</h5></div>");
+      return ;
+    }else if(amt > free_bid){
+      msg.html("<div class='alert alert-danger'><h5>Amount exceeds the aloted free credit</h5></div>");
+      return ;
+    }
   }
+
 
   btn.html("Please wait...")
   btn.attr('disabled', true)
