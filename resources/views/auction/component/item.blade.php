@@ -16,6 +16,8 @@
             </a>
         @if($auction->free_bid)
             <button class="wishlist-button bg-success" style="left: 0 !important; width:50px; background:var(--primary-color3) !important">Free</button>
+        @else 
+            <button class="wishlist-button bg-success" style="left: 0 !important; width:50px; background:red !important">Paid</button>
         @endif 
             
 
@@ -72,7 +74,7 @@
                 <h5><span id="c_bid{{$auction->id}}">{{number_format($auction->bid_price, 3)}}</span> ETH</h5>
             </div>
         </div>
-        @if($auction->status < 2)
+        @if(!$auction->start_time || now() < $auction->start_time)
             <div class="card-bottom">
                 <a href="{{route('auction.show', $auction->id)}}" class="sc-button style bag fl-button pri-3"><span>Place Bid</span></a>
             </div>

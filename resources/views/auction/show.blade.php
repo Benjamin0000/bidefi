@@ -20,6 +20,9 @@
                             <div class="left">
                                 @if($item->free_bid)
                                     <span class="bg-success" style="background:var(--primary-color3) !important; color:white;">Free</span>
+                                @else 
+                                    <span class="bg-danger" style="background:red !important; color:white;">Paid</span>
+
                                 @endif 
                                 <span class="viewed eye">{{$item->views}}</span>
                                 <span class="liked heart wishlist-button mg-l-8 {{$user && liked($item->id, $user->id) ? 'active': ''}}"><span class="number-like" onclick="likeItem({{$item->id}})">{{$item->likes}}</span></span>
@@ -87,7 +90,7 @@
                             @php 
                                $last_bidder = $item->last_bidder(); 
                             @endphp 
-                            @if($item->status < 2)
+                            @if(!$item->start_time || now() < $item->start_time)
                                 <a href="#" data-toggle="modal" data-target="#popup_bid" class="sc-button loadmore style bag fl-button pri-3"><span>Place a bid</span></a>
                             @elseif($user && $item->status == 2 && $last_bidder && $last_bidder->id == $user->id)
                                 <button id="claim_price" idd="{{$item->id}}" class="sc-button sc-button loadmore style bag fl-button pri-3 btn-block">Claim</button>
