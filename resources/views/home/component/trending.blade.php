@@ -47,7 +47,8 @@
                                             </div>
                                             <br>
                                         @else 
-                                            <br>
+                                            <div style="height: 20px;">></div>
+                                            
                                         @endif 
                                         <div class="card-title">
                                             <h5 class="style2"><a href="{{route('auction.show', $trending->id)}}">{{$trending->name}}</a></h5>
