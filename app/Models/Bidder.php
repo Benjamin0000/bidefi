@@ -39,7 +39,7 @@ class Bidder extends Model
 
         $bidder = view('bidder', compact('item'));
         $bidder2 = view('bidder2', compact('item'));
-        $data = [ 
+        $data = [  
             'id'=>$item->id,
             'bidder'=>"$bidder",
             'bidder2'=>"$bidder2",

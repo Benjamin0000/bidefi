@@ -117,6 +117,7 @@ class AdminController extends Controller
         $item->network = $request->input('network'); 
         $item->decimal = $request->input('decimal') ?: 0;
         $item->h = $h; 
+        $item->share =$request->input('share');
         $item->save(); 
         increase_items(); 
         return back()->with('success', 'item created'); 
@@ -138,6 +139,7 @@ class AdminController extends Controller
         $item->min_bid = $request->input('min_bid'); 
         $item->start_points = $request->input('start_points'); 
         $item->h = $h; 
+        $item->share =$request->input('share');
         $item->save(); 
         return redirect(route('admin.items'))->with('success', 'Item updated');
     }

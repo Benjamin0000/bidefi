@@ -102,7 +102,11 @@
             <h4 class="title-create-item">Decimals</h4>
             <input value="{{$item ? $item->decimal: ''}}" id="dec_input" type="number" name="decimal" class="form-control" placeholder="Eg: 18">
         </div>
-        <div class="col-lg-8">
+        <div class="col-lg-2">
+            <h4 class="title-create-item">Share</h4>
+            <input value="{{$item ? $item->share: 0}}" id="share" type="number" name="share" class="form-control" placeholder="Eg: 5">
+        </div>
+        <div class="col-lg-6">
             <h4 class="title-create-item">Contract address</h4>
             <input type="text" name="contract_address" class="form-control" value="{{$item ? $item->contract_address: ''}}" placeholder="If NFT or erc20">
         </div>

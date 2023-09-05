@@ -93,10 +93,10 @@
                             @if(!$item->start_time || now() < $item->start_time)
                                 <a href="#" data-toggle="modal" data-target="#popup_bid" class="sc-button loadmore style bag fl-button pri-3"><span>Place a bid</span></a>
                             @elseif($user && $item->status == 2 && $last_bidder && $last_bidder->id == $user->id)
-                                <button id="claim_price" idd="{{$item->id}}" class="sc-button sc-button loadmore style bag fl-button pri-3 btn-block">Claim</button>
+                                <button id="claim_price" idd="{{$item->id}}" net="{{$item->network}}" class="sc-button sc-button loadmore style bag fl-button pri-3 btn-block">Claim</button>
                                 <div id="c_msg"></div> 
                             @endif 
-                        @endif 
+                        @endif  
                         <div class="flat-tabs themesflat-tabs">
                             {{-- <ul class="menu-tab tab-title">
                                 <li class="item-title active">

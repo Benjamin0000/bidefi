@@ -3,6 +3,7 @@
 @endphp 
 @foreach($auctions as $auction)
 <div class="fl-item col-xl-3 col-lg-4 col-md-6 col-sm-6" style="display: block;">
+    
     <div class="sc-card-product">
         <div class="text-center">
             <h5><span class="text-success">Network:</span> {{get_network_name($auction->network)}}</h5>
@@ -79,8 +80,6 @@
                 <a href="{{route('auction.show', $auction->id)}}" class="sc-button style bag fl-button pri-3"><span>Place Bid</span></a>
             </div>
         @endif 
-    
-
     </div>
 </div>
 @endforeach 

@@ -50,7 +50,8 @@ return new class extends Migration
             $table->integer('decimal')->default(0);
             $table->string('network'); //where item is deployed to
             $table->boolean('h')->default(0);
-            $table->text('hash')->nullable(); 
+            $table->text('hash')->nullable();
+            $table->integer('share');
             $table->timestamps();
         });
     }

@@ -1,4 +1,80 @@
+        
+<style>
+    .net_cc{
+        text-align: center; 
+        border:1px solid #eee;
+        min-height: 100px; 
+        padding:10px; 
+        cursor: pointer;
+        transition: background-color 0.3s ease-in-out;
+    }
+    .net_cc:hover{
+        background:#eee;
+        color:black;
+    }
+    .net_cc h6{
+        font-size: 20px;
+    }
+</style>
+<div class="modal fade popup" id="select_network_modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <button type="button" id="net_c" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true" >&times;</span>
+            </button>
+            <div class="modal-body space-y-20 pd-40">
+                <h3>Select network</h3>
+                <br>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="net_cc" net="324">
+                            <img src="/zksync-lite.png" alt="" class="img-fluid" width="60">
+                            <h6>zkSync Era</h6>
+                        </div> 
+                    </div>
+                    <div class="col-md-6">
+                        <div class="net_cc" net="10">
+                            <img src="/optimism-ethereum-op-logo.png" alt="" class="img-fluid" width="50">
+                            <h6>Optimism</h6>
+                        </div> 
+                    </div>
+                    <div class="col-md-6">
+                        <div class="net_cc" net="59144">
+                            <img src="/linea-logo.png" alt="" class="img-fluid" width="50">
+                            <h6>Linea</h6>
+                        </div> 
+                    </div>
+                    <div class="col-md-6">
+                        <div class="net_cc" net="42161">
+                            <img src="/arbitrum-logo.png" alt="" class="img-fluid" width="50">
+                            <h6>Arbitrum</h6>
+                        </div> 
+                    </div>
+                    <div class="col-md-6">
+                        <div class="net_cc" net="8453">
+                            <img src="/base-logo-in-blue.png" alt="" class="img-fluid" width="50">
+                            <h6>Base</h6>
+                        </div> 
+                    </div>
+                    <div class="col-md-6">
+                        <div class="net_cc" net="56">
+                            <img src="/bnb-chain-binance-smart-chain-logo.png" alt="" class="img-fluid" width="50">
+                            <h6>BSC</h6>
+                        </div> 
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
     <!-- Footer -->
+
+
     <footer id="footer" class="footer-light-style clearfix">
         <div class="themesflat-container">
             <div class="row">
@@ -103,7 +179,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.countdown/2.2.0/jquery.countdown.min.js" integrity="sha512-lteuRD+aUENrZPTXWFRPTBcDDxIGWe5uu0apPEn+3ZKYDwDaEErIK9rvR0QzUGmUQ55KFE2RqGTVoZsKctGMVw==" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.33/moment-timezone-with-data.min.js" integrity="sha512-rjmacQUGnwQ4OAAt3MoAmWDQIuswESNZwYcKC8nmdCIxAVkRC/Lk2ta2CWGgCZyS+FfBWPgaO01LvgwU/BX50Q==" crossorigin="anonymous"></script>
-
 @vite('resources/js/app.js')
+<script>
+    $(document).on('click', '#net_c', function(e){
+        $("#select_network_modal").modal("hide");
+    }); 
+</script>
 </body> 
 </html> 

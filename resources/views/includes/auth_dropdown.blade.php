@@ -33,7 +33,7 @@
                 @if($user->fname)
                 <h4>{{$user->fname .' '. $user->lname}}</h4>
                 @else 
-                    <a href="/profile">Set name</a>
+                    <a href="/profile" style="color:aqua">Set name</a>
                 @endif 
                 <div class="d-flex align-items-center mt-20 mg-bt-12">
                     <div class="info">
@@ -50,7 +50,7 @@
                 <div class="d-flex align-items-center mt-20 mg-bt-12">
                     <div class="info">
                         <p>Bid Credit</p>
-                        <p class="style" style="color:white;"><span class="bid_credit_info"></span> &nbsp; <a href="/buy-credit" class="btn btn-primary">Buy Credit</a></p>
+                        <p class="style" style="color:white;"><span class="bid_credit_info">0</span> &nbsp; <a href="/buy-credit" class="btn btn-primary">Buy Credit</a></p>
                     </div>
                 </div>                
                 <p>Wallet</p>

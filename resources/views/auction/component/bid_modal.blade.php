@@ -25,7 +25,8 @@
                 <form id="place_bid_form">
                     <input type="number" name="amt" class="form-control quantity" required value="{{$item->min_bid}}}">
                     <br>
-                    
+
+                    <input type="hidden" name="network" value="{{$item->network}}">
                     <input type="hidden" name="free_bid" value="{{$item->free_bid}}">
                     <input type="hidden" name="used" value="{{$used}}">
                     
