@@ -3,7 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Support\Facades\Storage; 
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth; 
 use Illuminate\Database\Eloquent\Model;
 use App\Events\BidEvent; 
 use Carbon\Carbon; 
@@ -92,7 +93,11 @@ class Item extends Model
     {  
         if( $this->points <= $this->used ){
             $this->status = 2;
-            $this->winner = getWinner($this->id, $this->network);
+            if($this->share > 0){
+                set_winners($id); 
+            }else{
+                $this->winner = getTheWinner($this->id)->user->address;
+            }
             $this->save();
             $data = [
                 'id'=>$this->id,
@@ -128,5 +133,21 @@ class Item extends Model
                 
         }
         return ""; 
+    }
+
+    public function canClaim()
+    {
+        $user = Auth::user();
+        if($this->share > 0){
+            return Winner::where([ ['user_id', $user->id], ['item_id', $this->id], ['status', 0]  ])->exists(); 
+        }elseif($this->winner){
+            if(strtolower($this->winner) == strtolower($user->address))
+                return true; 
+        }else{
+            $bidder = Bidder::where('item_id', $this->id)->orderBy('points', 'desc')->first();
+            if($bidder && $bidder->user_id == $user->id)
+                return true; 
+        }
+        return false; 
     }
 }

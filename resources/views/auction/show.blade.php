@@ -57,8 +57,8 @@
                                 <span class="heading">Current Bid</span>
                                 <div class="price">
                                     <div class="price-box">
-                                        <h5><span id="the_bid_price_eth">{{number_format($item->bid_price, 3)}}</span> ETH</h5>
-                                        <span>=<span id="the_bid_price_usd">${{number_format(eth_to_usd($item->bid_price))}}</span></span>
+                                        {{-- <h5><span id="the_bid_price_eth">{{number_format($item->bid_price, 3)}}</span> ETH</h5> --}}
+                                        <span><span id="the_bid_price_usd">${{number_format($item->bid_price, 5)}}</span></span>
                                     </div>
                                 </div>
                             </div>
@@ -78,22 +78,19 @@
                             </div>
                         </div>
                         @if($item->points < $item->start_points && $item->status == 0)
-                        <div class="progress" style="height: 20px;">
-                            <div class="progress-bar bg-success" role="progressbar" style="width:{{get_pct($item->points, $item->start_points)}}%;height: 100%;font-size:15px;line-height:20px;" aria-valuenow="{{get_pct($item->points, $item->start_points)}}" aria-valuemin="0" aria-valuemax="{{get_pct($item->points, $item->start_points)}}">{{get_pct($item->points, $item->start_points)}}%</div>
-                        </div>
-                        <br>
-                    @endif 
+                            <div class="progress" style="height: 20px;">
+                                <div class="progress-bar bg-success" role="progressbar" style="width:{{get_pct($item->points, $item->start_points)}}%;height: 100%;font-size:15px;line-height:20px;" aria-valuenow="{{get_pct($item->points, $item->start_points)}}" aria-valuemin="0" aria-valuemax="{{get_pct($item->points, $item->start_points)}}">{{get_pct($item->points, $item->start_points)}}%</div>
+                            </div>
+                            <br>
+                        @endif 
                         @if(!$user)
                             <h5 class="text-center text-danger">Connect wallet to bid</h5>
                             <br>
                         @else 
-                            @php 
-                               $last_bidder = $item->last_bidder(); 
-                            @endphp 
-                            @if(!$item->start_time || now() < $item->start_time)
-                                <a href="#" data-toggle="modal" data-target="#popup_bid" class="sc-button loadmore style bag fl-button pri-3"><span>Place a bid</span></a>
-                            @elseif($user && $item->status == 2 && $last_bidder && $last_bidder->id == $user->id)
-                                <button id="claim_price" idd="{{$item->id}}" net="{{$item->network}}" class="sc-button sc-button loadmore style bag fl-button pri-3 btn-block">Claim</button>
+                            @if($item->status == 0)
+                                <a href="#" data-toggle="modal" data-target="#popup_bid" class="sc-button  style bag fl-button pri-3"><span>Place a bid</span></a>
+                            @elseif($item->status == 2 && $item->canClaim())
+                                <button id="claim_price" idd="{{$item->id}}" net="{{$item->network}}" class="sc-button sc-button style bag fl-button pri-3 btn-block" style="color:white;">Claim</button>
                                 <div id="c_msg"></div> 
                             @endif 
                         @endif  

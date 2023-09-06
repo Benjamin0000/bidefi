@@ -72,10 +72,10 @@
             </div>
             <div class="price">
                 <span>Current Bid</span>
-                <h5><span id="c_bid{{$auction->id}}">{{number_format($auction->bid_price, 3)}}</span> ETH</h5>
+                <h5><span>$</span><span id="c_bid{{$auction->id}}">{{number_format($auction->bid_price, 5)}}</span></h5>
             </div>
         </div>
-        @if(!$auction->start_time || now() < $auction->start_time)
+        @if($auction->status == 0)
             <div class="card-bottom">
                 <a href="{{route('auction.show', $auction->id)}}" class="sc-button style bag fl-button pri-3"><span>Place Bid</span></a>
             </div>

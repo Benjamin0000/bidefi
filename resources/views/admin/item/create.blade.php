@@ -46,7 +46,7 @@
             </div>
             <div class="col-lg-4">
                 <h4 class="title-create-item">Bid start price</h4>
-                <input type="text" name="start_price" required class="form-control" value="{{$item ? $item->start_price: ''}}" placeholder="in ETH">
+                <input type="text" name="start_price" required class="form-control" value="{{$item ? $item->start_price: ''}}" placeholder="in $">
             </div>
             <div class="col-lg-4">
                 <h4 class="title-create-item">Prize</h4>

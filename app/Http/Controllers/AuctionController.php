@@ -7,6 +7,7 @@ use App\Models\Item;
 use App\Models\Bidder;
 use App\Models\Likes; 
 use App\Models\BidHistory; 
+use App\Models\Winner;
 
 class AuctionController extends Controller
 {
@@ -63,13 +64,26 @@ class AuctionController extends Controller
         $id = $request->input('id'); 
         $hash = $request->input('hash'); 
         $item = Item::find($id);
-        
-        $bidder = Bidder::find($item->bidder_id); 
-        $bidder->hash = $hash; 
-        $bidder->save();  
+        $user = Auth::user(); 
+        if(!$user) return; 
+        if($item->canClaim()){
+            $bidder = Bidder::where([ ['item_id', $id], ['user_id', $user->id] ])->first();
+            $bidder->hash = $hash; 
+            $bidder->winner = 1;
+            $bidder->save();
 
-        $item->status = 3;
-        $item->save(); 
+            if($item->share > 0){
+                $winner = Winner::where([ ['user_id', $user->id], ['item_id', $id], ['status', 0] ])->first(); 
+                $winner->status = 1;
+                $winner->save(); 
+                $winners = Winner::where([ ['item_id', $id], ['status', 1] ])->count();
+                if($winners >= $item->share)
+                    $item->status = 3;
+            }else{
+                $item->status = 3;
+            }
+            $item->save(); 
+        }
         return ['done'=>true]; 
     }
 

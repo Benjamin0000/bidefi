@@ -13,10 +13,12 @@ use App\Models\User;
 use App\Models\Bidder;
 use App\Models\Likes; 
 use App\Models\BidHistory; 
+use App\Models\Winner; 
 
 function get_network_name($id)
 {
     $name = ""; 
+
     if($id == 324)
         $name = "zkSync Era";
     elseif($id == 59144)
@@ -25,25 +27,49 @@ function get_network_name($id)
         $name = "Base";
     elseif($id == 56)
         $name = "BSC"; 
-    elseif($id == 97)
-        $name = "BSC"; 
+    elseif($id == 42161)
+        $name = "Arbitrum One";
+    elseif($id == 10)
+        $name = "OP Mainnet"; 
+
     return $name; 
 }
 
 function get_end_points($id)
 {
     $url = ""; 
-    if($id == 97)
-        $url = "https://bsc-testnet.blastapi.io/f2b29838-49dc-4e95-8484-7982c6d0a121"; 
+    if($id == 324)
+        $url = "https://mainnet.era.zksync.io";
+    elseif($id == 59144)
+        $url = "https://linea-mainnet.infura.io/v3/".env('INFURA_KEY');
+    elseif($id == 8453)
+        $url = "https://base-mainnet.blastapi.io/".env('BLAST_KEY');
+    elseif($id == 56)
+        $url = "https://bsc-mainnet.blastapi.io/".env('BLAST_KEY'); 
+    elseif($id == 42161)
+        $url = "https://arbitrum-one.blastapi.io/".env('BLAST_KEY');
+    elseif($id == 10)
+        $url = "https://optimism-mainnet.blastapi.io/".env('BLAST_KEY'); 
 
     return $url;     
 }
 
 function get_contract_adress($id)
 {
-    $address = ""; 
-    if($id == 97)
-        $address = "0xeE786C860418BB103853D9B519F819Dafb154182"; 
+    $address = "";
+
+    if($id == 324)
+        $address = "0x4d73cDFF03C4Cf245Bc203374B83f4c43a292bfC";
+    elseif($id == 59144)
+        $address = "0x88842fa0Af9266cfAe10B7470A9A80384195746c";
+    elseif($id == 8453)
+        $address = "0x88842fa0Af9266cfAe10B7470A9A80384195746c";
+    elseif($id == 56)
+        $address = "0x1EE4CC90e11a42635C1e7829Aa08d5e3FC5eDe8C"; 
+    elseif($id == 42161)
+        $address = "0x88842fa0Af9266cfAe10B7470A9A80384195746c";
+    elseif($id == 10)
+        $address = "0x88842fa0Af9266cfAe10B7470A9A80384195746c"; 
 
     return $address;
 }
@@ -295,7 +321,7 @@ function confirm_bid($address, $id, $network)
 
 
 function getWinner($id, $network)
-{
+{ 
     $contract = new Contract(get_end_points($network), get_abi());
     $result =  ""; 
     try{ 
@@ -332,64 +358,20 @@ function getWinner($id, $network)
 function getTheWinner($id)
 {
     if($item = Item::find($id)){
-        $bidder = Bidder::where('item_id', $id)->orderBy('points', 'desc')->first(); 
+        $bidder = Bidder::where('item_id', $id)->orderBy('points', 'desc')->latest()->first();
         return $bidder ?: ''; 
     }
     return; 
 }
 
-
-function setWinner($id)
+function set_winners($id)
 {
-    // Set up the Ethereum node URL
-    $ethereumNodeUrl = env('NODE_ENDPOINT');
-    // Replace with your private key and Ethereum address
-    $privateKey = env('BOT_PK');
-    $fromAddress = env('BOT_ADDRESS');
-    // Create a Web3 instance
-    $web3 = new Web3(new HttpProvider(new HttpRequestManager($ethereumNodeUrl)));
-    // Define the contract address and ABI
-    $contractAddress = '0xE6a739951DF7E80863cea984b4B624a63fbA8c33';
-    $contractAbi = json_decode(get_abi(), true);
-
-    // Create a contract instance
-    $contract = new Contract($web3->provider, $contractAbi);
-
-    $web3->eth->gasPrice(function ($error, $gasPrice) use ($web3, $contract, $id, $contractAddress, $privateKey, $fromAddress) {
-        if ($error !== null) {
-            echo "Error getting gas price: $error\n";
-            return;
-        }
-
-        $web3->eth->getTransactionCount($fromAddress, 'latest', function ($error, $nonce) use ($web3, $contract, $id, $contractAddress, $privateKey, $fromAddress, $gasPrice) {
-            if ($error !== null) {
-                echo "Error getting nonce: $error\n";
-                return;
-            }
-
-            $last_bidder = getTheWinner($id); 
-            if(!$last_bidder) return; 
-            $address = $last_bidder->user->address; 
-            
-            $functionSignature = 'set_winner(uint256,address)';
-            $data = $functionSignature;
-            $data .= str_pad(dechex($id), 64, '0', STR_PAD_LEFT); // Convert ID to 32-byte hexadecimal
-            $data .= substr($address, 2); // Remove '0x' from address
-            $nonceInt = $nonce->toString(); // Convert BigInteger to string
-
-            $transactionData = [
-                'from' => $fromAddress,
-                'to' => $contractAddress,
-                'nonce' => '0x' . dechex((int)$nonceInt),
-                'gasPrice' => $gasPrice,
-                'gas' => '0x' . dechex(300000), // Adjust the gas limit if needed
-                'data' => $data,
-            ];
-
-            $signedTransaction = $web3->eth->signTransaction($transactionData, $privateKey);
-
-            $txHash = $web3->eth->sendRawTransaction($signedTransaction);
-            echo "Transaction hash: $txHash\n";
-        });
-    }); 
+    $item = Item::find($id);
+    $bidders = Bidder::where('item_id', $id)->orderBy('points', 'desc')->latest()->take($item->share)->get();
+    foreach($bidders as $bidder){
+        Winner::create([
+            'user_id'=>$bidder->user_id,
+            'item_id'=>$item->id
+        ]); 
+    }
 }

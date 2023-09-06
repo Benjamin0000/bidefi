@@ -44,8 +44,8 @@ class Bidder extends Model
             'bidder'=>"$bidder",
             'bidder2'=>"$bidder2",
             'timer'=>$item->timer,
-            'bid_price'=>number_format($item->bid_price, 2),
-            'bid_price_usd'=>number_format(eth_to_usd($item->bid_price), 2),
+            'bid_price'=>number_format($item->bid_price, 5),
+            // 'bid_price_usd'=>number_format(eth_to_usd($item->bid_price), 2),
             'status'=>$item->status,
             'type'=>'bid'
         ];
