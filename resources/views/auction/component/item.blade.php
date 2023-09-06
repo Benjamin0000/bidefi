@@ -6,7 +6,12 @@
     
     <div class="sc-card-product">
         <div class="text-center">
-            <h5><span class="text-success">Network:</span> {{get_network_name($auction->network)}}</h5>
+            <h5>
+                @if($auction->share)
+                    <span class="text-info" style="position: absolute;left:30px">{{$auction->share}} <b class="fas fa-users"></b></span>
+                @endif 
+                <span class="text-success">Network:</span> {{get_network_name($auction->network)}}
+            </h5>
         </div>
         <br>
         <div class="card-media style2">
@@ -52,7 +57,7 @@
                 @elseif($auction->type == 3)
                     ERC-20
                 @elseif($auction->type == 4)
-                    ETH
+                    {{strtoupper($auction->symbol)}}
                 @endif 
             </div>
         </div>

@@ -28,7 +28,9 @@
                                 <span class="liked heart wishlist-button mg-l-8 {{$user && liked($item->id, $user->id) ? 'active': ''}}"><span class="number-like" onclick="likeItem({{$item->id}})">{{$item->likes}}</span></span>
                                 
                                 <span class="mg-l-8"><b class="text-success">Network:</b> <b>{{get_network_name($item->network)}}</b></span>
-
+                                @if($item->share)
+                                <span class="mg-l-8"><b class="fas fa-users"></b> {{$item->share}}</span>
+                                @endif 
                             </div>
                             <div class="right">
                                 {{-- <a href="item-details.html#" class="share"></a>
