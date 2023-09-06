@@ -11,7 +11,8 @@ var supported_networks = [
   8453,
   56,
   42161,
-  10
+  10,
+  97
 ]; 
 
 
@@ -23,7 +24,8 @@ function get_contract() {
   let linea = "0x88842fa0Af9266cfAe10B7470A9A80384195746c";
   let base = "0x88842fa0Af9266cfAe10B7470A9A80384195746c"; 
   let bsc = '0x1EE4CC90e11a42635C1e7829Aa08d5e3FC5eDe8C'; 
-  
+  let bsc2 = '0xb0634bb4857bab45ac4fc440fee6e715824a96ef';
+
   if (id == 324) {
     return zk;
   } else if (id == 59144) {
@@ -36,8 +38,9 @@ function get_contract() {
     return arbitrum;
   }else if(id == 10){
     return optimism; 
+  }else if(id == 97){
+    return bsc2;
   }
-  return 0;
 }
 import {
   getAccount,

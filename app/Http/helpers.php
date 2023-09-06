@@ -31,6 +31,8 @@ function get_network_name($id)
         $name = "Arbitrum One";
     elseif($id == 10)
         $name = "OP Mainnet"; 
+    elseif($id == 97)
+        $name = "BSC Testnet";
 
     return $name; 
 }
@@ -50,7 +52,8 @@ function get_end_points($id)
         $url = "https://arbitrum-one.blastapi.io/".env('BLAST_KEY');
     elseif($id == 10)
         $url = "https://optimism-mainnet.blastapi.io/".env('BLAST_KEY'); 
-
+    elseif($id == 97)
+        $url = "https://bsc-testnet.blastapi.io/".env('BLAST_KEY');
     return $url;     
 }
 
@@ -70,6 +73,8 @@ function get_contract_adress($id)
         $address = "0x88842fa0Af9266cfAe10B7470A9A80384195746c";
     elseif($id == 10)
         $address = "0x88842fa0Af9266cfAe10B7470A9A80384195746c"; 
+    elseif($id == 97)
+        $address = "0xb0634bb4857bab45ac4fc440fee6e715824a96ef"; 
 
     return $address;
 }
