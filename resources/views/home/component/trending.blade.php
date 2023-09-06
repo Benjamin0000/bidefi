@@ -9,9 +9,15 @@
                         @foreach($trendings as $trending)
                             <div class="swiper-slide">
                                 <div class="slider-item">
+
                                     <div class="sc-card-product">
                                         <div class="text-center">
-                                            <h5><span class="text-success">Network:</span> {{get_network_name($trending->network)}}</h5>
+                                            <h5>
+                                                @if($trending->share)
+                                                    <span class="text-info" style="position: absolute;left:30px">{{$trending->share}} <b class="fas fa-users"></b></span>
+                                                @endif 
+                                                <span class="text-success">Network:</span> {{get_network_name($trending->network)}}
+                                            </h5>
                                         </div>
                                         <br>
                                         <div class="card-media style2">
@@ -46,9 +52,6 @@
                                                 <div class="progress-bar bg-success" role="progressbar" style="width:{{get_pct($trending->points, $trending->start_points)}}%;height: 100%;font-size:15px;line-height:20px;" aria-valuenow="{{get_pct($trending->points, $trending->start_points)}}" aria-valuemin="0" aria-valuemax="{{get_pct($trending->points, $trending->start_points)}}">{{get_pct($trending->points, $trending->start_points)}}%</div>
                                             </div>
                                             <br>
-                                        @else 
-                                            <div style="min-height: 27px;">></div>
-                                            
                                         @endif 
                                         <div class="card-title">
                                             <h5 class="style2"><a href="{{route('auction.show', $trending->id)}}">{{$trending->name}}</a></h5>
@@ -60,7 +63,7 @@
                                                 @elseif($trending->type == 3)
                                                     ERC-20
                                                 @elseif($trending->type == 4)
-                                                    ETH
+                                                    {{strtoupper($trending->symbol)}}
                                                 @endif 
                                             </div>
                                         </div>
@@ -80,15 +83,16 @@
                                             </div>
                                             <div class="price">
                                                 <span>Current Bid</span>
-                                                <h5><span id="c_bid{{$trending->id}}">{{number_format($trending->bid_price, 3)}}</span> ETH</h5>
+                                                <h5><span>$</span><span id="c_bid{{$trending->id}}">{{number_format($trending->bid_price, 5)}}</span></h5>
                                             </div>
                                         </div>
-                                        @if(!$trending->start_time || now() < $trending->start_time)
+                                        @if($trending->status == 0)
                                             <div class="card-bottom">
                                                 <a href="{{route('auction.show', $trending->id)}}" class="sc-button style bag fl-button pri-3"><span>Place Bid</span></a>
                                             </div>
                                         @endif 
                                     </div>
+
                                     {{-- <div class="wrap-cart">
                                         <div class="cart_item style2 style3">
                                             <div class="inner-cart">
