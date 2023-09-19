@@ -54,10 +54,10 @@
                     ${{number_format($item->price, 2)}}
                 </td>
                 <td>
-                    ETH {{number_format($item->bid_price, 5)}}
+                    ${{$item->bid_price}}
                 </td>
                 <td>
-                    ETH {{number_format($item->start_price, 5)}}
+                    ${{$item->start_price}}
                 </td>
                 <td>
                     <div>{{$item->ctd_timer}} Minutes</div> 
