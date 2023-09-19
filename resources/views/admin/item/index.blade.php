@@ -44,11 +44,14 @@
                         ERC-1155
                     @elseif($item->type == 3)
                         <div>ERC-20</div> 
-                        {{number_format($item->prize, 3)}} {{$item->symbol}}
+                        {{$item->prize}} {{$item->symbol}}
                     @elseif($item->type == 4)
                         <div>Native token</div> 
-                        {{number_format($item->prize, 3)}} {{$item->symbol}}
+                        {{$item->prize}} {{$item->symbol}}
                     @endif 
+                    <div>
+                        {{get_network_name($item->network)}}
+                    </div> 
                 </td>
                 <td>
                     ${{number_format($item->price, 2)}}
