@@ -203,7 +203,7 @@ function top_bidders()
 
 function upcoming()
 {
-    return Item::where('status', 0)->paginate(8);
+    return Item::where('status', 0)->latest()->paginate(8);
 }
 
 function completed()

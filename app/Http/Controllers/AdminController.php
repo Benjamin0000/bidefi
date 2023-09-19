@@ -70,7 +70,7 @@ class AdminController extends Controller
      */
     public function items()
     {
-        $items = Item::paginate(10); 
+        $items = Item::latest()->paginate(10); 
         return view('admin.item.index', compact('items')); 
     }
 
@@ -117,7 +117,7 @@ class AdminController extends Controller
         $item->network = $request->input('network'); 
         $item->decimal = $request->input('decimal') ?: 0;
         $item->h = $h; 
-        $item->share =$request->input('share');
+        $item->share = $request->input('share');
         $item->save(); 
         increase_items(); 
         return back()->with('success', 'item created'); 
@@ -134,12 +134,11 @@ class AdminController extends Controller
         $item->url = $request->input('url'); 
         $item->price = $request->input('price');
         $item->start_price = $request->input('start_price');
-        $item->ctd_timer = $request->input('start_time'); 
+        // $item->ctd_timer = $request->input('start_time'); 
         $item->symbol = $request->input('symbol');
         $item->min_bid = $request->input('min_bid'); 
-        $item->start_points = $request->input('start_points'); 
-        $item->h = $h; 
-        $item->share =$request->input('share');
+        //$item->start_points = $request->input('start_points'); 
+        $item->h = $h;
         $item->save(); 
         return redirect(route('admin.items'))->with('success', 'Item updated');
     }

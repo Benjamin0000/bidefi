@@ -58,10 +58,10 @@
     <br>
 
     <div class="row">
-        <div class="col">
+        {{-- <div class="col">
             <h4 class="title-create-item">Start Time</h4>
             <input type="text" name="start_time" class="form-control" value="{{$item->ctd_timer}}" required placeholder="In minutes">
-        </div>
+        </div> --}}
         <div class="col">
             <h4 class="title-create-item">Symbol</h4>
             <input type="text" name="symbol" class="form-control" value="{{$item->symbol}}" placeholder="If erc-20”">
@@ -72,10 +72,10 @@
             <input type="text" name="min_bid" class="form-control" value="{{$item->min_bid}}" required placeholder="Minimum bid allowed">
         </div>
 
-        <div class="col">
+        {{-- <div class="col">
             <h4 class="title-create-item">Required total Bid</h4>
             <input type="text" name="start_points" class="form-control" value="{{$item->start_points}}" required placeholder="Bid required before countdown">
-        </div>
+        </div> --}}
     </div>
     <br>
     <br>
