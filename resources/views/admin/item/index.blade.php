@@ -49,7 +49,7 @@
                         <div>Native token</div> 
                         {{$item->prize}} {{$item->symbol}}
                     @endif 
-                    <div>
+                    <div class="text-info">
                         {{get_network_name($item->network)}}
                     </div> 
                 </td>
