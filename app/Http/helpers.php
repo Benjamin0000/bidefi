@@ -37,6 +37,27 @@ function get_network_name($id)
     return $name; 
 }
 
+function get_logo($id)
+{
+    $logo = ""; 
+    if($id == 324)
+        $logo = "/icon/zksync.png";
+    elseif($id == 59144)
+        $logo = "/icon/linea.png";
+    elseif($id == 8453)
+        $logo = "/icon/base.png";
+    elseif($id == 56)
+        $logo = "/icon/bnb.png";
+    elseif($id == 42161)
+        $logo = "/icon/arbitrum.png";
+    elseif($id == 10)
+        $logo = "/icon/optimism.png"; 
+    elseif($id == 97)
+        $logo = "/icon/bnb.png";
+
+    return $logo;
+}
+
 function get_end_points($id)
 {
     $url = ""; 

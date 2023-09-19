@@ -13,10 +13,10 @@
                                     <div class="sc-card-product">
                                         <div class="text-center">
                                             <h5>
-                                                @if($trending->share)
+                                                @if($trending->share > 1)
                                                     <span class="text-info" style="position: absolute;left:30px">{{$trending->share}} <b class="fas fa-users"></b></span>
                                                 @endif 
-                                                <span class="text-success">Network:</span> {{get_network_name($trending->network)}}
+                                                <img src="{{get_logo($trending->network)}}" width="30" alt="">
                                             </h5>
                                         </div>
                                         <br>
@@ -26,6 +26,7 @@
                                                     <img src="{{$trending->image}}" style="object-fit: contain;" alt="Image">
                                                 </div>
                                             </a>
+
                                         @if($trending->free_bid)
                                             <button class="wishlist-button bg-success" style="left: 0 !important; width:50px; background:var(--primary-color3) !important">Free</button>
                                         @else 

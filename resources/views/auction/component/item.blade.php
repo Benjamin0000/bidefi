@@ -7,10 +7,11 @@
     <div class="sc-card-product">
         <div class="text-center">
             <h5>
-                @if($auction->share)
+                @if($auction->share > 1)
                     <span class="text-info" style="position: absolute;left:30px">{{$auction->share}} <b class="fas fa-users"></b></span>
                 @endif 
-                <span class="text-success">Network:</span> {{get_network_name($auction->network)}}
+                <img src="{{get_logo($auction->network)}}" width="30" alt="">
+                {{-- <img src="{{get_logo($auction->network)}}" width="30" alt=""> --}}
             </h5>
         </div>
         <br>
