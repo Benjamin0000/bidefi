@@ -45,8 +45,8 @@
                 <input type="text" name="price" class="form-control" value="{{$item->price}}" required placeholder="Enter price for item (USD)">
             </div>
             <div class="col-lg-4">
-                <h4 class="title-create-item">Bid start price [ETH]</h4>
-                <input type="text" name="start_price" required value="{{$item->start_price}}" class="form-control" placeholder="in ETH">
+                <h4 class="title-create-item">Bid start price [$]</h4>
+                <input type="text" name="start_price" required value="{{$item->start_price}}" class="form-control" placeholder="in $">
             </div>
         </div> 
     </p> 
