@@ -116,6 +116,10 @@
                 </div>
             </div>
         </div>
+        <h2 class="text-center" style="margin-top:20px; margin-bottom:30px;">Recommended</h2>
+        <div class="row">
+            @include('auction.component.item', ['auctions'=>$items])
+        </div>
     </div>
 </div>
 <script>

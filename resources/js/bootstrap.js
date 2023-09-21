@@ -63,19 +63,22 @@ window.Echo.channel(`main-channel`)
                     $('#the_timer').countdown(date.toDate(), function (event) {
                         $(this).html("<span class='counter'>" + event.strftime('%S') + "</span>");
                     });
-
                     // $("#the_bid_price_eth").html(data.bid_price);
                     $("#the_bid_price_usd").html('$' + data.bid_price);
-                    $(".price-box").css('background', 'yellow'); 
-                    $(".price-box").css('background', 'none');
+                    $(".price-box").css('background', 'orange'); 
+                    setTimeout(()=>{
+                        $(".price-box").css('background', 'none');
+                    }, 200)
                 } else {
                     $("#timer" + data.id).countdown(date.toDate(), function (event) {
                         $(this).html("<span class='counter'>" + event.strftime('%S') + "</span>");
                     });
                     $("#c_bid" + data.id).html(data.bid_price);
                     $("#author" + data.id).html(data.bidder2);
-                    $("#c_bid" + data.id).css('background', 'yellow'); 
-                    $("#c_bid" + data.id).css('background', 'none'); 
+                    $("#c_bid" + data.id).css('background', 'orange'); 
+                    setTimeout(()=>{
+                        $("#c_bid" + data.id).css('background', 'none');
+                    }, 200)
                 }
                 break;
             case 'bidders':
