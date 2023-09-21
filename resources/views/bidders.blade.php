@@ -1,7 +1,7 @@
 @foreach($bidders as $bidder)
 <li>
     <div class="content">
-        <div class="client">
+        <div class="client"> 
             <div class="sc-author-box style-2">
                 <div class="author-avatar">
                     <a href="#">
@@ -23,8 +23,8 @@
             </div>
         </div>
         <div class="price">
-            <h5> {{get_bid_value($bidder->points)}} ETH</h5>
-            <span>= ${{eth_to_usd( get_bid_value($bidder->points) )}}</span>
+            <h5>${{ number_format($bidder->points * $bidder->item->start_price, 3)}}</h5>
+            {{-- <span>= ${{eth_to_usd( get_bid_value($bidder->points) )}}</span> --}}
         </div>
     </div>
 </li>
