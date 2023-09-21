@@ -393,6 +393,7 @@ function getTheWinner($id)
 function set_winners($id)
 {
     $item = Item::find($id);
+    if(!$item) return; 
     $bidders = Bidder::where('item_id', $id)->orderBy('points', 'desc')->latest()->take($item->share)->get();
     foreach($bidders as $bidder){
         Winner::create([
