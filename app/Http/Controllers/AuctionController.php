@@ -56,7 +56,7 @@ class AuctionController extends Controller
     {
         $item = Item::findOrFail($item_id);
         $bidders = Bidder::where('item_id', $item->id)->orderBy('updated_at', 'desc')->take(10)->get(); 
-        $items = Item::where('network', $item->network)->latest()->take(10)->get(); 
+        $items = Item::where([ ['network', $item->network], ['status', 0] ])->latest()->take(8)->get(); 
         return view('auction.show', compact('item', 'bidders', 'items')); 
     }
 
