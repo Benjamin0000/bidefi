@@ -14,7 +14,7 @@
                         <p class="sub-widget-logo">Lorem ipsum dolor sit amet,consectetur adipisicing elit. Quis non, fugit totam vel laboriosam vitae.</p>
                     </div>
                 </div>
-                <div class="col-lg-2 col-md-4 col-sm-5 col-5">
+                {{-- <div class="col-lg-2 col-md-4 col-sm-5 col-5">
                     <div class="widget widget-menu style-1">
                         <h5 class="title-widget">My Account</h5>
                         <ul>
@@ -24,15 +24,15 @@
                             <li><a href="create-item.html">Create Item</a></li>
                         </ul>
                     </div>
-                </div>
+                </div> --}}
                 <div class="col-lg-2 col-md-4 col-sm-7 col-7">
                     <div class="widget widget-menu style-2">
                         <h5 class="title-widget">Resources</h5>
                         <ul>
                             <li><a href="help-center.html">Help & Support</a></li>
                             <li><a href="auctions.html">Live Auctions</a></li>
-                            <li><a href="item-details.html">Item Details</a></li>
-                            <li><a href="activity1.html">Activity</a></li>
+                            {{-- <li><a href="item-details.html">Item Details</a></li> --}}
+                            {{-- <li><a href="activity1.html">Activity</a></li> --}}
                         </ul>
                     </div>
                 </div>
@@ -40,7 +40,7 @@
                     <div class="widget widget-menu fl-st-3">
                         <h5 class="title-widget">Company</h5>
                         <ul>
-                            <li><a href="explore-1.html">Explore</a></li>
+                            {{-- <li><a href="explore-1.html">Explore</a></li> --}}
                             <li><a href="contact1.html">Contact Us</a></li>
                             <li><a href="blog.html">Our Blog</a></li>
                             <li><a href="faq.html">FAQ</a></li>
