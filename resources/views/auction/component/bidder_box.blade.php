@@ -12,7 +12,7 @@
             </div>
             <div class="author-infor">
                 <h5><a href="#">{{$bidder->get_name()}}</a></h5>
-                <span class="price">${{$bidder->total_credit * $bidder->item->}}</span>
+                <span class="price">{{$bidder->total_credit}} CREDITS</span>
             </div>
         </div>    	
     </div><!-- item--> 
