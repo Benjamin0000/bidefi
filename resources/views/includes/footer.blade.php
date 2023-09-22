@@ -2,6 +2,7 @@
     <footer id="footer" class="footer-light-style clearfix">
         <div class="themesflat-container">
             <div class="row">
+
                 <div class="col-lg-3 col-md-12 col-12">
                     <div class="widget widget-logo">
                         <div class="logo-footer" id="logo-footer">
@@ -14,18 +15,8 @@
                         <p class="sub-widget-logo">Lorem ipsum dolor sit amet,consectetur adipisicing elit. Quis non, fugit totam vel laboriosam vitae.</p>
                     </div>
                 </div>
-                {{-- <div class="col-lg-2 col-md-4 col-sm-5 col-5">
-                    <div class="widget widget-menu style-1">
-                        <h5 class="title-widget">My Account</h5>
-                        <ul>
-                            <li><a href="author01.html">Authors</a></li>
-                            <li><a href="connect-wallet.html">Collection</a></li>
-                            <li><a href="profile.html">Author Profile</a></li>
-                            <li><a href="create-item.html">Create Item</a></li>
-                        </ul>
-                    </div>
-                </div> --}}
-                <div class="col-lg-2 col-md-4 col-sm-7 col-7">
+
+                <div class="col-lg-3 col-md-4 col-sm-7 col-7">
                     <div class="widget widget-menu style-2">
                         <h5 class="title-widget">Resources</h5>
                         <ul>
@@ -36,7 +27,8 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-lg-2 col-md-4 col-sm-5 col-5">
+
+                <div class="col-lg-3 col-md-4 col-sm-5 col-5">
                     <div class="widget widget-menu fl-st-3">
                         <h5 class="title-widget">Company</h5>
                         <ul>
@@ -47,6 +39,7 @@
                         </ul>
                     </div>
                 </div>
+
                 <div class="col-lg-3 col-md-6 col-sm-7 col-12">
                     <div class="widget widget-subcribe">
                         <h5 class="title-widget">Subscribe Us</h5>
