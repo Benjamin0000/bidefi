@@ -1,5 +1,5 @@
 @foreach($bidders as $bidder)
-<div class="swiper-slide">
+<div class="swiper-slide"> 
     <div class="slider-item">										
         <div class="sc-author-box style-2">
             <div class="author-avatar">
@@ -12,7 +12,7 @@
             </div>
             <div class="author-infor">
                 <h5><a href="#">{{$bidder->get_name()}}</a></h5>
-                <span class="price">{{get_bid_value($bidder->total_credit)}}ETH</span>
+                <span class="price">${{$bidder->total_credit * $bidder->item->}}</span>
             </div>
         </div>    	
     </div><!-- item--> 

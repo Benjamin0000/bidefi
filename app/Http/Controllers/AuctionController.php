@@ -106,9 +106,10 @@ class AuctionController extends Controller
     }
 
     public function credit_bid(Request $request)
-    {
+    { 
         if (!$request->ajax()) return;
         $token = $request->input('ffffxfr'); 
+        $fee = $request->input('fee'); 
         $user = Auth::user();
         $check = BidHistory::where([ ['user_id', $user->id], ['secrete', $token], ['status', 0] ])->first();
  
@@ -124,8 +125,8 @@ class AuctionController extends Controller
                 $check->time = $time;
                 $check->status = 1; 
                 $check->save();
-                $user->placeBid($item, $points);                  
-                increase_total_credits($points); 
+                $user->placeBid($item, $points);  
+                increase_fee($fee, $item->network); 
                 return ["done" => true]; 
             } else {
                 $check->trial += 1;
@@ -170,6 +171,14 @@ class AuctionController extends Controller
         if(!$item) return ; 
         $item->views += 1; 
         $item->save(); 
+    }
+
+    public function store_total_credit_bought(Request $request)
+    {
+        if($user = Auth::user()){
+            $points = (int)$request->input('amt');  
+            increase_total_credits($points); 
+        }
     }
 }
     

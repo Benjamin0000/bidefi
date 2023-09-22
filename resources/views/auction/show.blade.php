@@ -22,9 +22,8 @@
                                     <span class="bg-success" style="background:var(--primary-color3) !important; color:white;">Free</span>
                                 @else 
                                     <span class="bg-danger" style="background:red !important; color:white;">Paid</span>
-
                                 @endif 
-                                <span class="viewed eye">{{$item->views}}</span>
+                                <span class="viewed eye">1</span>
                                 <span class="liked heart wishlist-button mg-l-8 {{$user && liked($item->id, $user->id) ? 'active': ''}}"><span class="number-like" onclick="likeItem({{$item->id}})">{{$item->likes}}</span></span>
                                 
                                 <span class="mg-l-8"><img src="{{get_logo($item->network)}}" width="30" alt=""></span>

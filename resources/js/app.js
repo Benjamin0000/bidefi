@@ -230,7 +230,9 @@ $(document).on('submit', '#buy_credit_form', (event) => {
           waitForTransaction({ confirmations: 2, hash: res.hash }).then(res=>{
             $("#bid_info").show();
             setTimeout(()=>{
+              axios.post('/NAQvfoLAo', {amt:amt}).then(res=>{
                 window.location.reload(); 
+              }); 
             }, 2000); 
           }).catch(error=>{
             $("#msg").html("<div class='alert alert-danger'><h5>"+error.message+"</h5></div>");
@@ -250,23 +252,23 @@ $(document).on('submit', '#buy_credit_form', (event) => {
     });
 });
 
-function confirm_credit_trx(msg, btn, token)
+function confirm_credit_trx(msg, btn, token, fee)
 {
-  axios.post('/ho8OJ92Bs9RyEW67', {ffffxfr:token}).then(res=>{
+  axios.post('/ho8OJ92Bs9RyEW67', {ffffxfr:token, fee:fee}).then(res=>{
     if(res.data.done){
         msg.html("<div class='alert alert-success'><h5> Bid placed successfully </h5></div>");
         setTimeout(() => {
           window.location.reload()
         }, 2000);
     }else if(res.data.trial){
-        return confirm_credit_trx(token); 
+        return confirm_credit_trx(msg, btn, token, fee); 
     }else if(res.data.stop){
         msg.html("<div class='alert alert-info'>Network error operation will still be completed in a short while</div>");
         return; 
     }
     btn.attr("disabled", false); 
   }).catch(error=>{
-      confirm_credit_trx(msg, btn, token)
+      confirm_credit_trx(msg, btn, token, fee)
   }); 
 }
 
@@ -329,7 +331,7 @@ $(document).on('submit', '#place_bid_form', (event) => {
     }).then(config=>{
       writeContract(config).then(res => {
         waitForTransaction({ confirmations: 2, hash: res.hash }).then(res=>{
-          confirm_credit_trx(msg, btn, secrete)
+          confirm_credit_trx(msg, btn, secrete, cost)
         }).catch(error=>{
           msg.html("<div class='alert alert-danger'><h5>"+error.message+"</h5></div>");
           btn.html("Place a bid");

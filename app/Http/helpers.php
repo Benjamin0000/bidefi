@@ -1,6 +1,7 @@
 <?php
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Auth;
+use Throwable;
 use Elliptic\EC;
 use Web3\Contract;
 use Web3\Web3;
@@ -118,23 +119,53 @@ function cal_pct($total, $pct)
     return ($pct / 100) * $total; 
 }
 
+function query_price($name, $reg_name)
+{
+    try{
+        $data = Http::get('https://api.coingecko.com/api/v3/coins/'.$name);
+        $price = isset($data['market_data']) && 
+        isset($data['market_data']['current_price']) && 
+        isset($data['market_data']['current_price']['usd']) ? 
+        $data['market_data']['current_price']['usd'] : 0;
+        $reg = Register::where('name', $reg_name)->first();
+    
+        if($price){
+            if(!$reg){
+               $reg = new Register();
+               $reg->name = $reg_name;
+            }
+            $reg->value = $price;
+            $reg->save();
+        }
+    }catch(Throwable $e){}
+}
+
 function setEthPrice() 
 {
-    $data = Http::get('https://api.coingecko.com/api/v3/coins/ethereum');
-    $price = isset($data['market_data']) && 
-    isset($data['market_data']['current_price']) && 
-    isset($data['market_data']['current_price']['usd']) ? 
-    $data['market_data']['current_price']['usd'] : 0;
-    $reg = Register::where('name', 'eth_price')->first();
+    query_price('ethereum', 'eth_price'); 
+    query_price('binancecoin', 'bnb_price'); 
+}
 
-    if($price){
-        if(!$reg){
-           $reg = new Register();
-           $reg->name = 'eth_price';
-        }
-        $reg->value = $price;
-        $reg->save();
+function increase_fee($fee, $network)
+{
+    $name = get_network_name($network); 
+    if($name == 'BSC'){
+        $price = (float)get_register('bnb_price'); 
+    }else{
+        $price = (float)get_register('eth_price'); 
     }
+    $amt_usd = $price * $fee; 
+
+    $reg = Register::where('name', 'total_fees')->first();
+
+    if(!$reg){
+        $reg = new Register();
+        $reg->name = 'total_fees';
+        $reg->value = $amt_usd;
+    }else{
+        $reg->value = (float)$reg->value + $amt_usd;
+    }
+    $reg->save();
 }
 
 function tableNumber( int $total ) : int
@@ -275,6 +306,7 @@ function opos($val) : int
 
 function get_abi()
 {
+    
     
     if( !$file = @file_get_contents('../resources/js/Bidding_ABI.json') ){
         

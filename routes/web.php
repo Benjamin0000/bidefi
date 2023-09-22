@@ -44,8 +44,10 @@ Route::post('/fAbAsLr7Zs', [AuctionController::class, 'add_views']);
 Route::get('/kSHhWd/{type}', [AuctionController::class, 'load_more']); 
 
 
-//---admin start
+Route::post('/NAQvfoLAo', [AuctionController::class, 'store_total_credit_bought']); 
 
+
+//---admin start
 Route::prefix('admin')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'index']); 
 

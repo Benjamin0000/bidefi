@@ -41,8 +41,8 @@
         <div class="stat-widget d-flex align-items-center">
             <div class="widget-icon me-3 bg-danger"><span><i class="ri-file-paper-2-line"></i></span></div>
             <div class="widget-content">
-                <h3>think</h3>
-                <p></p>
+                <h3>${{(float)get_register('total_fees')}}</h3>
+                <p>Total Fees</p>
             </div>
         </div>
     </div>
