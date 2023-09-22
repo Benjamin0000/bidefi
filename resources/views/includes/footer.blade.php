@@ -21,7 +21,7 @@
                         <h5 class="title-widget">Resources</h5>
                         <ul>
                             <li><a href="/contact-us">Help & Support</a></li>
-                            <li><a href="auctions.html">Live Auctions</a></li>
+                            <li><a href="/live-auction">Live Auctions</a></li>
                             {{-- <li><a href="item-details.html">Item Details</a></li> --}}
                             {{-- <li><a href="activity1.html">Activity</a></li> --}}
                         </ul>
