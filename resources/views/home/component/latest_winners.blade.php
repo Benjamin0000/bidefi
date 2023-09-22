@@ -9,20 +9,24 @@
                             <div class="swiper-container seller seller-slider3 button-arow-style">
                                 <div class="swiper-wrapper">
                                     @foreach($latest_winners as $bidder)
-                                    <div class="swiper-slide">
-                                        <div class="slider-item">										
-                                            <div class="sc-author-box style-2">
-                                                <div class="author-avatar">
-                                                    <img src="/assets/images/avatar/avt-2.jpg" alt="" class="avatar">
-                                                    <div class="badge"></div>
-                                                </div>
-                                                <div class="author-infor">
-                                                    <h5><a href="/#">{{get_bidder($bidder->id)}}</a></h5>
-                                                    <span class="price">{{get_bid_value($bidder->points)}}ETH</span>
-                                                </div>
-                                            </div>    	
-                                        </div><!-- item-->
-                                    </div>
+                                        <div class="swiper-slide">
+                                            <div class="slider-item">										
+                                                <div class="sc-author-box style-2">
+                                                    <div class="author-avatar">
+                                                        @if($bidder->user->avatar)
+                                                            <img src="{{Storage::url($bidder->user->avatar)}}" alt="" class="avatar">
+                                                        @else 
+                                                            <img src="/assets/images/avatar/avt-2.jpg" alt="" class="avatar">
+                                                        @endif 
+                                                        <div class="badge"></div>
+                                                    </div>
+                                                    <div class="author-infor">
+                                                        <h5><a href="/#">{{get_bidder($bidder->id)}}</a></h5>
+                                                        <span class="price">{{$bidder->item->name}}</span>
+                                                    </div>
+                                                </div>    	
+                                            </div><!-- item-->
+                                        </div>
                                     @endforeach                  
                                 </div>
                                 <div class="swiper-button-next btn-slide-next active"></div>
