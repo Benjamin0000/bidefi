@@ -20,7 +20,7 @@
                     <div class="widget widget-menu style-2">
                         <h5 class="title-widget">Resources</h5>
                         <ul>
-                            <li><a href="help-center.html">Help & Support</a></li>
+                            <li><a href="/contact-us">Help & Support</a></li>
                             <li><a href="auctions.html">Live Auctions</a></li>
                             {{-- <li><a href="item-details.html">Item Details</a></li> --}}
                             {{-- <li><a href="activity1.html">Activity</a></li> --}}
@@ -32,8 +32,6 @@
                     <div class="widget widget-menu fl-st-3">
                         <h5 class="title-widget">Company</h5>
                         <ul>
-                            {{-- <li><a href="explore-1.html">Explore</a></li> --}}
-                            <li><a href="contact1.html">Contact Us</a></li>
                             <li><a href="blog.html">Our Blog</a></li>
                             <li><a href="faq.html">FAQ</a></li>
                         </ul>
