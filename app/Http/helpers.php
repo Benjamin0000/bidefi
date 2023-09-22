@@ -306,8 +306,6 @@ function opos($val) : int
 
 function get_abi()
 {
-    
-    
     if( !$file = @file_get_contents('../resources/js/Bidding_ABI.json') ){
         
         if( !$file = @file_get_contents('resources/js/Bidding_ABI.json') ){
@@ -432,5 +430,7 @@ function set_winners($id)
             'user_id'=>$bidder->user_id,
             'item_id'=>$item->id
         ]); 
+        $bidder->winner = 1;
+        $bidder->save(); 
     }
 }
