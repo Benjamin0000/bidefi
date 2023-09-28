@@ -47,6 +47,12 @@ Route::get('/kSHhWd/{type}', [AuctionController::class, 'load_more']);
 Route::post('/NAQvfoLAo', [AuctionController::class, 'store_total_credit_bought']); 
 
 
+Route::get('/blog', [HomeController::class, 'blog']);
+Route::get('/blog/{slug}', [HomeController::class, 'show_blog']); 
+Route::get('/adsfasd/{id}', [HomeController::class, 'increase_blog_views']); 
+
+Route::get('/faq', [HomeController::class, 'faq']); 
+
 //---admin start
 Route::prefix('admin')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'index']); 
@@ -76,5 +82,19 @@ Route::prefix('admin')->group(function () {
     //withdrawal
     Route::get('/withdrawal', [AdminController::class, 'withdrawal']); 
     Route::post('/withdrawal', [AdminController::class, 'create_withdrawal']);
+
+
+    Route::get('/blog', [AdminController::class, 'blog'])->name('admin.blog.index');
+    Route::get('/blog/create/{id?}', [AdminController::class, 'create_blog'])->name('admin.blog.create');
+    Route::post('/blog/{id?}', [AdminController::class, 'save_blog'])->name('admin.blog.save');
+    Route::patch('/blog/publish/{id}', [AdminController::class, 'publish'])->name('admin.blog.publish');
+    Route::delete('/blog/{id}', [AdminController::class, 'delete_blog'])->name('admin.blog.delete');
+
+
+    Route::get('/faq', [AdminController::class, 'faq'])->name('admin.faq.index');
+    Route::get('/faq/create/{id?}', [AdminController::class, 'create_faq'])->name('admin.faq.create');
+    Route::post('/faq/{id?}', [AdminController::class, 'store_faq'])->name('admin.faq.save');
+    Route::delete('/faq/{id}', [AdminController::class, 'delete_faq'])->name('admin.faq.delete'); 
+
 });
 //---end admin  

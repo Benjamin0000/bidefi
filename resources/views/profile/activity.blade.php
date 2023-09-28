@@ -1,5 +1,5 @@
 @include('includes.header')
-@include('includes.page_title', ['name'=>'Bid Activities'])
+@include('includes.page_title', ['name'=>'My Activities'])
 <style>.sc-button:hover{color:white;}</style> 
 <section class="tf-login tf-section">
     <div class="themesflat-container">

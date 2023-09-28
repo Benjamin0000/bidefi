@@ -9,7 +9,8 @@ use App\Models\Item;
 use App\Models\User;
 use App\Models\Admins;
 use App\Models\WHistory; 
-
+use App\Models\Blog; 
+use App\Models\Faq; 
 
 class AdminController extends Controller
 {
@@ -223,5 +224,92 @@ class AdminController extends Controller
         return back()->with('success', 'Withdrawal created'); 
     }
 
-    
+    public function blog()
+    { 
+        $blogs = Blog::latest()->paginate(10); 
+        return view('admin.blog.index', compact('blogs')); 
+    }
+
+    public function create_blog($id=null)
+    {
+        $blog = null; 
+        if($id)
+            $blog = Blog::findOrFail($id); 
+        
+        return view('admin.blog.create', compact('blog')); 
+    }
+
+    public function save_blog(Request $request, $id=null)
+    {
+        if($id)
+            $blog = Blog::findOrFail($id); 
+        else 
+            $blog = new Blog; 
+
+        $blog->poster = $request->input('poster'); 
+        $blog->title = $request->input('title'); 
+        $blog->body = $request->input('body'); 
+        $blog->caption = $request->input('caption'); 
+        $blog->save(); 
+
+        if($id)
+            $message = "Blog updated"; 
+        else 
+            $message = "Blog created"; 
+
+        return redirect(route('admin.blog.index'))->with('success', $message); 
+    }
+
+    public function publish($id)
+    {
+        $blog = Blog::findOrFail($id);
+        $blog->publish = !$blog->publish; 
+        $blog->save(); 
+
+        if($blog->publish)
+            return back()->with('success', 'blog published'); 
+        else
+            return back()->with('success', 'blog is now hidden'); 
+    }
+
+    public function delete_blog($id)
+    {
+        Blog::findOrFail($id)->delete(); 
+        return back()->with('success', 'Post deleted'); 
+    }
+
+    public function faq()
+    {
+        $faqs = Faq::latest()->paginate(10); 
+        return view('admin.faq.index', compact('faqs')); 
+    }
+
+    public function create_faq($id=null)
+    {
+        $faq = null; 
+        if($id)
+            $faq = Faq::findOrFail($id); 
+        
+        return view('admin.faq.create', compact('faq')); 
+    }
+
+    public function store_faq(Request $request, $id=null)
+    {
+        if($id)
+            $faq = Faq::findOrFail($id); 
+        else 
+            $faq = new Faq; 
+        $faq->q = $request->input('q'); 
+        $faq->a = $request->input('a'); 
+        $faq->save(); 
+        return redirect(route('admin.faq.index'))->with('success', 'FAQ saved'); 
+    }
+
+    public function delete_faq($id)
+    {
+        $faq = Faq::findOrFail($id); 
+        $faq->delete(); 
+        return back()->with('success', 'faq deleted'); 
+    }
+
 }

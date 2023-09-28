@@ -4,7 +4,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth; 
 use App\Models\User;
 use App\Models\Item; 
-use App\Models\Message; 
+use App\Models\Message;
+use App\Models\Blog; 
+use App\Models\Faq; 
 
 class HomeController extends Controller
 {
@@ -102,5 +104,31 @@ class HomeController extends Controller
         return back()->with('success', 'message created'); 
     }
 
+
+    public function blog()
+    {
+        $blogs = Blog::where('publish', 1)->latest()->paginate(9); 
+        return view('blog.index', compact('blogs')); 
+    }
+
+    public function show_blog($slug)
+    {
+        $blog = Blog::findBySlugOrFail($slug); 
+        $blogs = Blog::where('id', '<>', $blog->id)->where('publish', 1)->latest()->take(10)->get(); 
+        return view('blog.show', compact('blog', 'blogs')); 
+    }
+
+    public function increase_blog_views($id)
+    {
+        $item = Blog::find($id); 
+        $item->views += 1; 
+        $item->save(); 
+    }
+
+    public function faq()
+    {
+        $faqs = Faq::all(); 
+        return view('faq', compact('faqs')); 
+    }
 }
  

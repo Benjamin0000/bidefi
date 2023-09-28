@@ -1,7 +1,6 @@
 <?php
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Auth;
-use Throwable;
 use Elliptic\EC;
 use Web3\Contract;
 use Web3\Web3;

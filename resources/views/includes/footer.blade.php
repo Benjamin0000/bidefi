@@ -32,8 +32,8 @@
                     <div class="widget widget-menu fl-st-3">
                         <h5 class="title-widget">Company</h5>
                         <ul>
-                            <li><a href="blog.html">Our Blog</a></li>
-                            <li><a href="faq.html">FAQ</a></li>
+                            <li><a href="/blog">Our Blog</a></li>
+                            <li><a href="/faq">FAQ</a></li>
                         </ul>
                     </div>
                 </div>
@@ -49,12 +49,9 @@
                         </div>
                         <div class="widget-social style-1 mg-t32">
                             <ul>
-                                <li><a href="home6.html#"><i class="fab fa-twitter"></i></a></li>
-                                <li><a href="home6.html#"><i class="fab fa-facebook"></i></a></li>
-                                
-                                <li class="style-2"><a href="home6.html#"><i class="fab fa-telegram-plane"></i></a></li>
+                                <li><a href="https://twitter.com/BiDefi_Official" target="_blank"><i class="fab fa-twitter"></i></a></li>
+                                <li class="style-2"><a href="https://t.me/TheBiDeFi_Official" target="_blank"><i class="fab fa-telegram-plane"></i></a></li>
                                 <li><a href="home6.html#"><i class="fab fa-youtube"></i></a></li>
-                                <li class="mgr-none"><a href="home6.html#"><i class="icon-fl-tik-tok-2"></i></a></li>
                                 <li class="mgr-none"><a href="home6.html#"><i class="icon-fl-vt"></i></a></li>
                             </ul>
                         </div>

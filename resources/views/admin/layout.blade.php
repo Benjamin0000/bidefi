@@ -77,6 +77,17 @@
                     <span><i class="ri-heart-line"></i></span>
                     <span class="nav-text">Withdrawal</span></a>
             </li> 
+
+            <li class="">
+                <a href="{{route('admin.blog.index')}}">
+                    <span><i class="ri-heart-line"></i></span>
+                    <span class="nav-text">Blogs</span></a>
+            </li> 
+            <li class="">
+                <a href="{{route('admin.faq.index')}}">
+                    <span><i class="ri-heart-line"></i></span>
+                    <span class="nav-text">FAQ</span></a>
+            </li> 
             <li class="">
                 <a href="/admin/settings">
                     <span><i class="ri-settings-3-line"></i></span>
