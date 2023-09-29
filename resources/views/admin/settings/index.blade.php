@@ -39,6 +39,14 @@
             <p>
                 <input type="text" value="{{(int)get_register('min_bid_purchase')}}" class="form-control" name="amount" required placeholder="Enter min bid purchase">
             </p>
+            <label for="">Fee commission %</label>
+            <p>
+                <input type="text" value="{{(float)get_register('fee_ref')}}" class="form-control" name="fee_ref" required placeholder="Enter fee commission">
+            </p>
+            <label for="">Min withdrawal</label>
+            <p>
+                <input type="text" value="{{(float)get_register('min_fee_with')}}" class="form-control" name="min_fee_with" required placeholder="Enter min fee with">
+            </p>
             @csrf 
             <p>
                 <button class="btn btn-primary">Update</button>

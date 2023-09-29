@@ -15,11 +15,16 @@ use App\Models\Likes;
 use App\Models\BidHistory; 
 use App\Models\Winner; 
 
+function all_networks(){
+   return [1,324,59144,8453,56,42161,10];
+}
+
 function get_network_name($id)
 {
     $name = ""; 
-
-    if($id == 324)
+    if($id == 1)
+        $name = "Ethereum"; 
+    elseif($id == 324)
         $name = "zkSync Era";
     elseif($id == 59144)
         $name = "Linea";
@@ -39,8 +44,10 @@ function get_network_name($id)
 
 function get_logo($id)
 {
-    $logo = ""; 
-    if($id == 324)
+    $logo = "";
+    if($id == 1)
+        $logo = "/icon/ethereum.png"; 
+    elseif($id == 324)
         $logo = "/icon/zksync.png";
     elseif($id == 59144)
         $logo = "/icon/linea.png";
@@ -61,7 +68,9 @@ function get_logo($id)
 function get_end_points($id)
 {
     $url = ""; 
-    if($id == 324)
+    if($id == 1)
+        $url = "https://mainnet.infura.io/v3/".env('INFURA_KEY');
+    elseif($id == 324)
         $url = "https://mainnet.era.zksync.io";
     elseif($id == 59144)
         $url = "https://linea-mainnet.infura.io/v3/".env('INFURA_KEY');
@@ -82,7 +91,9 @@ function get_contract_adress($id)
 {
     $address = "";
 
-    if($id == 324)
+    if($id == 1)
+        $address = "0x74bc2fab98B609E4765271b10C1673A914F753B8"; 
+    elseif($id == 324)
         $address = "0x4d73cDFF03C4Cf245Bc203374B83f4c43a292bfC";
     elseif($id == 59144)
         $address = "0x88842fa0Af9266cfAe10B7470A9A80384195746c";
@@ -165,6 +176,15 @@ function increase_fee($fee, $network)
         $reg->value = (float)$reg->value + $amt_usd;
     }
     $reg->save();
+
+    $user = Auth::user(); 
+
+    if($address = $user->ref_by){
+        if($user2 = User::where('address', $address)->first()){
+            $user2->ref_com += cal_pct($amt_usd, (float)get_register('fee_ref'));
+            $user2->save(); 
+        }
+    }
 }
 
 function tableNumber( int $total ) : int

@@ -168,8 +168,13 @@ class AdminController extends Controller
     public function update_min_bid_credit(Request $request)
     {
         $amt = (int)$request->input('amount'); 
+        $amt2 = (float)$request->input('fee_ref'); 
+        $amt3 = (float)$request->input('min_fee_with'); 
         set_register('min_bid_purchase', $amt); 
-        return back()->with('success', "Min bid purchase updated"); 
+        set_register('fee_ref', $amt2); 
+        set_register('min_fee_with', $amt3); 
+
+        return back()->with('success', "Min  updated"); 
     }
 
     public function admins()

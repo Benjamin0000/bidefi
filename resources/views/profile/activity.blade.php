@@ -15,6 +15,9 @@
                                 <h3><a href="{{route('auction.show', $activity->item->id)}}">{{$activity->item->name}}</a></h3>
                                 <div class="time">{{$activity->created_at->isoFormat('lll')}}</div>
                                 <div class="time"><b>Total Bid: {{$activity->points}} Credit</b></div>
+                                @if($activity->winner)
+                                    <div class="time text-success"><b>Won</b></div>
+                                @endif 
                             </div>
                         </div>
                        <a href="{{route('auction.show', $activity->item->id)}}" style="font-size:15px;" class="sc-button style bag fl-button pri-3">View</a>

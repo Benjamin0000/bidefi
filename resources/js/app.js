@@ -6,6 +6,7 @@ import Abi from "./Bidding_ABI.json";
 import { ethers } from "ethers";
 
 var supported_networks = [
+  1,
   324,
   59144,
   8453,
@@ -18,6 +19,7 @@ var supported_networks = [
 
 function get_contract() {
   let id = window.network_id;
+  let main = "0x74bc2fab98B609E4765271b10C1673A914F753B8"; 
   let arbitrum = "0x88842fa0Af9266cfAe10B7470A9A80384195746c"; 
   let optimism = "0x88842fa0Af9266cfAe10B7470A9A80384195746c"; 
   let zk = "0x4d73cDFF03C4Cf245Bc203374B83f4c43a292bfC";
@@ -25,8 +27,10 @@ function get_contract() {
   let base = "0x88842fa0Af9266cfAe10B7470A9A80384195746c"; 
   let bsc = '0x1EE4CC90e11a42635C1e7829Aa08d5e3FC5eDe8C'; 
   let bsc2 = '0xb0634bb4857bab45ac4fc440fee6e715824a96ef';
-
-  if (id == 324) {
+  
+  if(id == 1){
+    return main; 
+  }else if (id == 324) {
     return zk;
   } else if (id == 59144) {
     return linea;
@@ -413,6 +417,11 @@ $(document).on('click', '.net_cc', (e)=>{
   switchNetwork({chainId: network});
   $("#select_network_modal").modal("hide");
 }); 
+
+$(document).on('click', '#close_net', (e)=>{
+  $("#select_network_modal").modal("hide");
+}); 
+
 
 
 $(document).on('submit', '#create_form', (event) => {

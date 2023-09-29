@@ -61,7 +61,7 @@
                                                 <a href="/">Home</a>
                                             </li>
                                             <li class="menu-item">
-                                                <a href="">FAQ</a>
+                                                <a href="/faq">FAQ</a>
                                             </li>
                                             <li class="menu-item">
                                                 <a href="/contact-us">Contact</a>

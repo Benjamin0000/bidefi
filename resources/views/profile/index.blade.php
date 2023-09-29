@@ -6,7 +6,7 @@
 <div class="tf-create-item tf-section">
     <div class="themesflat-container">
         <div class="row">
-             <div class="col-xl-3 col-lg-4 col-md-6 col-12">
+            <div class="col-xl-3 col-lg-4 col-md-6 col-12">
                 <form id="p_image_form" class="sc-card-profile text-center">
                     <div class="card-media">
                         @if($user->avatar)
@@ -65,6 +65,19 @@
                         </button>
                     </div>
                 </div> 
+             </div>
+
+             <div class="col-xl-3 col-lg-4 col-md-6 col-12">
+                <div class="sc-card-profile">
+                    <h5 class="text-center">Your Commission</h5>
+                    <br>
+                    <h5 class="text-center">${{number_format($user->ref_com, 2)}}</h5>
+                    <br>
+                    <form action="" class="text-center">
+                        @csrf 
+                        <button type="button" @if($user->ref_com < (float)get_register('min_fee_with')) disabled @endif class="btn btn-primary">CLAIM</button>
+                    </form>
+                </div>
              </div>
         </div>
     </div>

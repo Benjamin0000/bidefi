@@ -77,4 +77,10 @@ class ProfileController extends Controller
         $activities = Bidder::where('user_id', $user->id)->orderBy('winner', 'desc')->latest()->paginate(10); 
         return view('profile.activity', compact('activities')); 
     }
+
+    public function claim_commission()
+    {
+        
+    }
 }
+ 
