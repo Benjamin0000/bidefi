@@ -1,9 +1,12 @@
 @php 
     $user = Auth::user(); 
+    $className = ""; 
+    if( isset($class) ){
+        $className = $class;
+    }
 @endphp 
 @foreach($auctions as $auction)
-<div class="fl-item col-xl-3 col-lg-4 col-md-6 col-sm-6" style="display: block;">
-    
+<div class="fl-item col-xl-3 col-lg-4 col-md-6 col-sm-6 {{$className.$auction->network}} {{ $auction->free_bid > 0 ? $className.'Free' : $className.'Paid'}} {{$className}}" style="display: block;">
     <div class="sc-card-product">
         <div class="text-center">
             <h5>
@@ -21,11 +24,11 @@
                     <img src="{{$auction->image}}" style="object-fit: contain;" alt="Image">
                 </div>
             </a>
-        @if($auction->free_bid)
-            <button class="wishlist-button bg-success" style="left: 0 !important; width:50px; background:var(--primary-color3) !important">Free</button>
-        @else 
-            <button class="wishlist-button bg-success" style="left: 0 !important; width:50px; background:red !important">Paid</button>
-        @endif 
+            @if($auction->free_bid)
+                <button class="wishlist-button bg-success" style="left: 0 !important; width:50px; background:var(--primary-color3) !important">Free</button>
+            @else 
+                <button class="wishlist-button bg-success" style="left: 0 !important; width:50px; background:red !important">Paid</button>
+            @endif 
             
 
             <button class="wishlist-button heart @if( $user && liked($auction->id, $user->id) ) active @endif"><span  onclick="likeItem({{$auction->id}})" class="number-like">{{$auction->likes}}</span></button>

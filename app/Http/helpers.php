@@ -35,7 +35,7 @@ function get_network_name($id)
     elseif($id == 42161)
         $name = "Arbitrum One";
     elseif($id == 10)
-        $name = "OP Mainnet"; 
+        $name = "OPtimism"; 
     elseif($id == 97)
         $name = "BSC Testnet";
 

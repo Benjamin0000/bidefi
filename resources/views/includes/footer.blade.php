@@ -12,7 +12,9 @@
                                 data-height="56">
                             </a>
                         </div>
-                        <p class="sub-widget-logo">Lorem ipsum dolor sit amet,consectetur adipisicing elit. Quis non, fugit totam vel laboriosam vitae.</p>
+                        <p class="sub-widget-logo">
+                            The No.1 multichain Bid2Earn auction dApp that lets you save when you freely bid for the popular crypto assets and bluechip NFT arts you love.
+                        </p>
                     </div>
                 </div>
 
