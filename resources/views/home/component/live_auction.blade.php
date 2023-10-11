@@ -93,7 +93,7 @@
             }else{
                 $("#chain_name_live").html(net_name)
                 $("#chain_name_live").attr('net', net)
-                if( live_pp != 'Category' ){
+                if( live_pp == 'Category' ){
                     $(".h_live").hide();
                 }else{
                     $('.h_live'+net+'.h_live'+live_pp).show(); 
