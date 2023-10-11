@@ -263,7 +263,7 @@ function trendings()
 
 function live_auction()
 {
-    return Item::where('status', 1)->paginate(8);
+    return Item::where('status', 1)->paginate(12);
 }
 
 function top_bidders()
@@ -274,12 +274,12 @@ function top_bidders()
 
 function upcoming()
 {
-    return Item::where('status', 0)->latest()->paginate(8);
+    return Item::where('status', 0)->latest()->paginate(12);
 }
 
 function completed()
 {
-    return Item::where('status', '>', 1)->paginate(8); 
+    return Item::where('status', '>', 1)->paginate(12); 
 }
 
 function latest_winners()
