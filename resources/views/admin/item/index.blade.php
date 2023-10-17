@@ -136,6 +136,7 @@
                         <br>
                         <form action="{{route('item.update_contract', $item->id)}}" class="update_contract" method="POST">
                             @method('put')
+                            @csrf
                             <input type="hidden" name="id" value="{{$item->id}}">
                             <input type="hidden" name="_id" value="{{$item->_id}}">
                             <input type="hidden" name="prize" value="{{$item->prize}}">
