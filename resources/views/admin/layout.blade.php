@@ -93,7 +93,8 @@
                     <span><i class="ri-settings-3-line"></i></span>
                     <span class="nav-text">Settings</span></a>
             </li>
-            <li class=" logout"><a href="/">
+            <li class="">
+                <a href="/">
                     <span><i class="ri-logout-circle-line"></i></span>
                     <span class="nav-text">Leave</span>
                 </a>

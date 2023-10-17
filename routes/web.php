@@ -69,7 +69,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/items/{id}', [AdminController::class, 'edit'])->name('item.edit');
     Route::put('/items/{id}', [AdminController::class, 'update_item'])->name('item.update'); 
     Route::delete('/items/{id}', [AdminController::class, 'delete_item'])->name('item.delete'); 
-
+    Route::put('/items/{id}/update-contract', [AdminController::class, 'update_contract'])->name('item.update_contract'); 
 
     //settings
     Route::get('/settings', [AdminController::class, 'settings']);
@@ -95,6 +95,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/faq/create/{id?}', [AdminController::class, 'create_faq'])->name('admin.faq.create');
     Route::post('/faq/{id?}', [AdminController::class, 'store_faq'])->name('admin.faq.save');
     Route::delete('/faq/{id}', [AdminController::class, 'delete_faq'])->name('admin.faq.delete'); 
+
 
 });
 //---end admin  

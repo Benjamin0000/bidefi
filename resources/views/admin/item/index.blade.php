@@ -134,6 +134,25 @@
                         <h5>Contract Address</h5>
                         {{$item->contract_address}}
                         <br>
+                        <form action="{{route('item.update_contract', $item->id)}}" class="update_contract" method="POST">
+                            @method('put')
+                            <input type="hidden" name="id" value="{{$item->id}}">
+                            <input type="hidden" name="_id" value="{{$item->_id}}">
+                            <input type="hidden" name="prize" value="{{$item->prize}}">
+                            <input type="hidden" name="type" value="{{$item->type}}">
+                            <input type="hidden" name="start_time" value="{{$item->ctd_timer}}">
+                            <input type="hidden" name="free" value="{{$item->free_bid}}">
+                            <input type="hidden" name="start_points" value="{{$item->start_points}}">
+                            <input type="hidden" name="share" value="{{$item->share}}">
+                            <input type="hidden" name="decimal" value="{{$item->decimal}}">
+                            <input type="text" required name="contract_address" value="{{$item->contract_address}}" class="form-control">
+                            <br>
+                            
+                            <button id="jj{{$item->id}}" class="btn btn-primary">Update</button>
+                            
+                            <p class="msg" id="msg{{$item->id}}"></p>
+                        </form>
+                        <br>
                         <h5>Description</h5>
                         {{$item->description}}
                         <br>

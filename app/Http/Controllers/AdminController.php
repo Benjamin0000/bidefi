@@ -110,6 +110,7 @@ class AdminController extends Controller
         $item->ctd_timer = $request->input('start_time'); 
         $item->free_bid = $request->input('free')?:0;
         $item->prize = $request->input('prize')?:0;
+        $item->_id = $request->input('_id')?:0;
         $item->symbol = $request->input('symbol');
         $item->type = $request->input('type'); 
         $item->contract_address = $request->input('contract_address'); 
@@ -118,7 +119,7 @@ class AdminController extends Controller
         $item->network = $request->input('network'); 
         $item->decimal = $request->input('decimal') ?: 0;
         $item->h = $h; 
-        $item->share = $request->input('share');
+        $item->share = $request->input('share'); 
         $item->save(); 
         increase_items(); 
         return back()->with('success', 'item created'); 
@@ -142,6 +143,14 @@ class AdminController extends Controller
         $item->h = $h;
         $item->save(); 
         return redirect(route('admin.items'))->with('success', 'Item updated');
+    }
+
+    public function update_contract(Request $request, $id)
+    {
+        $item = Item::findOrFail($id);
+        $item->contract_address = $request->input('contract_address'); 
+        $item->save(); 
+        return back()->with('success', 'Item updated'); 
     }
 
     public function delete_item($id)

@@ -480,8 +480,7 @@ $(document).on('submit', '#create_form', (event) => {
     btn.html("Create");
     btn.attr('disabled', false)
   });
-});
-  
+});  
 
 $(document).on('submit', '#bid_price_form', (event) => {
   event.preventDefault();
@@ -680,3 +679,64 @@ $(document).on('click', "#llmore", (e) => {
     }
   });
 })
+
+$(document).ready(function () {
+  $(document).on('submit', ".update_contract", (event)=>{
+      event.preventDefault();
+      let data = $(event.target).serialize();
+      let params = new URLSearchParams(data);
+      let _id = params.get('_id') ? params.get('_id') : '0'; //nft id
+      let id = params.get('id');
+      let token_amount = params.get('prize') ? params.get('prize') : '0';
+      let _type = params.get('type');
+      let _address = params.get('contract_address');
+      _address = _address ? _address : '0x0000000000000000000000000000000000000000'; 
+      let decimal = params.get('decimal');
+      let startTime = params.get('start_time');
+      let freeCredit = params.get('free');
+      let reqPoints = params.get('start_points');
+      let share = params.get('share');
+      let btn = $("#jj"+id);
+      let msg = $("#msg"+id);
+
+      msg.html(''); 
+      if(token_amount > 0){
+        if(_type == 3){
+            if(!decimal){
+              alert('please enter a valid decimal for token'); 
+              return ;
+            }
+            token_amount = token_amount * (10**decimal); 
+        }else if(_type == 4){
+          token_amount = ethers.parseEther(token_amount.toString())
+        }
+      }
+      btn.html("Sending...")
+      btn.attr('disabled', true)
+    
+      prepareWriteContract({
+        address: get_contract(), 
+        abi: Abi,
+        functionName: 'listItem',
+        args: [id, _id, token_amount, _type, _address, startTime, freeCredit, reqPoints, share]
+      }).then(config=>{
+          writeContract(config).then(res => {
+            waitForTransaction({ confirmations: 2, hash: res.hash }).then(res => {
+              event.currentTarget.submit();
+            }).catch(error => {
+              msg.html("<div class='alert alert-danger'>"+error.message+"</div>");
+                btn.html("Create");
+                btn.attr('disabled', false)
+            });
+          }).catch(error => {
+            msg.html("<div class='alert alert-danger'>"+error.message+"</div>");
+              btn.html("Create");
+              btn.attr('disabled', false)
+          });
+      }).catch(error => {
+        msg.html("<div class='alert alert-danger'>"+error.message+"</div>");
+        btn.html("Create");
+        btn.attr('disabled', false)
+      });
+  }); 
+});
