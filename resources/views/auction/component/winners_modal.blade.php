@@ -17,9 +17,9 @@
                                     <div class="author-avatar">
                                         <a href="#">
                                             @if($avatar = $winner->user->avatar)
-                                                <img width="30" src="{{Storage::url($avatar)}}" alt="" class="avatar">
+                                                <img style="width:30px !important" src="{{Storage::url($avatar)}}" alt="" class="avatar">
                                             @else 
-                                                <img width="30" src="/assets/images/avatar/avt-2.jpg" alt="" class="avatar">
+                                                <img style="width:30px !important" src="/assets/images/avatar/avt-2.jpg" alt="" class="avatar">
                                             @endif 
                                         </a>
                                         <div class="badge"></div>
