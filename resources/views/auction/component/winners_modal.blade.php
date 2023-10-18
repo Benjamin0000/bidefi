@@ -21,7 +21,7 @@
                             </div>
                             <div class="info">
                                 <span>Won By</span>
-                                <h6><a href="{{route('auction.show', $item->id)}}">{{get_bidder($item->bidder_id)}}</a></h6>
+                                <h6><a href="{{route('auction.show', $item->id)}}">{{$winner->user->fname.' '.$winner->user->lname}}</a></h6>
                             </div>
                         </div>
                     </div> 
