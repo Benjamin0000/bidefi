@@ -27,5 +27,3 @@
         @endif 
     @endif
 </div>
-
-@include('auction.component.winners_modal')
