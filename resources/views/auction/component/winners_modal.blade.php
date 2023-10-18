@@ -10,7 +10,7 @@
             <div class="modal-body space-y-20 pd-40">
                 <h3>Winners</h3>
                 @foreach($winners as $winner)
-                    
+
                     <div>
                         @if($avatar = $winner->user->avatar)
                             <img width="50" src="{{Storage::url($avatar)}}" alt="" >
@@ -18,7 +18,7 @@
                             <img width="50" src="/assets/images/avatar/avt-2.jpg" alt="">
                         @endif 
                     </div>
-                    <h4>{{$winner->user->get_name()}}</h4>
+                    <h6>{{$winner->user->get_name()}}</h6>
                     
                     <hr>
                 @endforeach
