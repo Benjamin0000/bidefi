@@ -23,7 +23,7 @@
                                 @else 
                                     <span class="bg-danger" style="background:red !important; color:white;">Paid</span>
                                 @endif 
-                                <span class="viewed eye">1</span>
+                                <span class="viewed eye">{{$item->views}}</span>
                                 <span class="liked heart wishlist-button mg-l-8 {{$user && liked($item->id, $user->id) ? 'active': ''}}"><span class="number-like" onclick="likeItem({{$item->id}})">{{$item->likes}}</span></span>
                                 
                                 <span class="mg-l-8"><img src="{{get_logo($item->network)}}" width="30" alt=""></span>
@@ -78,6 +78,30 @@
                                 @endif 
                             </div>
                         </div>
+                        <div class="meta-item-details style2">
+                            <div class="item meta-price">
+                                <span class="heading">Total Credit</span>
+                                <div class="price">
+                                    <div class="price-box">
+                                        <span><span id="total">{{$item->points}}</span></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item meta-price">
+                                <span class="heading">Your Credit Left</span>
+                                <div class="price">
+                                    @php 
+                                        $theBidder = null; 
+                                        if($user){
+                                            $theBidder = $user->get_bidder($item->id); 
+                                        }
+                                    @endphp 
+                                    <div class="price-box">
+                                        <span><span id="left">{{$theBidder ? $theBidder->points-$theBidder->used: 0}}</span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         @if($item->points < $item->start_points && $item->status == 0)
                             <div class="progress" style="height: 20px;">
                                 <div class="progress-bar bg-success" role="progressbar" style="width:{{get_pct($item->points, $item->start_points)}}%;height: 100%;font-size:15px;line-height:20px;" aria-valuenow="{{get_pct($item->points, $item->start_points)}}" aria-valuemin="0" aria-valuemax="{{get_pct($item->points, $item->start_points)}}">{{get_pct($item->points, $item->start_points)}}%</div>
@@ -126,6 +150,7 @@
         window.count_views({{$item->id}})
     }, 2000);
     window.show_id = {{$item->id}}
+    window.user_id = {{$user ? $user->id : 0}}
 </script>
 @if($user)
 @include('auction.component.bid_modal')

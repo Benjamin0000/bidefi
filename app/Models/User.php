@@ -52,6 +52,16 @@ class User extends Authenticatable
         $reg->value = (int)$reg->value+1; 
         $reg->save(); 
     }
+
+    public function get_bidder($item_id)
+    {
+        $bidder = Bidder::where([ ['item_id', $item_id], ['user_id', $this->id] ])->first(); 
+        if($bidder){
+            return $bidder; 
+        }
+        return null; 
+    }
+    
     private static function get_new_ref()
     {
         $ref_id = session('ref_by'); 

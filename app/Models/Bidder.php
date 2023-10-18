@@ -47,7 +47,9 @@ class Bidder extends Model
             'bid_price'=>number_format($item->bid_price, 5),
             // 'bid_price_usd'=>number_format(eth_to_usd($item->bid_price), 2),
             'status'=>$item->status,
-            'type'=>'bid'
+            'type'=>'bid',
+            'left'=>$this->points - $this->used,
+            'user_id'=>$this->user_id
         ];
         BidEvent::dispatch($data);
     }

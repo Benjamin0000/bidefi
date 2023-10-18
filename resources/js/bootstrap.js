@@ -69,6 +69,9 @@ window.Echo.channel(`main-channel`)
                     setTimeout(()=>{
                         $(".price-box").css('background', 'none');
                     }, 200)
+                    if( window.user_id == data.user_id ){
+                        $('#left').html(data.left);
+                    }
                 } else {
                     $("#timer" + data.id).countdown(date.toDate(), function (event) {
                         $(this).html("<span class='counter'>" + event.strftime('%S') + "</span>");
