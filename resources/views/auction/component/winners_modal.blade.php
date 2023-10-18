@@ -10,21 +10,29 @@
             <div class="modal-body space-y-20 pd-40">
                 <h3>Winners</h3>
                 @foreach($winners as $winner)
-                    <div class="meta-info">
-                        <div class="author">
-                            <div class="avatar">
-                                @if( $avatar = $winner->user->avatar  )
-                                    <img src="{{Storage::url($avatar)}}" alt="">
-                                @else 
-                                    <img src="/assets/images/avatar/avt-3.jpg" alt="">
-                                @endif 
-                            </div>
-                            <div class="info">
-                                <span>Won By</span>
-                                <h6><a href="{{route('auction.show', $item->id)}}">{{$winner->user->fname.' '.$winner->user->lname}}</a></h6>
+                    <li>
+                        <div class="content">
+                            <div class="client"> 
+                                <div class="sc-author-box style-2">
+                                    <div class="author-avatar">
+                                        <a href="#">
+                                            @if($avatar = $winner->user->avatar)
+                                                <img src="{{Storage::url($avatar)}}" alt="" class="avatar">
+                                            @else 
+                                                <img src="/assets/images/avatar/avt-2.jpg" alt="" class="avatar">
+                                            @endif 
+                                        </a>
+                                        <div class="badge"></div>
+                                    </div>
+                                    <div class="author-infor">
+                                        <div class="name">
+                                            <h6><a href="#">{{$winner->user->get_name()}}</a></h6> 
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div> 
+                    </li>
                 @endforeach
             </div>
         </div>

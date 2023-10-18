@@ -21,7 +21,7 @@
 
     @if($item->status > 0)
         @if($item->status > 1 && $item->share > 1)
-            <button data-toggle="modal" data-target="#winners" style="color:white;">View Winners</button>
+            <button data-toggle="modal" data-target="#winners" style="color:white;padding:10px 39px;">View Winners</button>
         @else 
             <h6><a href="{{route('auction.show', $item->id)}}">{{get_bidder($item->bidder_id)}}</a> </h6>
         @endif 
