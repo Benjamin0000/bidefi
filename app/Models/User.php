@@ -122,6 +122,36 @@ class User extends Authenticatable
             'bidders'=>"$bidders",
             'type'=>'bidders'
         ];
+
+        if($item->share > 1){
+            $winners = $item->winners; 
+            $points = $item->w_points; 
+
+            if(!$winners){
+                $item->winners = $this->id; 
+                $item->w_points = $amt; 
+            }else{
+                $winners = explode(',', $winners);
+                $points = explode(',', $points);
+
+                if(count($winners) < $item->share){
+                    $item->winners.= ','.$this->id;
+                    $item->w_points.= ','.$amt;
+                }else{
+                    for($i = 0; $i < $item->share; $i++){
+                        $point = (int)$points[$i]; 
+                        if($bidder->points >= $point){
+                            $points[$i] = $bidder->points; 
+                            $winners[$i] = $this->id; 
+                            break; 
+                        }
+                    }
+                    $item->winners = implode(',', $winners);
+                    $item->w_points = implode(',', $points);
+                }
+            }
+            $item->save(); 
+        }
         $this->creditBid($amt); 
         BidEvent::dispatch($data);
         return ['done'=>true]; 

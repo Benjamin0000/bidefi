@@ -93,7 +93,7 @@ class Item extends Model
     {  
         if( $this->points <= $this->used ){
             $this->status = 2;
-            if($this->share > 0){
+            if($this->share > 1){
                 set_winners($this->id); 
             }else{
                 $this->winner = getTheWinner($this->id)->user->address;

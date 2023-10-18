@@ -442,14 +442,17 @@ function getTheWinner($id)
 function set_winners($id)
 {
     $item = Item::find($id);
-    if(!$item) return; 
-    $bidders = Bidder::where('item_id', $id)->orderBy('points', 'desc')->latest()->take($item->share)->get();
-    foreach($bidders as $bidder){
+    if(!$item) return;
+    $winners = explode(',', $item->winners);
+    foreach($winners as $winner){
         Winner::create([
-            'user_id'=>$bidder->user_id,
+            'user_id'=>$winner,
             'item_id'=>$item->id
         ]); 
-        $bidder->winner = 1;
-        $bidder->save(); 
+        if( $bidder = Bidder::where([ ['item_id', $id], ['user_id', $winner] ])->first() ){
+            $bidder->winner = 1;
+            $bidder->created_at = now(); 
+            $bidder->save(); 
+        }
     }
 }
