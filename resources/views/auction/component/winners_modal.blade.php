@@ -10,29 +10,17 @@
             <div class="modal-body space-y-20 pd-40">
                 <h3>Winners</h3>
                 @foreach($winners as $winner)
-                    <li>
-                        <div class="content">
-                            <div class="client"> 
-                                <div class="sc-author-box style-2">
-                                    <div class="author-avatar">
-                                        <a href="#">
-                                            @if($avatar = $winner->user->avatar)
-                                                <img style="width:30px !important" src="{{Storage::url($avatar)}}" alt="" class="avatar">
-                                            @else 
-                                                <img style="width:30px !important" src="/assets/images/avatar/avt-2.jpg" alt="" class="avatar">
-                                            @endif 
-                                        </a>
-                                        <div class="badge"></div>
-                                    </div>
-                                    <div class="author-infor">
-                                        <div class="name">
-                                            <h6><a href="#">{{$winner->user->get_name()}}</a></h6> 
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
+                    
+                    <div>
+                        @if($avatar = $winner->user->avatar)
+                            <img width="50" src="{{Storage::url($avatar)}}" alt="" >
+                        @else 
+                            <img width="50" src="/assets/images/avatar/avt-2.jpg" alt="">
+                        @endif 
+                    </div>
+                    <h4>{{$winner->user->get_name()}}</h4>
+                    
+                    <hr>
                 @endforeach
             </div>
         </div>
