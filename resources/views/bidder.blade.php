@@ -27,4 +27,4 @@
         @endif 
     @endif
 </div>
-@include('auction.component.winners_modal')
+@include('auction.component.winners_modal', ['item'=>$item])
