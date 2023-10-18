@@ -1,5 +1,5 @@
 @php 
-    $winners = App\Models\Winner::where(['item_id', $item->id])->get(); 
+    $winners = App\Models\Winner::where('item_id', $item->id)->get(); 
 @endphp 
 <div class="modal fade popup" id="winners" tabindex="-10" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
