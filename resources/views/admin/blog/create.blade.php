@@ -31,7 +31,7 @@
     <br> @csrf 
     <p>
         <h4 class="title-create-item">Body</h4>
-        <textarea name="body" id="blog_textarea" class="form-control" required placeholder="e.g.">{!!$blog ? $blog->body: ''!!}</textarea>
+        <textarea name="body" id="blog_textarea" class="form-control" placeholder="e.g.">{!!$blog ? $blog->body: ''!!}</textarea>
     </p>
     <br>
     <p>
