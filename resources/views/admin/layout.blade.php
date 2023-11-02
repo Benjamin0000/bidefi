@@ -13,6 +13,8 @@
     .modal{background: rgba(0, 0, 0, 0.5); }
     .modal-backdrop {display: none;}
     </style>
+<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+<script>tinymce.init({selector:'#blog_textarea'});</script>
 </head>
 <body class="@@dashboard">
 <div id="preloader"><i>.</i><i>.</i><i>.</i></div>
