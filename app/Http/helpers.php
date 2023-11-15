@@ -274,7 +274,7 @@ function top_bidders()
 
 function upcoming()
 {
-    return Item::where('status', 0)->latest()->get();
+    return Item::where([ ['status', 0], ['points', 0] ])->latest()->get();
 }
 
 function completed()
