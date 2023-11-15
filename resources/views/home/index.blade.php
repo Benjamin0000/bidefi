@@ -1,6 +1,7 @@
 @include('includes.header')
 @include('home.component.trending')
 @include('home.component.live_auction')
+@include('home.component.starting_soon')
 @include('home.component.top_bidders')
 @include('home.component.upcoming')
 @include('home.component.completed')

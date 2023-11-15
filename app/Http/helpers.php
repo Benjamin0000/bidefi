@@ -282,6 +282,11 @@ function completed()
     return Item::where('status', '>', 1)->paginate(12); 
 }
 
+function starting_soon()
+{
+    return Item::where([ ['status', 0], ['points', '>', 0] ])->get();
+}
+
 function latest_winners()
 {
    return Bidder::where('winner', 1)->distinct('user_id')

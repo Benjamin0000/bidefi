@@ -25,10 +25,11 @@ class HomeController extends Controller
         $trendings = trendings(); 
         $live_auctions = live_auction(); 
         $top_bidders =  top_bidders(); 
+        $starting_soon = starting_soon(); 
         $upcomings = upcoming(); 
         $completed = completed(); 
         $latest_winners = latest_winners(); 
-        $user = Auth::user(); 
+        $user = Auth::user();  
 
         return view('home.index', compact(
             'trendings', 
@@ -37,7 +38,8 @@ class HomeController extends Controller
             'upcomings',
             'completed',
             'latest_winners',
-            'user'
+            'user',
+            'starting_soon'
         )); 
     }
 
