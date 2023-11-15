@@ -284,7 +284,7 @@ function completed()
 
 function starting_soon()
 {
-    return Item::where([ ['status', 0], ['points', '>', 0] ])->get();
+    return Item::where([ ['status', 0], ['points', '>', 0] ])->orderBy('points', 'desc')->get();
 }
 
 function latest_winners()
