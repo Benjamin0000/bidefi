@@ -32,7 +32,7 @@
                                 @endif 
                                 @if($item->status < 2)
                                 <a class="mg-l-8" target="_blank" href="{{get_locked_url($item->network)}}">
-                                    <img class="img-fluid rounded" width="90" src="/lock_price.png" alt="">
+                                    <img class="img-fluid rounded" width="80" src="/lock_price.png" alt="">
                                 </a>
                                 @endif 
                             </div>

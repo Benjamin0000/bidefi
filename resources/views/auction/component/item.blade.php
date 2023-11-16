@@ -91,7 +91,7 @@
                 @endif 
                 @if($auction->status < 2)
                     <a target="_blank" href="{{get_locked_url($auction->network)}}">
-                        <img class="img-fluid rounded" width="90" src="/lock_price.png" alt="">
+                        <img class="img-fluid rounded" width="80" src="/lock_price.png" alt="">
                     </a>
                 @endif 
             </div>

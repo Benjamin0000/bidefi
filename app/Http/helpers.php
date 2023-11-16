@@ -186,27 +186,27 @@ function get_price($name, $prize=0)
     if(!$prize) return false;
     $name = strtolower($name); 
 
-    if( strpos($name, "bnb") != false && strpos($name, "bnb") >= 0 ){
+    if( !is_bool( strpos($name, "bnb") ) ) {
         $price = (float)get_register('bnb_price');
         return $price * $prize; 
-
-    }else if(strpos($name, "eth") != false && strpos($name, "eth") >= 0){
+    }
+    else if( !is_bool(strpos($name, "eth")) ){
         $price = (float)get_register('eth_price');
         return $price * $prize; 
 
-    }else if(strpos($name, "btc") != false && strpos($name, "btc") >= 0){
+    }else if( !is_bool(strpos($name, "btc")) ){
         $price = (float)get_register('btc_price');
         return $price * $prize; 
 
-    }else if(strpos($name, "link") != false &&  strpos($name, "link") >= 0){
+    }else if( !is_bool(strpos($name, "link")) ){
         $price = (float)get_register('link_price');
         return $price * $prize; 
 
-    }else if(strpos($name, "eth") != false &&  strpos($name, "arb") >= 0){
+    }else if( !is_bool(strpos($name, "arb")) ){
         $price = (float)get_register('eth_price');
         return $price * $prize; 
 
-    }else if(strpos($name, "uni") != false &&  strpos($name, "uni") >= 0){
+    }else if( !is_bool(strpos($name, "uni")) ){
         $price = (float)get_register('uni_price');
         return $price * $prize; 
 
