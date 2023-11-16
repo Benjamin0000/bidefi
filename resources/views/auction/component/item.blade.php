@@ -84,11 +84,19 @@
                 <h5><span>$</span><span id="c_bid{{$auction->id}}">{{number_format($auction->bid_price, 5)}}</span></h5>
             </div>
         </div>
-        @if($auction->status == 0)
+        
             <div class="card-bottom">
-                <a href="{{route('auction.show', $auction->id)}}" class="sc-button style bag fl-button pri-3"><span>Place Bid</span></a>
+                @if($auction->status == 0)
+                    <a href="{{route('auction.show', $auction->id)}}" class="sc-button style bag fl-button pri-3"><span>Place Bid</span></a>
+                @endif 
+                @if($auction->status < 3)
+                    <a href="{{get_locked_url($auction->network)}}">
+                        <img class="img-fluid rounded" width="100" src="/lock_price.jpg" alt="">
+                    </a>
+                @endif 
             </div>
-        @endif 
+        
     </div>
-</div>
-@endforeach 
+</div> 
+@endforeach  
+

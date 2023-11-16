@@ -107,8 +107,30 @@ function get_contract_adress($id)
         $address = "0x88842fa0Af9266cfAe10B7470A9A80384195746c"; 
     elseif($id == 97)
         $address = "0xb0634bb4857bab45ac4fc440fee6e715824a96ef"; 
-
     return $address;
+}
+
+function get_locked_url($id)
+{
+    $url = "";
+    $address = get_contract_adress($id); 
+    if($id == 1)
+        $url = "https://etherscan.io/address/$address"; 
+    elseif($id == 324)
+        $url = "https://explorer.zksync.io/address/$address";
+    elseif($id == 59144)
+        $url = "https://lineascan.build/address/$address";
+    elseif($id == 8453)
+        $url = "https://basescan.org/address/$address";
+    elseif($id == 56)
+        $url = "https://bscscan.com/address/$address"; 
+    elseif($id == 42161)
+        $url = "https://arbiscan.io/address/$address";
+    elseif($id == 10)
+        $url = "https://optimistic.etherscan.io/address/$address"; 
+    // elseif($id == 97)
+    //     $url = "0xb0634bb4857bab45ac4fc440fee6e715824a96ef"; 
+    return $url;
 }
 
 function generateRefCode()
