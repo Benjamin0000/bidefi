@@ -174,8 +174,45 @@ function query_price($name, $reg_name)
 
 function setEthPrice() 
 {
-    query_price('ethereum', 'eth_price'); 
-    query_price('binancecoin', 'bnb_price'); 
+    query_price('ethereum', 'eth_price');
+    query_price('binancecoin', 'bnb_price');
+    query_price('bitcoin', 'btc_price');
+    query_price('chainlink', 'link_price');
+    query_price('uniswap', 'uni_price');
+}
+
+function get_price($name, $prize=0)
+{
+    if(!$prize) return false;
+    $name = strtolower($name); 
+
+    if( strpos($name, "bnb") >= 0 ){
+        $price = (float)get_register('bnb_price');
+        return $price * $prize; 
+
+    }else if(strpos($name, "eth") >= 0){
+        $price = (float)get_register('eth_price');
+        return $price * $prize; 
+
+    }else if(strpos($name, "btc") >= 0){
+        $price = (float)get_register('btc_price');
+        return $price * $prize; 
+
+    }else if(strpos($name, "link") >= 0){
+        $price = (float)get_register('link_price');
+        return $price * $prize; 
+
+    }else if(strpos($name, "arb") >= 0){
+        $price = (float)get_register('eth_price');
+        return $price * $prize; 
+
+    }else if(strpos($name, "uni") >= 0){
+        $price = (float)get_register('uni_price');
+        return $price * $prize; 
+
+    }else{
+        return false; 
+    }
 }
 
 function increase_fee($fee, $network)

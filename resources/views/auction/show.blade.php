@@ -19,21 +19,20 @@
                         <div class="meta-item">
                             <div class="left">
                                 @if($item->free_bid)
-                                    <span class="bg-success" style="background:var(--primary-color3) !important; color:white;">Free</span>
+                                    <span class="mg-l-8 bg-success" style="background:var(--primary-color3) !important; color:white;">Free</span>
                                 @else 
-                                    <span class="bg-danger" style="background:red !important; color:white;">Paid</span>
+                                    <span class="mg-l-8 bg-danger" style="background:red !important; color:white;">Paid</span>
                                 @endif 
-                                <span class="viewed eye">{{$item->views}}</span>
-                                <span class="liked heart wishlist-button mg-l-8 {{$user && liked($item->id, $user->id) ? 'active': ''}}"><span class="number-like" onclick="likeItem({{$item->id}})">{{$item->likes}}</span></span>
+                                <span class="mg-l-8"><b class="fas fa-eye"></b> {{$item->views}}</span>
+                                <span class="liked heart wishlist-button mg-l-8 {{$user && liked($item->id, $user->id) ? 'active': ''}}" onclick="likeItem({{$item->id}})" style="line-height: 50px;"><b style="line-height: 50px;">{{$item->likes}}</b></span>
                                 
-                                <span class="mg-l-8"><img src="{{get_logo($item->network)}}" width="30" alt=""></span>
+                                <span class="mg-l-8"><img src="{{get_logo($item->network)}}" width="25" alt=""></span>
                                 @if($item->share)
                                 <span class="mg-l-8"><b class="fas fa-users"></b> {{$item->share}}</span>
                                 @endif 
-                            </div>
-                            <div class="right">
-                                {{-- <a href="item-details.html#" class="share"></a>
-                                <a class="option"></a> --}}
+                                <a class="mg-l-8" target="_blank" href="{{get_locked_url($item->network)}}">
+                                    <img class="img-fluid rounded" width="90" src="/lock_price.png" alt="">
+                                </a>
                             </div>
                         </div>
                         <div class="client-infor sc-card-product">
@@ -41,7 +40,12 @@
                                 <div class="author">
                                     <div class="info">
                                         <span>Price</span>
-                                        <h6>${{number_format($item->price)}}</h6>
+                                        @php 
+                                            $price = get_price($item->symbol, $item->prize);
+                                        @endphp 
+                                        <h6>
+                                            ${{ $price ? number_format($price) : number_format($item->price)}}
+                                        </h6>
                                     </div>
                                 </div>
                             </div>

@@ -89,9 +89,9 @@
                 @if($auction->status == 0)
                     <a href="{{route('auction.show', $auction->id)}}" class="sc-button style bag fl-button pri-3"><span>Place Bid</span></a>
                 @endif 
-                @if($auction->status < 3)
-                    <a href="{{get_locked_url($auction->network)}}">
-                        <img class="img-fluid rounded" width="100" src="/lock_price.jpg" alt="">
+                @if($auction->status < 2)
+                    <a target="_blank" href="{{get_locked_url($auction->network)}}">
+                        <img class="img-fluid rounded" width="90" src="/lock_price.png" alt="">
                     </a>
                 @endif 
             </div>

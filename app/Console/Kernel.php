@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->call(function () {
             setEthPrice();
-        })->everyMinute();
+        })->everyTwoMinutes();
     }
 
     /**
