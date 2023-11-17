@@ -57,6 +57,9 @@ class AuctionController extends Controller
         $item = Item::findOrFail($item_id);
         $bidders = Bidder::where('item_id', $item->id)->orderBy('updated_at', 'desc')->take(10)->get(); 
         $items = Item::where([ ['network', $item->network], ['status', 0] ])->latest()->take(8)->get(); 
+       
+        if($credId = request()->gal) // getting the credential id
+            session(["credId$item_id" => $credId]);
         return view('auction.show', compact('item', 'bidders', 'items')); 
     }
 
@@ -127,6 +130,7 @@ class AuctionController extends Controller
                 $check->save();
                 $user->placeBid($item, $points);  
                 increase_fee($fee, $item->network); 
+                set_galxe($item->id, $user->address);
                 return ["done" => true]; 
             } else {
                 $check->trial += 1;

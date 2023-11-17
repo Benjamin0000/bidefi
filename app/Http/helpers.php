@@ -14,6 +14,7 @@ use App\Models\Bidder;
 use App\Models\Likes; 
 use App\Models\BidHistory; 
 use App\Models\Winner; 
+use App\Models\Galxe; 
 
 function all_networks(){
    return [1,324,59144,8453,56,42161,10];
@@ -520,3 +521,75 @@ function set_winners($id)
         }
     }
 } 
+
+function set_galxe($item_id, $address)
+{
+    $credId = session("credId$item_id");
+    $check = Galxe::where([ ['credId', $credId], ['address', $address] ])->exists();
+    if(!$check){
+        Galxe::create([
+            'credId'=>$credId,
+            'address'=>$address
+        ]);
+    }
+    session()->forget("credId$item_id");
+}
+
+function run_galxe()
+{
+    $galxe = Galxe::where('status', 0)->first();
+    if($galxe){
+        $galxes = Galxe::where([ ['status', 0], ['credId', $galxe->credId] ])->take(50)->get();
+        $addresses = $galxes->pluck('address')->all();
+
+        $credId = $galxe->credId;
+        $operation = "APPEND";
+        $items = $addresses;
+        $maxRetries = 3;
+    
+        for ($retry = 0; $retry < $maxRetries; $retry++) {
+            try {
+                // Make the HTTP request
+                $response = Http::withHeaders([
+                    'access-token' => env('GAL_TOKEN'),
+                ])->post('https://graphigo.prd.galaxy.eco/query', [
+                    'operationName' => 'credentialItems',
+                    'query' => '
+                        mutation credentialItems($credId: ID!, $operation: Operation!, $items: [String!]!) { 
+                            credentialItems(input: { 
+                                credId: $credId 
+                                operation: $operation 
+                                items: $items 
+                            }) { 
+                                name 
+                            } 
+                        }
+                    ',
+                    'variables' => [
+                        'credId' => $credId,
+                        'operation' => $operation,
+                        'items' => $items,
+                    ],
+                ]);
+                
+                $result = $response->json();
+                if( 
+                    isset($result['data']) && 
+                    isset($result['data']['credentialItems']) && 
+                    isset($result['data']['credentialItems']['name'])
+                ){
+                    foreach($galxes as $gal){
+                        $gal->status = 1;
+                        $gal->save();
+                    }
+                    break;
+                }
+            } catch (\Throwable $e) {
+                if ($retry === $maxRetries - 1) {
+                    throw $e;
+                }
+                sleep(2);
+            }
+        }
+    }
+}

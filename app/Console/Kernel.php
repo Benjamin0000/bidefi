@@ -12,6 +12,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         $schedule->call(function () {
+            run_galxe();
             setEthPrice();
         })->everyTwoMinutes();
     }
