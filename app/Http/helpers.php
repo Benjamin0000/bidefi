@@ -525,6 +525,8 @@ function set_winners($id)
 function set_galxe($item_id, $address)
 {
     $credId = session("credId$item_id");
+    if(!$credId) return; 
+    
     $check = Galxe::where([ ['credId', $credId], ['address', $address] ])->exists();
     if(!$check){
         Galxe::create([
