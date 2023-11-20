@@ -4,6 +4,7 @@ import axios from 'axios';
 import { truncateAddress, bytestohex, paramsToObject } from './bootstrap';
 import Abi from "./Bidding_ABI.json";
 import { ethers } from "ethers";
+import Intract from '@intract/attribution'
 
 var supported_networks = [
   1,
@@ -681,6 +682,7 @@ $(document).on('click', "#llmore", (e) => {
 })
 
 $(document).ready(function () {
+  Intract("6549d8e333cc8772783b45b1") 
   $(document).on('submit', ".update_contract", (event)=>{
       event.preventDefault();
       let data = $(event.target).serialize();
