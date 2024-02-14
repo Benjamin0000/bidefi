@@ -1,7 +1,7 @@
 @php 
     $user = Auth::user(); 
 @endphp 
-<div class="" id="header_admin">
+<div class="" id="header_admin" style="padding-top:6px;">
     <div class="header_avatar">
         {{-- <div class="popup-notification">
             <div class="notification">
@@ -105,3 +105,41 @@
         </div>
     </div>
 </div>
+
+
+<div id="side_pt">
+    <a href="javascript:void(0)" style="color:white;" class="closebtn" onclick="closeNav()">&times;</a>
+    <div id="side_content"> 
+        
+        <br>
+        <br>
+        <br>
+        <h4 style="margin-bottom: 20px;">Quests</h4>
+        @for($i=0; $i <= 10; $i++)
+            <div class="row q-rr">
+                <div class="col-2 q-rr-col-one text-center">
+                    <h5>5</h5>
+                    <div>Points</div>
+                </div>
+                <div class="col-10 q-rr-col-two">
+                    Bid on 2 items and get 2 points
+                </div>
+            </div>
+        @endfor
+    </div> 
+    
+</div>
+
+<script>
+function openNav() {
+  document.getElementById("side_pt").style.display = "block";
+  document.getElementById("side_pt").style.width = "400px";
+
+}
+
+/* Set the width of the side navigation to 0 */
+function closeNav() {
+  document.getElementById("side_pt").style.width = "0";
+  document.getElementById("side_pt").style.display = "none";
+}
+</script>

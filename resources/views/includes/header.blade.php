@@ -31,6 +31,66 @@
             font-weight: 600;
             font-size: 15px;
         }
+        .pt_btn{
+            font-size:20px;
+        }
+        .pt_btn:hover{
+            color:black !important; 
+        }
+        @media only screen and (max-width: 1200px) {
+            .pt_btn{
+                margin-right:10px;
+            }
+            #pt_no{
+                display:none; 
+            }
+        }
+        #side_pt{
+            height: 100%; /* 100% Full-height */
+            width: 0; /* 0 width - change this with JavaScript */
+            display:none; 
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Stay on top */
+            top: 0; /* Stay at the top */
+            right: 0;
+            background-color: #181B81; /*111 Black*/
+            overflow-x: hidden; /* Disable horizontal scroll */
+            overflow-y: scroll; /* Enable vertical scroll */
+            /* padding-top: 60px; Place content 60px from the top */
+            transition: 0.1s; /* 0.5 second transition effect to slide in the sidenav */
+            padding-left:10px; 
+        }
+        
+#side_pt .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px
+}
+
+#side_content{
+    color:white;
+}
+.q-rr{
+    margin-bottom: 10px; 
+    padding-left:10px; 
+}
+
+.q-rr-col-one{
+    padding:10px;
+    border:1px solid white;
+    font-size:15px;
+    border-radius: 5px;
+    background:#611d1d;
+    font-weight: bold; 
+}
+.q-rr-col-two{
+    padding:10px;
+    border:1px solid white;
+    font-size:15px; 
+    border-radius: 5px;
+}
     </style>
 </head>
 <body class="body header-fixed is_dark">
@@ -76,9 +136,15 @@
                                             </div>
                                         @endguest
                                         @auth
+                                            <div class="sc-btn-top mg-r-12" >
+                                                <a href="#" onclick="openNav()" class="pt_btn sc-button header-slider style style-1 fl-button pri-1">
+                                                    <i class="fas fa-flame"></i> <em id="pt_no">20 Points</em>
+                                                </a>
+                                            </div>
                                             @include('includes.auth_dropdown') 
                                         @endauth
                                     </div>
+                                    
                                 </div> 
                             </div>
                         </div>
