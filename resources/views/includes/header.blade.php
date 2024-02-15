@@ -152,7 +152,7 @@
                                         @auth
                                             <div class="sc-btn-top mg-r-12" >
                                                 <a href="#" onclick="openNav()" class="pt_btn sc-button header-slider style style-1 fl-button pri-1">
-                                                    <i class="fas fa-flame"></i> <em id="pt_no">{{$user->points}} Points</em>
+                                                    <i class="fas fa-flame"></i> <ti id="pt_no">{{$user->points}} B-Points</ti>
                                                 </a>
                                             </div>
                                             @include('includes.auth_dropdown') 

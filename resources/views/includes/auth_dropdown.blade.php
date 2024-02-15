@@ -120,13 +120,13 @@
         <br>
         @foreach($points as $point)
             <div class="row q-rr @if($user->task_completed($point->id)) done_task @endif">
-                <div class="col-2 q-rr-col-one text-center" style="color:white;">
+                <div class="col-3 q-rr-col-one text-center" style="color:white;">
                     <div class="f-q-rr-con"> 
                         <h5>{{$point->reward}}</h5>
-                        <div>Points</div>
+                        <div>B-Points</div>
                     </div> 
                 </div>
-                <div class="col-10 q-rr-col-two">
+                <div class="col-9 q-rr-col-two">
                     <b>{{$point->title}}</b>
                     @if($user->task_completed($point->id))
                         <div>
