@@ -18,6 +18,8 @@
                 <th>No</th>
                 <th>Bid items</th>
                 <th>Points</th>
+                <th>Network</th>
+                <th>Title</th>
                 <th>Delete</th>
             </tr>
         </thead>
@@ -28,6 +30,8 @@
                     <td>{{$no++}}</td>
                     <td>{{$point->bid}}</td>
                     <td>{{$point->reward}}</td>
+                    <td>{{get_network_name($point->network)}}</td>
+                    <td>{{$point->title}}</td>
                     <td>
                         <form action="{{route('admin.points.delete_points', $point->id)}}" method="POST">
                             @csrf 
@@ -57,6 +61,19 @@
                     <div class="form-group">
                         <label for="">Points</label>
                         <input type="number" name="reward" required class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Network</label>
+                        <select name="network" id="" required class="form-control">
+                            <option value="">Select</option>
+                            @foreach(all_networks() as $network)
+                                <option value="{{$network}}">{{get_network_name($network)}}</option>
+                            @endforeach 
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Title</label>
+                        <textarea name="title" required class="form-control"></textarea>
                     </div>
                     <br>
                     <div class="form-group">

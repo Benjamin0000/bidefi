@@ -5,14 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Point extends Model
+class TaskPoint extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'reward',
-        'bid',
+        'user_id',
+        'point_id',
+        'rq_total',
+        'total',
         'network',
-        'title'
+        'reward'
     ]; 
 }

@@ -109,22 +109,26 @@
 
 
 <div id="side_pt">
-    <a href="javascript:void(0)" style="color:white;" class="closebtn" onclick="closeNav()">&times;</a>
+    <div style="background: #eee; height:50px;">
+    
+    <a href="javascript:void(0)" style="color:#111;" class="closebtn" onclick="closeNav()">&times;</a>
+    <br>
+    <h4 style="margin-bottom: 20px;color:#111;margin-left:10px;">Quests</h4>
+    </div> 
+
     <div id="side_content"> 
-        
         <br>
-        <br>
-        <br>
-        <h4 style="margin-bottom: 20px;">Quests</h4>
         @foreach($points as $point)
-            <div class="row q-rr @if($user->total_item >= $point->bid) done_task @endif">
+            <div class="row q-rr @if($user->task_completed($point->id)) done_task @endif">
                 <div class="col-2 q-rr-col-one text-center" style="color:white;">
-                    <h5>{{$point->reward}}</h5>
-                    <div>Points</div>
+                    <div class="f-q-rr-con"> 
+                        <h5>{{$point->reward}}</h5>
+                        <div>Points</div>
+                    </div> 
                 </div>
                 <div class="col-10 q-rr-col-two">
-                    Bid on {{$point->bid}} items and get {{$point->reward}} points
-                    @if($user->total_item >= $point->bid)
+                    <b>{{$point->title}}</b>
+                    @if($user->task_completed($point->id))
                         <div>
                             <span class="badge bg-success">completed</span>
                         </div> 

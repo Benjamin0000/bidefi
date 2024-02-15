@@ -118,12 +118,18 @@ class User extends Authenticatable
                 'address'=>$this->address,
                 'points'=>0
             ]); 
-            $this->total_item += 1; 
-            $point = Point::where('bid', $this->total_item)->first(); 
-            if($point){
-                $this->points += $point->reward; 
+            $this->total_item += 1;
+            $check_point = Point::where('network', $item->network)->first();
+            $task = $this->get_uncompleted_task($item->network);
+            if($check_point && $task){
+                $task->total += 1; 
+                if($task->total >= $task->rq_total){
+                    $this->points += $task->reward;
+                    $task->status = 1;  
+                    $this->save();
+                }
+                $task->save(); 
             }
-            $this->save(); 
         }
 
         $bidder->points += $amt;
@@ -179,8 +185,44 @@ class User extends Authenticatable
             $name = $this->fname." ".$this->lname;  
         else 
             $name = truncateAddress($this->address); 
-
         return $name; 
+    }
+
+    public function task_completed($point_id)
+    {
+        $check = TaskPoint::where([ 
+            ['user_id', $this->id], 
+            ['point_id', $point_id]
+        ])->first();
+
+        if($check && $check->status == 1)
+            return true; 
+        return false; 
+    }
+
+    public function get_uncompleted_task($network)
+    {
+        $points = Point::where('network', $network)->get();  
+        foreach($points as $point){
+            $check = TaskPoint::where([ 
+                ['user_id', $this->id], 
+                ['point_id', $point->id]
+            ])->first();
+            if(!$check){
+                TaskPoint::create([
+                    'user_id'=>$this->id,
+                    'point_id'=>$point->id,
+                    'rq_total'=>$point->bid,
+                    'reward'=>$point->reward,
+                    'network'=>$point->network
+                ]);
+            }
+        }
+        return TaskPoint::where([ 
+            ['user_id', $this->id], 
+            ['network', $network],
+            ['status', 0]
+        ])->orderBy('reward', 'asc')->first();
     }
 
 

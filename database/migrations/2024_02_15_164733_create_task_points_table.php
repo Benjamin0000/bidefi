@@ -11,12 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('points', function (Blueprint $table) {
+        Schema::create('task_points', function (Blueprint $table) {
             $table->id();
-            $table->integer('reward'); 
-            $table->integer('bid');
+            $table->uuid('user_id');
+            $table->integer('point_id'); 
+            $table->integer('rq_total')->default(0);
+            $table->integer('reward');
+            $table->integer('total')->default(0); 
             $table->integer('network'); 
-            $table->string('title'); 
             $table->timestamps();
         });
     }
@@ -26,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('points');
+        Schema::dropIfExists('task_points');
     }
 };

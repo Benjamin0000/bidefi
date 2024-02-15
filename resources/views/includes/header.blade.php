@@ -54,12 +54,13 @@
             z-index: 1; /* Stay on top */
             top: 0; /* Stay at the top */
             right: 0;
-            background-color: #181B81; /*111 Black*/
+            background-color: #fff; /*111 Black*/
             overflow-x: hidden; /* Disable horizontal scroll */
             overflow-y: scroll; /* Enable vertical scroll */
             /* padding-top: 60px; Place content 60px from the top */
             transition: 0.1s; /* 0.5 second transition effect to slide in the sidenav */
-            padding-left:10px; 
+            /* padding-left:10px;  */
+            box-shadow: 0px 0px 2px 2px #eee;
         }
         
 #side_pt .closebtn {
@@ -71,29 +72,37 @@
 }
 
 #side_content{
-    color:white;
+    border-top:2px solid black; 
+    padding:20px; 
 }
 .q-rr{
     margin-bottom: 10px; 
-    padding-left:10px; 
+    /* padding-left:10px;   */
 }
 
+.f-q-rr-con{
+    background:#611d1d;
+    width: 100%;
+    padding:5px;
+}
 .q-rr-col-one{
-    padding:10px;
-    border:1px solid white;
+    border:1px solid #222;
     font-size:15px;
     border-radius: 5px;
-    background:#611d1d;
     font-weight: bold; 
+    min-height: 60px; 
+    padding:5px; 
+    line-height: 20px; 
 }
 .q-rr-col-two{
     padding:10px;
-    border:1px solid white;
+    border:1px solid #222;
     font-size:15px; 
     border-radius: 5px;
+    color:#222;
 }
 .done_task{
-    background:#ccc; 
+    background:#eee; 
     color:black; 
 }
     </style>
