@@ -33,6 +33,7 @@
         }
         .pt_btn{
             font-size:20px;
+            margin-right: 5px; 
         }
         .pt_btn:hover{
             color:black !important; 
@@ -91,6 +92,10 @@
     font-size:15px; 
     border-radius: 5px;
 }
+.done_task{
+    background:#ccc; 
+    color:black; 
+}
     </style>
 </head>
 <body class="body header-fixed is_dark">
@@ -138,7 +143,7 @@
                                         @auth
                                             <div class="sc-btn-top mg-r-12" >
                                                 <a href="#" onclick="openNav()" class="pt_btn sc-button header-slider style style-1 fl-button pri-1">
-                                                    <i class="fas fa-flame"></i> <em id="pt_no">20 Points</em>
+                                                    <i class="fas fa-flame"></i> <em id="pt_no">{{$user->points}} Points</em>
                                                 </a>
                                             </div>
                                             @include('includes.auth_dropdown') 

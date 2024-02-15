@@ -118,6 +118,12 @@ class User extends Authenticatable
                 'address'=>$this->address,
                 'points'=>0
             ]); 
+            $this->total_item += 1; 
+            $point = Point::where('bid', $this->total_item)->first(); 
+            if($point){
+                $this->points += $point->reward; 
+            }
+            $this->save(); 
         }
 
         $bidder->points += $amt;

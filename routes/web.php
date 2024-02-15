@@ -96,6 +96,9 @@ Route::prefix('admin')->group(function () {
     Route::post('/faq/{id?}', [AdminController::class, 'store_faq'])->name('admin.faq.save');
     Route::delete('/faq/{id}', [AdminController::class, 'delete_faq'])->name('admin.faq.delete'); 
 
-
+    #points
+    Route::get('/points', [AdminController::class, 'points'])->name('admin.points.index'); 
+    Route::post('/points', [AdminController::class, 'create_points'])->name('admin.points.create_points'); 
+    Route::delete('/points/{id}', [AdminController::class, 'delete_points'])->name('admin.points.delete_points'); 
 });
 //---end admin  

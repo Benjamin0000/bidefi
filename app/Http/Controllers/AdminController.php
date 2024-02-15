@@ -11,6 +11,7 @@ use App\Models\Admins;
 use App\Models\WHistory; 
 use App\Models\Blog; 
 use App\Models\Faq; 
+use App\Models\Point; 
 
 class AdminController extends Controller
 {
@@ -324,6 +325,25 @@ class AdminController extends Controller
         $faq = Faq::findOrFail($id); 
         $faq->delete(); 
         return back()->with('success', 'faq deleted'); 
+    }
+
+    public function points()
+    {
+        $points = Point::latest()->get(); 
+        return view('admin.points.index', compact('points')); 
+    }
+
+    public function create_points(Request $request)
+    {
+        Point::create($request->all());  
+        return back()->with('success', 'Point created');
+    }
+
+    public function delete_points($id)
+    {
+        $point = Point::findOrFail($id); 
+        $point->delete(); 
+        return back()->with('success', 'Point deleted');
     }
 
 }

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +7,7 @@
     <title>Bidefi Admin</title>
     <meta name="description"content="">
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/logo/logo.png">
-    <link rel="stylesheet" href="/admin/css/style.css">
+    <link rel="stylesheet" href="/admin/css/style.css?v=3">
     <style>
     .modal{background: rgba(0, 0, 0, 0.5); }
     .modal-backdrop {display: none;}
@@ -19,7 +18,7 @@
 <body class="@@dashboard">
 <div id="preloader"><i>.</i><i>.</i><i>.</i></div>
 <div id="main-wrapper" class="admin" style="padding-top:20px">
-    <div class="header">
+    <div class="header"> 
     <div class="container">
         <div class="row">
             <div class="col-xxl-12">
@@ -89,6 +88,11 @@
                 <a href="{{route('admin.faq.index')}}">
                     <span><i class="ri-heart-line"></i></span>
                     <span class="nav-text">FAQ</span></a>
+            </li> 
+            <li class="">
+                <a href="{{route('admin.points.index')}}">
+                    <span><i class="ri-heart-line"></i></span>
+                    <span class="nav-text">Points</span></a>
             </li> 
             <li class="">
                 <a href="/admin/settings">

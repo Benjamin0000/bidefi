@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->integer('points')->default(0); //total points accumulated
-            $table->integer('total_item')->default(0); //total 
+        Schema::create('points', function (Blueprint $table) {
+            $table->id();
+            $table->integer('reward'); 
+            $table->integer('bid'); 
+            $table->timestamps();
         });
     }
 
@@ -22,9 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('points');
-            $table->dropColumn('total_item');
-        });
+        Schema::dropIfExists('points');
     }
 };

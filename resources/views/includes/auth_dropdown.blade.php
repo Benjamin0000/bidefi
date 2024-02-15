@@ -1,5 +1,6 @@
 @php 
     $user = Auth::user(); 
+    $points = App\Models\Point::orderBy('reward', 'asc')->get(); 
 @endphp 
 <div class="" id="header_admin" style="padding-top:6px;">
     <div class="header_avatar">
@@ -115,17 +116,22 @@
         <br>
         <br>
         <h4 style="margin-bottom: 20px;">Quests</h4>
-        @for($i=0; $i <= 10; $i++)
-            <div class="row q-rr">
-                <div class="col-2 q-rr-col-one text-center">
-                    <h5>5</h5>
+        @foreach($points as $point)
+            <div class="row q-rr @if($user->total_item >= $point->bid) done_task @endif">
+                <div class="col-2 q-rr-col-one text-center" style="color:white;">
+                    <h5>{{$point->reward}}</h5>
                     <div>Points</div>
                 </div>
                 <div class="col-10 q-rr-col-two">
-                    Bid on 2 items and get 2 points
+                    Bid on {{$point->bid}} items and get {{$point->reward}} points
+                    @if($user->total_item >= $point->bid)
+                        <div>
+                            <span class="badge bg-success">completed</span>
+                        </div> 
+                    @endif 
                 </div>
             </div>
-        @endfor
+        @endforeach
     </div> 
     
 </div>
