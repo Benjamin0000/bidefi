@@ -15,6 +15,8 @@ use App\Models\Likes;
 use App\Models\BidHistory; 
 use App\Models\Winner; 
 use App\Models\Galxe; 
+use App\Models\Point; 
+use App\Models\TaskPoint; 
 
 function all_networks(){
    return [1,324,59144,8453,56,42161,10];
@@ -592,6 +594,20 @@ function run_galxe()
                 }
                 sleep(2);
             }
+        }
+    }
+}
+
+
+
+function remove_expired_points()
+{
+    $points = Point::all(); 
+    foreach($points as $point){
+        if(now() >= $point->expiry_date){
+            TaskPoint::where([ ['point_id', $point->id], ['status', 0] ])->lazyById()->each(function($task){
+                $task->delete(); 
+            }); 
         }
     }
 }
