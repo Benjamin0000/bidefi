@@ -1,7 +1,4 @@
-@php 
-    $user = Auth::user(); 
-    $points = App\Models\Point::orderBy('reward', 'asc')->get(); 
-@endphp 
+
 <div class="" id="header_admin" style="padding-top:6px;">
     <div class="header_avatar">
         {{-- <div class="popup-notification">
