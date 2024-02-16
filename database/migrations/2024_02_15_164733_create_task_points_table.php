@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('reward');
             $table->integer('total')->default(0); 
             $table->integer('network'); 
+            $table->boolean('status')->default(0);
             $table->timestamps();
         });
     }
