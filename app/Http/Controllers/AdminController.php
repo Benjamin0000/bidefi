@@ -335,7 +335,9 @@ class AdminController extends Controller
 
     public function create_points(Request $request)
     {
-        Point::create($request->all());  
+        $data = $request->all(); 
+        $data['expiry_date'] = now()->addDays($data['days']); 
+        Point::create($data);  
         return back()->with('success', 'Point created');
     }
 

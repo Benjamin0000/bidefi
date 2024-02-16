@@ -16,7 +16,8 @@ return new class extends Migration
             $table->integer('reward'); 
             $table->integer('bid');
             $table->integer('network'); 
-            $table->string('title'); 
+            $table->string('title');
+            $table->timestamp('expiry_date'); 
             $table->timestamps();
         });
     }

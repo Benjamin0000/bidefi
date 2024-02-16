@@ -20,6 +20,8 @@
                 <th>Points</th>
                 <th>Network</th>
                 <th>Title</th>
+                <th>Created</th>
+                <th>Expiry Date</th>
                 <th>Delete</th>
             </tr>
         </thead>
@@ -32,6 +34,12 @@
                     <td>{{$point->reward}}</td>
                     <td>{{get_network_name($point->network)}}</td>
                     <td>{{$point->title}}</td>
+                    <td>
+                        {{$point->created_at->isoFormat('ll')}}
+                    </td>
+                    <td>
+                        {{$point->expiry_date->isoFormat('ll')}}
+                    </td>
                     <td>
                         <form action="{{route('admin.points.delete_points', $point->id)}}" method="POST">
                             @csrf 
@@ -74,6 +82,10 @@
                     <div class="form-group">
                         <label for="">Title</label>
                         <textarea name="title" required class="form-control"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Expiry Days</label>
+                        <input name="days" type="number" required class="form-control">
                     </div>
                     <br>
                     <div class="form-group">

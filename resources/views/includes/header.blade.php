@@ -92,6 +92,7 @@
     font-weight: bold; 
     min-height: 60px; 
     padding:5px; 
+    padding-top:8px; 
     line-height: 20px; 
 }
 .q-rr-col-two{

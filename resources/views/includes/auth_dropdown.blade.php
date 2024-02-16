@@ -128,11 +128,18 @@
                 </div>
                 <div class="col-9 q-rr-col-two">
                     <b>{{$point->title}}</b>
-                    @if($user->task_completed($point->id))
+                    <br>
+                    <br>
+                    <div>
+                        <span class="badge bg-danger">HLNY!</span>
+                        <span class="badge" style="background: #ddd;color:black;">{{$user->get_completed_task($point->id)}} / {{$point->bid}}</span>
+                        <span style="font-size:13px;font-weight:bold">{{$point->created_at->isoFormat('ll')}} - {{$point->expiry_date->isoFormat('ll')}}</span>
+                    </div>
+                    {{-- @if($user->task_completed($point->id))
                         <div>
                             <span class="badge bg-success">completed</span>
                         </div> 
-                    @endif 
+                    @endif  --}}
                 </div>
             </div>
         @endforeach

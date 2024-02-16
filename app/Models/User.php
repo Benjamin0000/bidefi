@@ -126,10 +126,10 @@ class User extends Authenticatable
                 if($task->total >= $task->rq_total){
                     $this->points += $task->reward;
                     $task->status = 1;  
-                    $this->save();
                 }
                 $task->save(); 
             }
+            $this->save();
         }
 
         $bidder->points += $amt;
@@ -198,6 +198,18 @@ class User extends Authenticatable
         if($check && $check->status == 1)
             return true; 
         return false; 
+    }
+
+    public function get_completed_task($point_id)
+    {
+        $check = TaskPoint::where([ 
+            ['user_id', $this->id], 
+            ['point_id', $point_id]
+        ])->first();
+        if($check)
+            return $check->total; 
+
+        return 0; 
     }
 
     public function get_uncompleted_task($network)
