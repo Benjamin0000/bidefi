@@ -83,9 +83,10 @@
     margin-bottom: 10px; 
     /* padding-left:10px;   */
 }
-
-.f-q-rr-con{
+.f-q-rr-con-color{
     background:#611d1d;
+}
+.f-q-rr-con{
     width: 100%;
     padding:5px;
 }
