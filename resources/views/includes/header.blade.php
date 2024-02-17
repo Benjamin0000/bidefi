@@ -84,21 +84,22 @@
     /* padding-left:10px;   */
 }
 .f-q-rr-con-color{
-    background:#611d1d;
+    background:#4B50E6;
 }
 .f-q-rr-con{
     width: 100%;
     padding:5px;
+    min-height:60px;
+    line-height: 25px;
 }
 .q-rr-col-one{
     border:1px solid #222;
     font-size:15px;
     border-radius: 5px;
     font-weight: bold; 
-    min-height: 60px; 
+    min-height: 70px; 
     padding:5px; 
-    padding-top:8px; 
-    line-height: 20px; 
+    /* line-height: 20px;  */
 }
 .q-rr-col-two{
     padding:10px;

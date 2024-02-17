@@ -132,7 +132,7 @@
                             <img width="30" src="{{get_logo($point->network)}}" alt="">
                         </span>
                         <span class="badge" style="background: #ddd;color:black;">{{$user->get_completed_task($point->id)}} / {{$point->bid}}</span>
-                        <span style="font-size:13px;font-weight:bold">{{$point->created_at->isoFormat('ll')}} - {{$point->expiry_date->isoFormat('ll')}}</span>
+                        <span style="font-size:13px;">{{$point->created_at->isoFormat('ll')}} - {{$point->expiry_date->isoFormat('ll')}}</span>
                     </div>
                     {{-- @if($user->task_completed($point->id))
                         <div>
