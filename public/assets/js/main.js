@@ -125,30 +125,37 @@
  
     // Dark Light Mode
     $("body").on('click', ".dark", function (e) {
+        $(this).removeClass("dark")
+        $(this).addClass("light")
+        $(this).addClass("is_active")
         e.preventDefault();
         make_dark(); 
     });
+
+
     $("body").on('click', ".light", function (e) {
+        $(this).removeClass("light")
+        $(this).addClass("dark")
         e.preventDefault();
         make_light(); 
     });
 
     function make_light(){
         $(".body").removeClass("is_dark")
-        $(".light").addClass("is_active")
-        $(".dark").removeClass("is_active")
+        // $(".light").addClass("is_active")
+        // $(".dark").removeClass("is_active")
         $(".tf-text").addClass("style")
         $(".tf-text").removeClass("s1")
-        document.getElementById("moon_dark").src = "/assets/images/icon/moon-2.png";
+        // document.getElementById("moon_dark").src = "/assets/images/icon/moon-2.png";
         localStorage.setItem("dark", 0);
     }
     function make_dark(){
         $(".body").addClass("is_dark")
-        $(".light").removeClass("is_active")
-        $(".dark").addClass("is_active")
+        // $(".light").removeClass("is_active")
+        // $(".dark").addClass("is_active")
         $(".tf-text").removeClass("style")
         $(".tf-text").addClass("s1")
-        document.getElementById("moon_dark").src = "/assets/images/icon/moon-2.png";
+        // document.getElementById("moon_dark").src = "/assets/images/icon/moon-2.png";
         localStorage.setItem("dark", 1);
     }
 

@@ -81,6 +81,14 @@ function showUserLogin(account){
     formatUnits: 'ether',
   }).then(balance => {
       $("#eth_bal").html(Number(balance.formatted).toFixed(5))
+      $(".nettt_btn").hide(); 
+      $("#network_shown"+window.network_id).show(); 
+      if(window.network_id == 56){
+        $("#eth_symbol").html('BNB');  
+      }else{
+        $("#eth_symbol").html('ETH');
+      }
+
   }); 
 }
 
@@ -745,3 +753,8 @@ $(document).ready(function () {
       });
   }); 
 });
+
+$(document).on('click', '.net_drop_show', (event) => {
+  let net_no = $(event.currentTarget).attr('tt'); 
+  switchNetwork({chainId: net_no}); 
+})

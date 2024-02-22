@@ -36,8 +36,15 @@
             font-size: 15px;
         }
         .pt_btn{
-            font-size:20px;
+            font-size:15px;
             margin-right: 5px; 
+            padding: 7px 15px;
+            font-weight: bold;
+        }
+        .nettt_btn{
+            padding: 10px 15px;
+            font-size:15px;
+            font-weight: bold;
         }
         .pt_btn:hover{
             color:black !important; 
@@ -49,7 +56,14 @@
             #pt_no{
                 display:none; 
             }
+            .nettt_btn{
+                
+            }
+            .net_name_h{
+                display:none;
+            }
         }
+
         #side_pt{
             height: 100%; /* 100% Full-height */
             width: 0; /* 0 width - change this with JavaScript */
@@ -112,6 +126,23 @@
     background:#eee; 
     color:black; 
 }
+.net_drop_show{
+    padding:5px;
+}
+.net_drop_show img{
+    margin-right:4px;
+}
+.net_drop_show a {
+    color:white;
+    font-weight: bold;
+}
+.net_drop_show:hover{
+    background:#333; 
+}
+
+.nettt_btn{
+    display:none; 
+}
     </style>
 </head>
 <body class="body header-fixed is_dark">
@@ -152,16 +183,16 @@
                                     <div class="flat-search-btn flex">
                                         @guest
                                             <div class="sc-btn-top mg-r-12" id="site-header">
-                                                <a href="#" id="connectbtn" class="sc-button header-slider style style-1 wallet fl-button pri-1"><span>Connect Wallet
+                                                <a href="#" id="connectbtn" class="pt_btn sc-button header-slider style style-1 wallet fl-button pri-1"><span>Connect Wallet
                                                 </span></a>
                                             </div>
                                         @endguest
                                         @auth
-                                            <div class="sc-btn-top mg-r-12" >
+                                            <div class="sc-btn-top mg-r-12">
                                                 <a href="#" onclick="openNav()" class="pt_btn sc-button header-slider style style-1 fl-button pri-1">
                                                     <i class="fas fa-flame"></i> <ti id="pt_no">{{$user->points}} B-Points</ti>
                                                 </a>
-                                            </div>
+                                            </div> 
                                             @include('includes.auth_dropdown') 
                                         @endauth
                                     </div>
@@ -171,14 +202,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="mode_switcher">
+                <div class="mode_switcher" style="margin-top:4px;">
                     <h6>Dark mode <strong>Available</strong></h6>
                     <a href="#" class="light d-flex align-items-center">
                         <img src="/assets/images/icon/sun.png" alt="">
                     </a>
-                    <a href="#" class="dark d-flex align-items-center is_active">
+                    {{-- <a href="#" class="dark d-flex align-items-center is_active">
                         <img id="moon_dark" src="/assets/images/icon/moon-2.png" alt="">
-                    </a>
+                    </a> --}}
                 </div>
             </header>
             <!-- Header -->      

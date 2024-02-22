@@ -119,7 +119,16 @@
                             <br>
                         @else 
                             @if($item->status == 0)
-                                <a href="#" data-toggle="modal" data-target="#popup_bid" class="sc-button  style bag fl-button pri-3"><span>Place a bid</span></a>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <a href="#" data-toggle="modal" data-target="#popup_bid" class="sc-button  style bag fl-button pri-3"><span>Place a bid</span></a>
+
+                                    </div>
+                                    <div class="col-md-6">
+                                        <a href="#" class="sc-button  pri-3 btn-primary" style="background: #5142FC; border-color:#5142FC;"><span>Buy Bid Credit</span></a>
+
+                                    </div>
+                                </div>
                             @elseif($item->status == 2 && $item->canClaim())
                                 <button id="claim_price" idd="{{$item->id}}" net="{{$item->network}}" class="sc-button sc-button style bag fl-button pri-3 btn-block" style="color:white;">Claim</button>
                                 <div id="c_msg"></div> 
@@ -143,7 +152,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> 
         </div>
         <h2 class="text-center" style="margin-top:40px; margin-bottom:30px;">Recommended</h2>
         <div class="row">
