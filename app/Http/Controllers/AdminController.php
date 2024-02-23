@@ -74,18 +74,40 @@ class AdminController extends Controller
     {
         $name = $request->input('name'); 
         $network = $request->input('network'); 
-        $type = (int)$request->input('type'); 
+        $type = $request->input('type'); 
 
         if(!$name && !$network && !$type){
             $items = Item::latest()->paginate(10); 
         }else{
-            $items = Item::orWhere('name', 'like', "%$name%"); 
-            if($type == 1){
-                $items = $items->orWhere('free_bid', '>=', 1);
-            }else{
-                $items = $items->orWhere('free_bid', 0);
+            if($name){
+                $items = Item::where('name', 'like', "%$name%");
+                if($network){
+                    $items = $items->where('network', $network); 
+                }
+                if($type == 0 || $type == 1){
+                    if($type == 1){
+                        $items = $items->where('free_bid', '>=', 1);
+                    }else{
+                        $items = $items->where('free_bid', 0);
+                    }
+                } 
+            }else if($network){
+                $items = Item::where('network', $network);
+                if($type == 0 || $type == 1){
+                    if($type == 1){
+                        $items = $items->where('free_bid', '>=', 1);
+                    }else{
+                        $items = $items->where('free_bid', 0);
+                    }
+                } 
+            }else if( $type == 0 || $type == 1 ){
+                if($type == 1){
+                    $items = Item::where('free_bid', '>=', 1);
+                }else{
+                    $items = Item::where('free_bid', 0);
+                }
             }
-            $items = $items->orWhere('network', $network)->latest()->paginate(10);
+            $items = $items->latest()->paginate(10);
         }
         return view('admin.item.index', compact('items')); 
     }
