@@ -20,6 +20,9 @@
 
                 <p class="text-center">Your Credit <span class="price color-popup"><span class="bid_credit_info"></span> Credits</span>
                 </p>
+                @if(!$item->free_bid)
+                    <p class="text-center" id="buy_credit_link"></p>
+                @endif 
                 <p>Enter quantity.
                 </p>
                 <form id="place_bid_form">

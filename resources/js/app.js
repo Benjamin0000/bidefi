@@ -1,11 +1,25 @@
 import './bootstrap'
-import { web3modal } from './connectors'
+import { web3Modal } from './connectors'
 import axios from 'axios';
-import { truncateAddress, bytestohex, paramsToObject } from './bootstrap';
+import { truncateAddress, bytestohex } from './bootstrap';
 import Abi from "./Bidding_ABI.json";
 import { ethers } from "ethers";
 //import Intract from '@intract/attribution'
 import IntractAttribution from "@intract/attribution"
+import {
+  getAccount,
+  signMessage,
+  disconnect,
+  watchNetwork,
+  watchAccount,
+  prepareWriteContract,
+  writeContract,
+  fetchBalance,
+  waitForTransaction,
+  readContract,
+  switchNetwork
+} from '@wagmi/core'
+
 var supported_networks = [
   1,
   324,
@@ -16,6 +30,10 @@ var supported_networks = [
   10,
   97
 ]; 
+
+$(document).on('click', '#connectbtn', () => {
+  web3Modal.open() 
+});
 
 
 function get_contract() {
@@ -47,23 +65,9 @@ function get_contract() {
     return bsc2;
   }
 }
-import {
-  getAccount,
-  signMessage,
-  disconnect,
-  watchNetwork,
-  watchAccount,
-  prepareWriteContract,
-  writeContract,
-  fetchBalance,
-  waitForTransaction,
-  readContract,
-  switchNetwork
-} from '@wagmi/core'
 
-$(document).on('click', '#connectbtn', () => {
-  web3modal.openModal()
-});
+
+
 function logout() {
   disconnect().then(() => {
     axios.get('/RVgtFB').then(res => {
@@ -135,6 +139,9 @@ function setData(account) {
       }).then(bal => {
           let balance = Number(bal); 
           $(".bid_credit_info").html(balance); 
+          if(balance <= 0){
+            $("#buy_credit_link").html("<a href='/buy-credit' style='width:150px; height:30px;line-height:10px;' class='btn btn-primary'>Buy Bid Credit</a>"); 
+          }
           window.info = {
             bid_price: ethers.formatEther(data[3]),
             bid_fee: ethers.formatEther(data[4]),

@@ -125,7 +125,7 @@
 
                                     </div>
                                     <div class="col-md-6">
-                                        <a href="#" class="sc-button  pri-3 btn-primary" style="background: #5142FC; border-color:#5142FC;"><span>Buy Bid Credit</span></a>
+                                        <a href="/buy-credit" class="sc-button  pri-3 btn-primary" style="background: #5142FC; border-color:#5142FC;color:white;"><span>Buy Bid Credit</span></a>
 
                                     </div>
                                 </div>
@@ -165,7 +165,7 @@
         window.count_views({{$item->id}})
     }, 2000);
     window.show_id = {{$item->id}}
-    window.user_id = {{$user ? $user->id : 0}}
+    window.user_id = "{{$user ? $user->id : 0}}"
 </script>
 @if($user)
 @include('auction.component.bid_modal')

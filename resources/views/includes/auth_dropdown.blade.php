@@ -11,9 +11,10 @@
                 @endforeach 
             </div> 
             <div class="avatar_popup2 mt-20">
-                <div class="show mg-bt-18">
-                    <h4>All Networks</h4>
+                <div class="show mg-bt-18 text-center" style="margin-top:-10px;">
+                    <h5 style="color:white;">All Networks</h5>
                 </div>
+                
                 @foreach(all_networks() as $net_no)
                     <div class="net_drop_show" tt="{{$net_no}}">
                         <a href="javascript:void(0)">
