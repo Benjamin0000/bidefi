@@ -4,11 +4,47 @@
 <br>
 <div class="page-title">
     <div class="row align-items-center justify-content-between">
-        <div class="col-6">
+        <div class="col-2">
             <div class="page-title-content">
-
                 <h3>Items  <a href="/admin/create-items" class="btn btn-primary btn-sm">Create</a></h3>
             </div>
+        </div>
+        <div class="col-10">
+            <form action="" method="GET">
+                <div class="row">
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label for="">Name</label>
+                            <input type="text" name="name" class="form-control" placeholder="Optional">
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label for="">Network</label>
+                            <select name="network" class="form-control">
+                                <option value="">All</option>
+                                @foreach(all_networks() as $net)
+                                    <option value="{{$net}}">{{get_network_name($net)}}</option>
+                                @endforeach 
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <label for="">Type</label>
+                        <select name="type" class="form-control">
+                            <option value="">All</option>
+                            <option value="1">Free</option>
+                            <option value="0">Paid</option>
+                        </select>
+                    </div> 
+                    <div class="col-2">
+                        <br>
+                        <div class="form-group">
+                            <button class="btn btn-primary">Search</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>

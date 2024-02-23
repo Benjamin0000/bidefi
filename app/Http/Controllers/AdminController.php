@@ -70,9 +70,23 @@ class AdminController extends Controller
     /**
      * Show the items page
      */
-    public function items()
+    public function items(Request $request)
     {
-        $items = Item::latest()->paginate(10); 
+        $name = $request->input('name'); 
+        $network = $request->input('network'); 
+        $type = (int)$request->input('type'); 
+
+        if(!$name && !$network && !$type){
+            $items = Item::latest()->paginate(10); 
+        }else{
+            $items = Item::orWhere('name', 'like', "%$name%"); 
+            if($type == 1){
+                $items = $items->orWhere('free_bid', '>=', 1);
+            }else{
+                $items = $items->orWhere('free_bid', 0);
+            }
+            $items = $items->orWhere('network', $network)->latest()->paginate(10);
+        }
         return view('admin.item.index', compact('items')); 
     }
 
@@ -332,7 +346,7 @@ class AdminController extends Controller
         $points = Point::latest()->get(); 
         return view('admin.points.index', compact('points')); 
     }
-
+ 
     public function create_points(Request $request)
     {
         $data = $request->all(); 
