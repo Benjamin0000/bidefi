@@ -15,7 +15,7 @@
                     <div class="col-3">
                         <div class="form-group">
                             <label for="">Name</label>
-                            <input type="text" name="name" class="form-control" placeholder="Optional">
+                            <input type="text" name="name" value="{{isset($name) ? $name : ''}}" class="form-control" placeholder="Optional">
                         </div>
                     </div>
                     <div class="col-2">
@@ -24,7 +24,7 @@
                             <select name="network" class="form-control">
                                 <option value="">All</option>
                                 @foreach(all_networks() as $net)
-                                    <option value="{{$net}}">{{get_network_name($net)}}</option>
+                                    <option @selected(isset($network) && $net == $network) value="{{$net}}">{{get_network_name($net)}}</option>
                                 @endforeach 
                             </select>
                         </div>
@@ -33,8 +33,8 @@
                         <label for="">Type</label>
                         <select name="type" class="form-control">
                             <option value="">All</option>
-                            <option value="1">Free</option>
-                            <option value="0">Paid</option>
+                            <option value="1" @selected(isset($type) && $type == 1)>Free</option>
+                            <option value="0" @selected(isset($type) && $type == 0)>Paid</option>
                         </select>
                     </div> 
                     <div class="col-2">

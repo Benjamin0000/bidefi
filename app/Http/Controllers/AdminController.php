@@ -109,7 +109,7 @@ class AdminController extends Controller
             }
             $items = $items->latest()->paginate(10);
         }
-        return view('admin.item.index', compact('items')); 
+        return view('admin.item.index', compact('items', 'network', 'name', 'type')); 
     }
 
     public function create_item($id=null)
