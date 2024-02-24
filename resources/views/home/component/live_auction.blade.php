@@ -6,7 +6,7 @@
                     <h2 class="tf-title pb-23">Live Auctions</h2>
                     <a href="/live-auction" class="exp style2">EXPLORE MORE</a>
                 </div>
-            </div> 
+            </div>  
             <div class="col-md-12">
                 <div class="tf-soft">
                     <div class="soft-left">

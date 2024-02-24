@@ -21,19 +21,19 @@
                                 <span class="inner" id="live_pp">Category</span>
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                              <a class="dropdown-item live_category" pp_name='all' href="javascript:void(0)">
+                              <a class="dropdown-item start_soon_category" pp_name='all' href="javascript:void(0)">
                                 <div class='sort-filter active'>
                                     <span>All</span>
                                     {{-- <i class="fal fa-check"></i> --}}
                                 </div>
                               </a>
-                              <a class="dropdown-item live_category" pp_name='Free' href="javascript:void(0)">
+                              <a class="dropdown-item start_soon_category" pp_name='Free' href="javascript:void(0)">
                                 <div class='sort-filter'>
                                     <span>Free</span>
                                     {{-- <i class="fal fa-check"></i> --}}
                                 </div>
                               </a>
-                              <a class="dropdown-item live_category" pp_name='Paid' href="javascript:void(0)">
+                              <a class="dropdown-item start_soon_category" pp_name='Paid' href="javascript:void(0)">
                                 <div class='sort-filter'>
                                     <span>Paid</span>
                                 </div>
@@ -49,10 +49,10 @@
                                     <path d="M12 21.61V12.54" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                     <path d="M9.92965 2.48028L4.58965 5.44028C3.37965 6.11028 2.38965 7.79028 2.38965 9.17028V14.8203C2.38965 16.2003 3.37965 17.8803 4.58965 18.5503L9.92965 21.5203C11.0696 22.1503 12.9396 22.1503 14.0796 21.5203L19.4196 18.5503C20.6296 17.8803 21.6196 16.2003 21.6196 14.8203V9.17028C21.6196 7.79028 20.6296 6.11028 19.4196 5.44028L14.0796 2.47028C12.9296 1.84028 11.0696 1.84028 9.92965 2.48028Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
-                                <span class="inner" net='' id="chain_name_live">Blockchain</span>
+                                <span class="inner" net='' id="chain_name_start_soon">Blockchain</span>
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item net_live_sort" net='all' href="javascript:void(0)">
+                                <a class="dropdown-item net_start_soon_sort" net='all' href="javascript:void(0)">
                                     <div class='sort-filter'>
                                         <span>All</span>
                                     </div>
@@ -61,7 +61,7 @@
                                     @php  
                                         $net_name = get_network_name($net_id); 
                                     @endphp 
-                                    <a class="dropdown-item net_live_sort" net_name='{{$net_name}}' net='{{$net_id}}' href="javascript:void(0)">
+                                    <a class="dropdown-item net_start_soon_sort" net_name='{{$net_name}}' net='{{$net_id}}' href="javascript:void(0)">
                                         <div class='sort-filter'>
                                             <span>{{$net_name}}</span>
                                         </div>
@@ -84,3 +84,56 @@
         
     </div> 
 </section> 
+
+<script>
+    window.onload = function(){
+        $(document).on('click', '.net_start_soon_sort', function(e){
+            $(".h_soon").hide(); 
+            let net = $(e.currentTarget).attr('net');
+            let net_name = $(e.currentTarget).attr('net_name');
+            let live_pp = $("#live_pp").text();
+            if(net == 'all'){
+                $("#chain_name_start_soon").html('Blockchain')
+                $(".h_soon").show();
+                if( live_pp != 'Category' ){
+                    $(".h_soon").hide();
+                    $('.h_soon'+live_pp).show();
+                }
+            }else{
+                $("#chain_name_start_soon").html(net_name)
+                $("#chain_name_start_soon").attr('net', net)
+                if( live_pp == 'Category' ){
+                    $(".h_soon").hide();
+                }else{
+                    $('.h_soon'+net+'.h_soon'+live_pp).show(); 
+                    return; 
+                }
+                $('.h_soon'+net).show(); 
+            }
+        })
+
+        $(document).on('click', '.start_soon_category', function(e){
+            $(".h_soon").hide();
+            let live_pp = $("#live_pp"); 
+            let name = $(e.currentTarget).attr('pp_name');
+            let chain = $("#chain_name_start_soon"); 
+            let chainID = $("#chain_name_start_soon").attr('net'); 
+            if(name == 'all'){
+                live_pp.html("Category")
+                $(".h_soon").show();
+                if( chain.text() != 'Blockchain' ){
+                    $(".h_soon").hide();
+                    $('.h_soon'+chainID).show();
+                }
+            }else{
+                live_pp.html(name)
+                if( chain.text() != 'Blockchain' ){
+                    $(".h_soon").hide();
+                    $('.h_soon'+chainID+".h_soon"+name).show();
+                    return; 
+                }
+                $(".h_soon"+name).show();
+            }
+        }); 
+    }
+</script>
