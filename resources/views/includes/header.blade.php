@@ -81,68 +81,68 @@
             box-shadow: 0px 0px 2px 2px #eee;
         }
         
-#side_pt .closebtn {
-  position: absolute;
-  top: 0;
-  right: 25px;
-  font-size: 36px;
-  margin-left: 50px
-}
+        #side_pt .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px
+        }
 
-#side_content{
-    border-top:2px solid black; 
-    padding:20px; 
-}
-.q-rr{
-    margin-bottom: 10px; 
-    /* padding-left:10px;   */
-}
-.f-q-rr-con-color{
-    background:#4B50E6;
-}
-.f-q-rr-con{
-    width: 100%;
-    padding:5px;
-    min-height:60px;
-    line-height: 25px;
-}
-.q-rr-col-one{
-    border:1px solid #222;
-    font-size:15px;
-    border-radius: 5px;
-    font-weight: bold; 
-    min-height: 70px; 
-    padding:5px; 
-    /* line-height: 20px;  */
-}
-.q-rr-col-two{
-    padding:10px;
-    border:1px solid #222;
-    font-size:15px; 
-    border-radius: 5px;
-    color:#222;
-}
-.done_task{
-    background:#eee; 
-    color:black; 
-}
-.net_drop_show{
-    padding:5px;
-}
-.net_drop_show img{
-    margin-right:4px;
-}
-.net_drop_show a {
-    color:white;
-    font-weight: bold;
-}
-.net_drop_show:hover{
-    background:#333; 
-}
+        #side_content{
+            border-top:2px solid black; 
+            padding:20px; 
+        }
+        .q-rr{
+            margin-bottom: 10px; 
+            /* padding-left:10px;   */
+        }
+        .f-q-rr-con-color{
+            background:#4B50E6;
+        }
+        .f-q-rr-con{
+            width: 100%;
+            padding:5px;
+            min-height:80px;
+            line-height: 30px;
+        }
+        .q-rr-col-one{
+            border:1px solid #222;
+            font-size:15px;
+            border-radius: 5px;
+            font-weight: bold; 
+            min-height: 70px; 
+            padding:5px; 
+            line-height: 100px; 
+        }
+        .q-rr-col-two{
+            padding:10px;
+            border:1px solid #222;
+            font-size:15px; 
+            border-radius: 5px;
+            color:#222;
+        }
+        .done_task{
+            background:#eee; 
+            color:black; 
+        }
+        .net_drop_show{
+            padding:5px;
+        }
+        .net_drop_show img{
+            margin-right:4px;
+        }
+        .net_drop_show a {
+            color:white;
+            font-weight: bold;
+        }
+        .net_drop_show:hover{
+            background:#333; 
+        }
 
-.nettt_btn{
-    display:none; 
-}
+        .nettt_btn{
+            display:none; 
+        }
     </style>
 </head>
 <body class="body header-fixed is_dark">
@@ -183,13 +183,13 @@
                                     <div class="flat-search-btn flex">
                                         @guest
                                             <div class="sc-btn-top mg-r-12" id="site-header">
-                                                <a href="#" id="connectbtn" class="pt_btn sc-button header-slider style style-1 wallet fl-button pri-1"><span>Connect Wallet
+                                                <a href="javascript:void(0)" id="connectbtn" class="pt_btn sc-button header-slider style style-1 wallet fl-button pri-1"><span>Connect Wallet
                                                 </span></a>
                                             </div>
                                         @endguest
                                         @auth
                                             <div class="sc-btn-top mg-r-12">
-                                                <a href="#" onclick="openNav()" class="pt_btn sc-button header-slider style style-1 fl-button pri-1">
+                                                <a href="javascript:void(0)" onclick="openNav()" class="pt_btn sc-button header-slider style style-1 fl-button pri-1">
                                                     <i class="fas fa-flame"></i> <ti id="pt_no">{{$user->points}} B-Points</ti>
                                                 </a>
                                             </div> 
