@@ -4,13 +4,13 @@
         <div class="popup-notification">
             <div class="notification">
 
-                <a href="#" id="network_shown" class="nettt_btn pt_btn sc-button header-slider style style-1 fl-button pri-1">
+                <a href="javascript:void(0)" id="network_shown" class="nettt_btn pt_btn sc-button header-slider style style-1 fl-button pri-1">
                     <img src="/icon/glob.png" class="net_logo_h" alt="" width="20">
                     <ti class="net_name_h">Networks</ti> <li class="fas fa-caret-down"></li>
                 </a>
 
                 @foreach(all_networks() as $net_no)
-                    <a href="#" id="network_shown{{$net_no}}" class="nettt_btn pt_btn sc-button header-slider style style-1 fl-button pri-1">
+                    <a href="javascript:void(0)" id="network_shown{{$net_no}}" class="nettt_btn pt_btn sc-button header-slider style style-1 fl-button pri-1">
                         <img src="{{get_logo($net_no)}}" class="net_logo_h" alt="" width="20">
                         <ti class="net_name_h">{{get_network_name($net_no)}}</ti> <li class="fas fa-caret-down"></li>
                     </a>
