@@ -49,7 +49,7 @@
                                                 </div>
                                             @endif 
                                         </div>
-
+                                        <br>
                                         <div class="item_l">
                                             @if($trending->free_bid)
                                                 <button class="wishlist-button bg-success" style="left: 0 !important; width:50px; background:var(--primary-color3) !important; float:left">Free</button>
@@ -59,7 +59,7 @@
                                             <a style="float:right" href="javascript:void(0)"  class="wishlist-button heart @if( $user && liked($trending->id, $user->id) ) active @endif"><span  onclick="likeItem({{$trending->id}})" class="number-like">{{$trending->likes}}</span></a> 
                                         </div> 
 
-                                        <div style="margin-top:70px;"> 
+                                        <div style="margin-top:40px;"> 
                                         @if($trending->points < $trending->start_points && $trending->status == 0)
                                             <div class="progress" style="height: 20px;">
                                                 <div class="progress-bar bg-success" role="progressbar" style="width:{{get_pct($trending->points, $trending->start_points)}}%;height: 100%;font-size:15px;line-height:20px;" aria-valuenow="{{get_pct($trending->points, $trending->start_points)}}" aria-valuemin="0" aria-valuemax="{{get_pct($trending->points, $trending->start_points)}}">{{get_pct($trending->points, $trending->start_points)}}%</div>
