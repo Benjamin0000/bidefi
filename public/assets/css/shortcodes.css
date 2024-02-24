@@ -952,19 +952,23 @@
 }
 
 /* card wishlist */
-.sc-card-product .card-media .wishlist-button {
-    position        : absolute;
-    top             : 13px;
-    right           : 11px;
+.item_l{
+    margin-top:-25px; 
+    /* margin-bottom:10px;  */
+}
+.item_l .wishlist-button {
+    /* position        : absolute; */
+    /* top             : 0px; */
     font-weight     : bold;
     font-size       : 14px;
     line-height     : 24px;
     color           : #fff;
-    padding         : 2px 11px;
+    padding         : 2px 8px;
     border-radius   : 8px;
     background-color: #14141F;
     cursor          : pointer;
     border          : none;
+    /* z-index: 1000 !important; */
 }
 
 .wishlist-button.public {

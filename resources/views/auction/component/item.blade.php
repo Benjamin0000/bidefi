@@ -24,14 +24,6 @@
                     <img src="{{$auction->image}}" style="object-fit: contain;" alt="Image">
                 </div>
             </a>
-            @if($auction->free_bid)
-                <button class="wishlist-button bg-success" style="left: 0 !important; width:50px; background:var(--primary-color3) !important">Free</button>
-            @else 
-                <button class="wishlist-button bg-success" style="left: 0 !important; width:50px; background:red !important">Paid</button>
-            @endif 
-            
-
-            <button class="wishlist-button heart @if( $user && liked($auction->id, $user->id) ) active @endif"><span  onclick="likeItem({{$auction->id}})" class="number-like">{{$auction->likes}}</span></button>
             @if($auction->points >= $auction->start_points && $auction->status < 2)
                 <div class="featured-countdown style2">
                     <span class="slogan"></span>
@@ -44,13 +36,28 @@
                     </span>
                 </div>
             @endif 
-        </div>
-        @if($auction->points < $auction->start_points && $auction->status == 0)
-            <div class="progress" style="height: 20px;">
-                <div class="progress-bar bg-success" role="progressbar" style="width:{{get_pct($auction->points, $auction->start_points)}}%;height: 100%;font-size:15px;line-height:20px;" aria-valuenow="{{get_pct($auction->points, $auction->start_points)}}" aria-valuemin="0" aria-valuemax="{{get_pct($auction->points, $auction->start_points)}}">{{get_pct($auction->points, $auction->start_points)}}%</div>
-            </div>
-            <br>
+        
+        <br>
+
+    </div>
+
+    <div class="item_l">
+        @if($auction->free_bid)
+            <button class="wishlist-button bg-success" style="left: 0 !important; width:50px; background:var(--primary-color3) !important; float:left">Free</button>
+        @else 
+            <button class="wishlist-button bg-success" style="left: 0 !important; width:50px; background:red !important; float:left">Paid</button>
         @endif 
+        <a style="float:right" href="javascript:void(0)"  class="wishlist-button heart @if( $user && liked($auction->id, $user->id) ) active @endif"><span  onclick="likeItem({{$auction->id}})" class="number-like">{{$auction->likes}}</span></a> 
+    </div> 
+    
+        <div style="margin-top:60px;"> 
+            @if($auction->points < $auction->start_points && $auction->status == 0)
+                <div class="progress" style="height: 20px;">
+                    <div class="progress-bar bg-success" role="progressbar" style="width:{{get_pct($auction->points, $auction->start_points)}}%;height: 100%;font-size:15px;line-height:20px;" aria-valuenow="{{get_pct($auction->points, $auction->start_points)}}" aria-valuemin="0" aria-valuemax="{{get_pct($auction->points, $auction->start_points)}}">{{get_pct($auction->points, $auction->start_points)}}%</div>
+                </div>
+                <br>
+            @endif 
+        </div>
         <div class="card-title">
             <h5 class="style2"><a href="{{route('auction.show', $auction->id)}}">{{$auction->name}}</a></h5>
             <div class="tags">

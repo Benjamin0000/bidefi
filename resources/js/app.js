@@ -696,6 +696,28 @@ $(document).on('click', "#llmore", (e) => {
   });
 })
 
+$(document).on('click', ".llmore", (e) => {
+  let id = $(e.target).attr('data-id');
+  let page = Number($(e.target).attr('page'));
+
+  $(e.target).html("Loading...");
+  $(e.target).attr("disabled", true);
+
+  axios.get('/kSHhWd/' + id + '?page=' + page).then(res => {
+    $(e.target).html("Load more");
+    $(e.target).attr("disabled", false);
+    let data = res.data;
+    if (data.count == 8) {
+      $(e.target).attr('page', page+1); 
+    } else {
+      $(e.target).hide();
+    }
+    if (data.count > 0) {
+      $("#home_item"+id).append(data.view);
+    }
+  });
+})
+
 $(document).ready(function () {
   // Intract("6549d8e333cc8772783b45b1") 
   IntractAttribution("6549d8e333cc8772783b45b1", {

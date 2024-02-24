@@ -26,15 +26,16 @@
                                                     <img src="{{$trending->image}}" style="object-fit: contain;" alt="Image">
                                                 </div>
                                             </a>
-
-                                        @if($trending->free_bid)
-                                            <button class="wishlist-button bg-success" style="left: 0 !important; width:50px; background:var(--primary-color3) !important">Free</button>
-                                        @else 
-                                            <button class="wishlist-button bg-success" style="left: 0 !important; width:50px; background:red !important">Paid</button>
-                                        @endif 
+                                            {{-- <br>
+                                            @if($trending->free_bid)
+                                                <button class="wishlist-button bg-success" style="left: 0 !important; width:50px; background:var(--primary-color3) !important">Free</button>
+                                            @else 
+                                                <button class="wishlist-button bg-success" style="left: 0 !important; width:50px; background:red !important">Paid</button>
+                                            @endif 
                                             
                                 
-                                            <button class="wishlist-button heart @if( $user && liked($trending->id, $user->id) ) active @endif"><span  onclick="likeItem({{$trending->id}})" class="number-like">{{$trending->likes}}</span></button>
+                                            <button style="float:right" class="wishlist-button heart @if( $user && liked($trending->id, $user->id) ) active @endif"><span  onclick="likeItem({{$trending->id}})" class="number-like">{{$trending->likes}}</span></button>
+                                             --}}
                                             @if($trending->points >= $trending->start_points && $trending->status < 2)
                                                 <div class="featured-countdown style2">
                                                     <span class="slogan"></span>
@@ -48,12 +49,24 @@
                                                 </div>
                                             @endif 
                                         </div>
+
+                                        <div class="item_l">
+                                            @if($trending->free_bid)
+                                                <button class="wishlist-button bg-success" style="left: 0 !important; width:50px; background:var(--primary-color3) !important; float:left">Free</button>
+                                            @else 
+                                                <button class="wishlist-button bg-success" style="left: 0 !important; width:50px; background:red !important; float:left">Paid</button>
+                                            @endif 
+                                            <a style="float:right" href="javascript:void(0)"  class="wishlist-button heart @if( $user && liked($trending->id, $user->id) ) active @endif"><span  onclick="likeItem({{$trending->id}})" class="number-like">{{$trending->likes}}</span></a> 
+                                        </div> 
+
+                                        <div style="margin-top:60px;"> 
                                         @if($trending->points < $trending->start_points && $trending->status == 0)
                                             <div class="progress" style="height: 20px;">
                                                 <div class="progress-bar bg-success" role="progressbar" style="width:{{get_pct($trending->points, $trending->start_points)}}%;height: 100%;font-size:15px;line-height:20px;" aria-valuenow="{{get_pct($trending->points, $trending->start_points)}}" aria-valuemin="0" aria-valuemax="{{get_pct($trending->points, $trending->start_points)}}">{{get_pct($trending->points, $trending->start_points)}}%</div>
                                             </div>
                                             <br>
                                         @endif 
+                                        </div> 
                                         <div class="card-title">
                                             <h5 class="style2"><a href="{{route('auction.show', $trending->id)}}">{{$trending->name}}</a></h5>
                                             <div class="tags">

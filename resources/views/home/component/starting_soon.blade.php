@@ -72,7 +72,14 @@
                     </div>
                 </div>
             </div>
-            @include('auction.component.item', ['auctions'=>$starting_soon, 'class'=>'h_soon'])
+            <div id="home_item4"> 
+                @include('auction.component.item', ['auctions'=>$starting_soon, 'class'=>'h_soon'])
+            </div>
+            @if($starting_soon->count() == 8)
+                <div class="text-center">
+                    <button class="btn btn-primary llmore" page='2' data-id='4'>Load more</button>
+                </div> 
+            @endif 
         </div>
-    </div>
+    </div> 
 </section> 

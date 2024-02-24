@@ -69,9 +69,11 @@
                 </div>
             </div>
         </div>
+
         <div class="row" id="item_con">
             @include('auction.component.item', ['auctions'=>$items, 'class'=>'h_live'])
         </div>
+
         @if($items->count() == 8)
         <div class="text-center">
             <button class="btn btn-primary" data-id='1' id="llmore">Load more</button>

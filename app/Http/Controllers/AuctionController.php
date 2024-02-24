@@ -7,7 +7,7 @@ use App\Models\Item;
 use App\Models\Bidder;
 use App\Models\Likes; 
 use App\Models\BidHistory; 
-use App\Models\Winner;
+use App\Models\Winner; 
 
 class AuctionController extends Controller
 {
@@ -23,17 +23,24 @@ class AuctionController extends Controller
         switch($type){
             case '1': //live
                 $items = live_auction();
+                $class = "h_live";  
                 break; 
             case '2':  //upcoming
                 $items = upcoming(); 
+                $class = "h_up";
                 break; 
             case '3':  //completed
                 $items = completed(); 
+                $class = "";
+                break; 
+            case '4':  //starting soon
+                $items = starting_soon();  
+                $class = "h_soon";
                 break; 
             default: 
                 return; 
         }
-        $views = view('auction.component.item', ['auctions'=>$items]); 
+        $views = view('auction.component.item', ['auctions'=>$items, 'class'=>$class]); 
         return [
             'view'=>"$views",
             'count'=> $items->count()
