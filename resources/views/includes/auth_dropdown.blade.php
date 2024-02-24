@@ -3,6 +3,12 @@
     <div class="header_avatar">
         <div class="popup-notification">
             <div class="notification">
+
+                <a href="#" id="network_shown" class="nettt_btn pt_btn sc-button header-slider style style-1 fl-button pri-1">
+                    <img src="/icon/glob.png" class="net_logo_h" alt="" width="20">
+                    <ti class="net_name_h">Networks</ti> <li class="fas fa-caret-down"></li>
+                </a>
+
                 @foreach(all_networks() as $net_no)
                     <a href="#" id="network_shown{{$net_no}}" class="nettt_btn pt_btn sc-button header-slider style style-1 fl-button pri-1">
                         <img src="{{get_logo($net_no)}}" class="net_logo_h" alt="" width="20">
@@ -12,7 +18,7 @@
             </div> 
             <div class="avatar_popup2 mt-20">
                 <div class="show mg-bt-18 text-center" style="margin-top:-10px;">
-                    <h5 style="color:white;">All Networks</h5>
+                    <h5 style="color:white;">Supported Networks</h5>
                 </div>
                 
                 @foreach(all_networks() as $net_no)

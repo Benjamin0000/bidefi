@@ -80,12 +80,16 @@ function logout() {
 
 function showUserLogin(account){
   $("#address_show").html(truncateAddress(account.address));
+  $("#network_shown").show();
   fetchBalance({
     address: account.address,
     formatUnits: 'ether',
   }).then(balance => {
       $("#eth_bal").html(Number(balance.formatted).toFixed(5))
-      $(".nettt_btn").hide(); 
+      $(".nettt_btn").hide();
+      if(!network_supported()){
+        $("#network_shown").show(); 
+      }
       $("#network_shown"+window.network_id).show(); 
       if(window.network_id == 56){
         $("#eth_symbol").html('BNB');  
