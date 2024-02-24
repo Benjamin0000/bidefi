@@ -787,3 +787,156 @@ $(document).on('click', '.net_drop_show', (event) => {
   let net_no = $(event.currentTarget).attr('tt'); 
   switchNetwork({chainId: net_no}); 
 })
+
+$(document).on('click', '.net_live_sort', function(e){
+  $(".h_live").hide(); 
+  let net = $(e.currentTarget).attr('net');
+  let net_name = $(e.currentTarget).attr('net_name');
+  let live_pp = $("#live_pp").text();
+  if(net == 'all'){
+      $("#chain_name_live").html('Blockchain')
+      $(".h_live").show();
+      if( live_pp != 'Category' ){
+          $(".h_live").hide();
+          $('.h_live'+live_pp).show();
+      }
+  }else{
+      $("#chain_name_live").html(net_name)
+      $("#chain_name_live").attr('net', net)
+      if( live_pp == 'Category' ){
+          $(".h_live").hide();
+      }else{
+          $('.h_live'+net+'.h_live'+live_pp).show(); 
+          return; 
+      }
+      $('.h_live'+net).show(); 
+  }
+})
+
+
+// sorting
+$(document).on('click', '.live_category', function(e){
+  $(".h_live").hide();
+  let live_pp = $("#live_pp"); 
+  let name = $(e.currentTarget).attr('pp_name');
+  let chain = $("#chain_name_live"); 
+  let chainID = $("#chain_name_live").attr('net'); 
+  if(name == 'all'){
+      live_pp.html("Category")
+      $(".h_live").show();
+      if( chain.text() != 'Blockchain' ){
+          $(".h_live").hide();
+          $('.h_live'+chainID).show();
+      }
+  }else{
+      live_pp.html(name)
+      if( chain.text() != 'Blockchain' ){
+          $(".h_live").hide();
+          $('.h_live'+chainID+".h_live"+name).show();
+          return; 
+      }
+      $(".h_live"+name).show();
+  }
+});
+
+
+$(document).on('click', '.net_start_soon_sort', function(e){
+  $(".h_soon").hide(); 
+  let net = $(e.currentTarget).attr('net');
+  let net_name = $(e.currentTarget).attr('net_name');
+  let start_soon_pp = $("#start_soon_pp").text();
+  if(net == 'all'){
+      $("#chain_name_start_soon").html('Blockchain')
+      $(".h_soon").show();
+      if( start_soon_pp != 'Category' ){
+          $(".h_soon").hide();
+          $('.h_soon'+start_soon_pp).show();
+      }
+  }else{
+      $("#chain_name_start_soon").html(net_name)
+      $("#chain_name_start_soon").attr('net', net)
+      if( start_soon_pp == 'Category' ){
+          $(".h_soon").hide();
+      }else{
+          $('.h_soon'+net+'.h_soon'+start_soon_pp).show(); 
+          return; 
+      }
+      $('.h_soon'+net).show(); 
+  }
+})
+
+$(document).on('click', '.start_soon_category', function(e){
+  $(".h_soon").hide();
+  let start_soon_pp = $("#start_soon_pp"); 
+  let name = $(e.currentTarget).attr('pp_name');
+  let chain = $("#chain_name_start_soon"); 
+  let chainID = $("#chain_name_start_soon").attr('net'); 
+  if(name == 'all'){
+    start_soon_pp.html("Category")
+      $(".h_soon").show();
+      if( chain.text() != 'Blockchain' ){
+          $(".h_soon").hide();
+          $('.h_soon'+chainID).show();
+      }
+  }else{
+    start_soon_pp.html(name)
+      if( chain.text() != 'Blockchain' ){
+          $(".h_soon").hide();
+          $('.h_soon'+chainID+".h_soon"+name).show();
+          return; 
+      }
+      $(".h_soon"+name).show();
+  }
+});
+
+$(document).on('click', '.net_up_sort', function(e){
+  $(".h_up").hide(); 
+  let net = $(e.currentTarget).attr('net');
+  let net_name = $(e.currentTarget).attr('net_name');
+  let up_pp = $("#up_pp").text();
+  if(net == 'all'){
+      $("#chain_name_up").html('Blockchain')
+      $(".h_up").show();
+      if( up_pp != 'Category' ){
+          $(".h_up").hide();
+          $('.h_up'+up_pp).show();
+      }
+  }else{
+      $("#chain_name_up").html(net_name)
+      $("#chain_name_up").attr('net', net)
+      if( up_pp == 'Category' ){
+          $(".h_up").hide();
+      }else{
+          $('.h_up'+net+'.h_up'+up_pp).show(); 
+          return; 
+      }
+      $('.h_up'+net).show(); 
+  }
+})
+
+$(document).on('click', '.up_category', function(e){
+  $(".h_up").hide();
+  let up_pp = $("#up_pp"); 
+  let name = $(e.currentTarget).attr('pp_name');
+  let chain = $("#chain_name_up"); 
+  let chainID = $("#chain_name_up").attr('net'); 
+  if(name == 'all'){
+      up_pp.html("Category")
+      $(".h_up").show();
+      if( chain.text() != 'Blockchain' ){
+          $(".h_up").hide();
+          $('.h_up'+chainID).show();
+      }
+  }else{
+      up_pp.html(name)
+      if( chain.text() != 'Blockchain' ){
+          $(".h_up").hide();
+          $('.h_up'+chainID+".h_up"+name).show();
+          return; 
+      }
+      $(".h_up"+name).show();
+  }
+}); 
+
+
+//end sorting

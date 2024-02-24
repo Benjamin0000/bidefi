@@ -74,61 +74,15 @@
                     </div>
                 </div>
             </div>
-
+        </div>
+        <div class="row" id="home_item2"> 
             @include('auction.component.item', ['auctions'=>$upcomings, 'class'=>'h_up'])
         </div>
+        @if($upcomings->count() == 8)
+            <div class="text-center">
+                <button class="btn btn-primary llmore" page='2' data-id='2'>Load more</button>
+            </div> 
+        @endif
     </div>
 </section>
 
-<script>
-    window.onload = function(){
-        $(document).on('click', '.net_up_sort', function(e){
-            $(".h_up").hide(); 
-            let net = $(e.currentTarget).attr('net');
-            let net_name = $(e.currentTarget).attr('net_name');
-            let up_pp = $("#up_pp").text();
-            if(net == 'all'){
-                $("#chain_name_up").html('Blockchain')
-                $(".h_up").show();
-                if( up_pp != 'Category' ){
-                    $(".h_up").hide();
-                    $('.h_up'+up_pp).show();
-                }
-            }else{
-                $("#chain_name_up").html(net_name)
-                $("#chain_name_up").attr('net', net)
-                if( up_pp == 'Category' ){
-                    $(".h_up").hide();
-                }else{
-                    $('.h_up'+net+'.h_up'+up_pp).show(); 
-                    return; 
-                }
-                $('.h_up'+net).show(); 
-            }
-        })
-
-        $(document).on('click', '.up_category', function(e){
-            $(".h_up").hide();
-            let up_pp = $("#up_pp"); 
-            let name = $(e.currentTarget).attr('pp_name');
-            let chain = $("#chain_name_up"); 
-            let chainID = $("#chain_name_up").attr('net'); 
-            if(name == 'all'){
-                up_pp.html("Category")
-                $(".h_up").show();
-                if( chain.text() != 'Blockchain' ){
-                    $(".h_up").hide();
-                    $('.h_up'+chainID).show();
-                }
-            }else{
-                up_pp.html(name)
-                if( chain.text() != 'Blockchain' ){
-                    $(".h_up").hide();
-                    $('.h_up'+chainID+".h_up"+name).show();
-                    return; 
-                }
-                $(".h_up"+name).show();
-            }
-        }); 
-    }
-</script>

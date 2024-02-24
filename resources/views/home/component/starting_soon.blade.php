@@ -18,7 +18,7 @@
                                     <path d="M17 22H19C21 22 22 21 22 19V17C22 15 21 14 19 14H17C15 14 14 15 14 17V19C14 21 15 22 17 22Z" stroke="white" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
                                     <path d="M5 22H7C9 22 10 21 10 19V17C10 15 9 14 7 14H5C3 14 2 15 2 17V19C2 21 3 22 5 22Z" stroke="white" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>                                        
-                                <span class="inner" id="live_pp">Category</span>
+                                <span class="inner" id="start_soon_pp">Category</span>
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                               <a class="dropdown-item start_soon_category" pp_name='all' href="javascript:void(0)">
@@ -83,57 +83,4 @@
         @endif 
         
     </div> 
-</section> 
-
-<script>
-    window.onload = function(){
-        $(document).on('click', '.net_start_soon_sort', function(e){
-            $(".h_soon").hide(); 
-            let net = $(e.currentTarget).attr('net');
-            let net_name = $(e.currentTarget).attr('net_name');
-            let live_pp = $("#live_pp").text();
-            if(net == 'all'){
-                $("#chain_name_start_soon").html('Blockchain')
-                $(".h_soon").show();
-                if( live_pp != 'Category' ){
-                    $(".h_soon").hide();
-                    $('.h_soon'+live_pp).show();
-                }
-            }else{
-                $("#chain_name_start_soon").html(net_name)
-                $("#chain_name_start_soon").attr('net', net)
-                if( live_pp == 'Category' ){
-                    $(".h_soon").hide();
-                }else{
-                    $('.h_soon'+net+'.h_soon'+live_pp).show(); 
-                    return; 
-                }
-                $('.h_soon'+net).show(); 
-            }
-        })
-
-        $(document).on('click', '.start_soon_category', function(e){
-            $(".h_soon").hide();
-            let live_pp = $("#live_pp"); 
-            let name = $(e.currentTarget).attr('pp_name');
-            let chain = $("#chain_name_start_soon"); 
-            let chainID = $("#chain_name_start_soon").attr('net'); 
-            if(name == 'all'){
-                live_pp.html("Category")
-                $(".h_soon").show();
-                if( chain.text() != 'Blockchain' ){
-                    $(".h_soon").hide();
-                    $('.h_soon'+chainID).show();
-                }
-            }else{
-                live_pp.html(name)
-                if( chain.text() != 'Blockchain' ){
-                    $(".h_soon").hide();
-                    $('.h_soon'+chainID+".h_soon"+name).show();
-                    return; 
-                }
-                $(".h_soon"+name).show();
-            }
-        }); 
-    }
-</script>
+</section>
