@@ -12,6 +12,9 @@ use App\Models\WHistory;
 use App\Models\Blog; 
 use App\Models\Faq; 
 use App\Models\Point; 
+use App\Models\Bidder; 
+use App\Models\Likes;  
+use App\Models\BidHistory; 
 
 class AdminController extends Controller
 {
@@ -194,8 +197,21 @@ class AdminController extends Controller
     {
         $item = Item::findOrFail($id); 
 
-        if($item->points > 0)
-            return back()->with('error', 'This item cannot be deleted'); 
+        Bidder::where('item_id', $item->id)->lazyById()->each(function($bidder){
+            $bidder->delete(); 
+        }); 
+
+        Likes::where('item_id', $item->id)->lazyById()->each(function($like){
+            $like->delete(); 
+        }); 
+        
+        BidHistory::where('item_id', $item->id)->lazyById()->each(function($his){
+            $his->delete(); 
+        });
+
+        Winner::where('item_id', $item->id)->lazyById()->each(function($win){
+            $win->delete(); 
+        });
 
         $item->delete(); 
         return back()->with('success', "Item deleted");   
