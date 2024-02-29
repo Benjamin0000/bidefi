@@ -15,6 +15,7 @@ use App\Models\Point;
 use App\Models\Bidder; 
 use App\Models\Likes;  
 use App\Models\BidHistory; 
+use App\Models\Winner;
 
 class AdminController extends Controller
 {
