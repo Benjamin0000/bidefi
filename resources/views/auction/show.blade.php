@@ -39,11 +39,12 @@
                         </div>
                         <div class="client-infor sc-card-product">
                             <div class="meta-info">
-                                <div class="author">
-                                    <div class="info">
+                                {{-- <div class="author">
+                                    <div class="info"> --}}
                                         <div class="row">
                                             <div class="col-6">
                                                 <span>Price</span>
+                                                <br>
                                                 @php 
                                                     $price = get_price($item->symbol, $item->prize);
                                                 @endphp 
@@ -60,8 +61,8 @@
                                             </div>
                                         </div>
 
-                                    </div>
-                                </div>
+                                    {{-- </div>
+                                </div> --}}
                             </div>
                             <div class="meta-info">
                                 <div id="the_author" class="author">
