@@ -41,13 +41,23 @@
                             <div class="meta-info">
                                 <div class="author">
                                     <div class="info">
-                                        <span>Price</span>
-                                        @php 
-                                            $price = get_price($item->symbol, $item->prize);
-                                        @endphp 
-                                        <h6>
-                                            ${{ $price ? number_format($price) : number_format($item->price)}}
-                                        </h6>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <span>Price</span>
+                                                @php 
+                                                    $price = get_price($item->symbol, $item->prize);
+                                                @endphp 
+                                                <h6>
+                                                    ${{ $price ? number_format($price) : number_format($item->price)}}
+                                                </h6>
+                                            </div>
+                                            <div class="col-6 text-right">
+                                                @if($item->network == 42161)
+                                                    {{ get_ab($item->price) }} ARB
+                                                @endif 
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>

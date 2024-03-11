@@ -46,48 +46,67 @@ window.Echo = new Echo({
 });
 
 window.Echo.channel(`main-channel`)
-    .listen('.adgedds', (e) => {
-        let data = e.data;
-        switch (data.type) {
-            case 'started':
-                window.location.reload();
-                break;
-            case 'ended':
-                window.location.reload();
-                break;
-            case 'bid':
-                let date = moment.utc(data.timer);
-                if (window.show_id && window.show_id == data.id) {
-                    $("#the_author").html(data.bidder);
+.listen('.adgedds', (e) => {
+    let data = e.data;
+    switch (data.type) {
+        case 'started':
+            window.location.reload();
+            break;
+        case 'ended':
+            window.location.reload();
+            break;
+        case 'bid':
+            let date = moment.utc(data.timer);
+            if (window.show_id && window.show_id == data.id) {
+                $("#the_author").html(data.bidder);
 
-                    $('#the_timer').countdown(date.toDate(), function (event) {
-                        $(this).html("<span class='counter'>" + event.strftime('%S') + "</span>");
-                    });
-                    // $("#the_bid_price_eth").html(data.bid_price);
-                    $("#the_bid_price_usd").html('$' + data.bid_price);
-                    $(".price-box").css('background', 'orange'); 
-                    setTimeout(()=>{
-                        $(".price-box").css('background', 'none');
-                    }, 200)
-                    if( window.user_id == data.user_id ){
-                        $('#left').html(data.left);
-                    }
-                } else {
-                    $("#timer" + data.id).countdown(date.toDate(), function (event) {
-                        $(this).html("<span class='counter'>" + event.strftime('%S') + "</span>");
-                    });
-                    $("#c_bid" + data.id).html(data.bid_price);
-                    $("#author" + data.id).html(data.bidder2);
-                    $("#c_bid" + data.id).css('background', 'orange'); 
-                    setTimeout(()=>{
-                        $("#c_bid" + data.id).css('background', 'none');
-                    }, 200)
+                $('#the_timer').countdown(date.toDate(), function (event) {
+                    $(this).html("<span class='counter'>" + event.strftime('%S') + "</span>");
+                });
+                // $("#the_bid_price_eth").html(data.bid_price);
+                $("#the_bid_price_usd").html('$' + data.bid_price);
+                $(".price-box").css('background', 'orange'); 
+                setTimeout(()=>{
+                    $(".price-box").css('background', 'none');
+                }, 200)
+                if( window.user_id == data.user_id ){
+                    $('#left').html(data.left);
                 }
-                break;
-            case 'bidders':
-                if (window.show_id && window.show_id == data.id) {
-                    $("#show_bidders").html(data.bidders);
-                }
-                break;
-        }
-    });
+            } else {
+                $("#timer" + data.id).countdown(date.toDate(), function (event) {
+                    $(this).html("<span class='counter'>" + event.strftime('%S') + "</span>");
+                });
+                $("#c_bid" + data.id).html(data.bid_price);
+                $("#author" + data.id).html(data.bidder2);
+                $("#c_bid" + data.id).css('background', 'orange'); 
+                setTimeout(()=>{
+                    $("#c_bid" + data.id).css('background', 'none');
+                }, 200)
+            }
+            break;
+        case 'bidders':
+            if (window.show_id && window.show_id == data.id) {
+                $("#show_bidders").html(data.bidders);
+            }
+            break;
+    }
+})
+
+window.Echo.join('chat')
+    .here((users) => {
+        // `users` is an array of online users
+        console.log('users here');
+        console.log(users)
+    })
+    .joining((user) => {
+        // A new user has joined
+        console.log('user joined');
+    })
+    .leaving((user) => {
+        // A user has left
+        console.log('user left');
+    }).listen('.ccc', (e)=>{
+        let user = e.username; 
+        let msg = e.msg; 
+        $('#chat_con').append("<div class='chat_msg'><b>"+user+":</b> "+msg+"</div>")
+    })

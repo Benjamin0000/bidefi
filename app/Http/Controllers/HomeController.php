@@ -2,11 +2,13 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth; 
+use App\Events\Chat;
 use App\Models\User;
 use App\Models\Item; 
 use App\Models\Message;
 use App\Models\Blog; 
 use App\Models\Faq; 
+use App\Models\ChatMsg; 
 
 class HomeController extends Controller
 {
@@ -131,6 +133,21 @@ class HomeController extends Controller
     {
         $faqs = Faq::all(); 
         return view('faq', compact('faqs')); 
+    }
+
+    public function send_message(Request $request)
+    {
+        $msg = $request->input('msg'); 
+        if( strlen($msg) > 160 || strlen($msg) <= 0)
+            return ['error'=>''];
+
+        $user = Auth::user(); 
+        ChatMsg::create([
+            'user_id'=>$user->id,
+            'msg'=>$msg
+        ]); 
+        Chat::dispatch(get_user_fname($user->id), $msg);
+        return ['done'=>1]; 
     }
 }
  

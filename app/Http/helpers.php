@@ -19,7 +19,18 @@ use App\Models\Point;
 use App\Models\TaskPoint; 
 
 function all_networks(){
-   return [1,324,59144,8453,56,42161,10];
+   return [42161,1,324,59144,8453,56,10];
+}
+
+function get_user_fname($user_id)
+{
+    $user = User::find($user_id); 
+    if($user){
+        if($user->fname)
+            return $user->fname." ".$user->lname; 
+        else 
+            return truncateAddress2($user->address);
+    }
 }
 
 function get_network_name($id)
@@ -182,6 +193,7 @@ function setEthPrice()
     query_price('bitcoin', 'btc_price');
     query_price('chainlink', 'link_price');
     query_price('uniswap', 'uni_price');
+    query_price('arbitrum', 'arb_price');
 }
 
 function get_price($name, $prize=0)
@@ -208,7 +220,6 @@ function get_price($name, $prize=0)
     }else if( !is_bool(strpos($name, "arb")) ){
         $price = (float)get_register('eth_price');
         return $price * $prize; 
-
     }else if( !is_bool(strpos($name, "uni")) ){
         $price = (float)get_register('uni_price');
         return $price * $prize; 
@@ -216,6 +227,12 @@ function get_price($name, $prize=0)
     }else{
         return false; 
     }
+}
+
+function get_ab($usd){
+    $price = (float)get_register('arb_price');
+    if($price <= 0) return 0; 
+    return round($usd / $price, 2); 
 }
 
 function increase_fee($fee, $network)
@@ -359,6 +376,13 @@ function truncateAddress($text)
 {
     $textLength = strlen($text);
     $maxChars = 10;
+    return substr_replace($text, '...', $maxChars/2, $textLength-$maxChars);
+}
+
+function truncateAddress2($text)
+{
+    $textLength = strlen($text);
+    $maxChars = 7;
     return substr_replace($text, '...', $maxChars/2, $textLength-$maxChars);
 }
 

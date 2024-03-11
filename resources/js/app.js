@@ -943,4 +943,32 @@ $(document).on('click', '.up_category', function(e){
 }); 
 
 
+$(document).on('keyup', '#chat_input_text', function(e){
+  let len = e.target.value.length; 
+  let value = 160; 
+  let fvalue = value - len; 
+  if(fvalue < 0){
+    $('#chat_input_con').addClass('red_border'); 
+    $("#msg_send_btn").attr('disabled', true); 
+  }else{
+    $('#chat_input_con').removeClass('red_border');
+    $("#msg_send_btn").attr('disabled', false); 
+  }
+  $("#msg_count").html(fvalue)
+})
+
+$(document).on('submit', '#chat_input', function(e){
+  e.preventDefault(); 
+  let text = $("#chat_input_text").val(); 
+  $("#msg_send_btn").attr('disabled', true); 
+  axios.post('/dikkej', {'msg': text}).then(res=>{
+    $("#msg_send_btn").attr('disabled', false);
+    if(res.data.done){
+      $("#chat_input_text").val("")
+    }
+  }).catch(error=>{
+    $("#msg_send_btn").attr('disabled', false); 
+  })
+})
+
 //end sorting

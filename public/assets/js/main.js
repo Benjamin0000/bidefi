@@ -148,6 +148,8 @@
         $(".tf-text").removeClass("s1")
         // document.getElementById("moon_dark").src = "/assets/images/icon/moon-2.png";
         localStorage.setItem("dark", 0);
+        // $("#side_chat").removeClass('side_chat_dark');
+        // $("#side_chat").addClass('side_chat_light');
     }
     function make_dark(){
         $(".body").addClass("is_dark")
@@ -157,6 +159,8 @@
         $(".tf-text").addClass("s1")
         // document.getElementById("moon_dark").src = "/assets/images/icon/moon-2.png";
         localStorage.setItem("dark", 1);
+        // $("#side_chat").addClass('side_chat_dark');
+        // $("#side_chat").removeClass('side_chat_light');
     }
 
     if(localStorage.getItem('dark') == 1){

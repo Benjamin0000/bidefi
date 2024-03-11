@@ -1,6 +1,7 @@
 @php 
     $user = Auth::user(); 
     $points = App\Models\Point::orderBy('reward', 'asc')->get(); 
+    $msgs = array_reverse(App\Models\ChatMsg::latest()->take(30)->get()->all(), true); 
 @endphp 
 <!DOCTYPE html>
 <!--[if IE 8 ]><html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US"> <![endif]-->
@@ -80,6 +81,29 @@
             /* padding-left:10px;  */
             box-shadow: 0px 0px 2px 2px #eee;
         }
+
+        .side_chat_light{
+            background-color: #fff; 
+        }
+
+        .side_chat_dark{
+            background-color: #111;
+        }
+
+        #side_chat{
+            background: #fff; 
+            height: 100vh; /* 100% Full-height */
+            width: 0; /* 0 width - change this with JavaScript */
+            display:none; 
+            position: fixed; /* Stay in place */
+            z-index: 2; /* Stay on top */
+            top: 0; /* Stay at the top */
+            right: 0;
+            /* padding-top: 60px; Place content 60px from the top */
+            transition: 0.1s; /* 0.5 second transition effect to slide in the sidenav */
+            /* padding-left:10px;  */
+            box-shadow: 0px 0px 2px 2px #eee;
+        }
         
         #side_pt .closebtn {
             position: absolute;
@@ -143,6 +167,40 @@
         .nettt_btn{
             display:none; 
         }
+        #chat_con{
+            padding: 20px; 
+            height: 65vh;
+            overflow-x: hidden; /* Disable horizontal scroll */
+            overflow-y: scroll; /* Enable vertical scroll */
+        }
+
+        .chat_msg{
+            padding:10px; 
+            background: #eee; 
+            margin-bottom:10px; 
+            font-size:15px;
+        }
+        #chat_input{
+            background: #eee; 
+            height: 25vh;
+            padding:10px; 
+        }
+        #chat_input_con{
+            border:1px solid #5d5c5c;
+            overflow: hidden;
+        }
+        .red_border{
+            border: 1px solid red !important; 
+        }
+        #chat_input_text{
+            border:none; 
+            font-size:15px;
+            color:black; 
+            height: 70px;
+        }
+        #emoji_btn{
+            font-size:20px; 
+        }
     </style>
 </head>
 <body class="body header-fixed is_dark">
@@ -181,12 +239,19 @@
                                         </ul>
                                     </nav><!-- /#main-nav -->   
                                     <div class="flat-search-btn flex">
+                                        @auth 
+                                            <div class="sc-btn-top mg-r-12">
+                                                <a href="javascript:void(0)" onclick="openChat()" class="pt_btn sc-button header-slider style style-1 fl-button pri-1">
+                                                    <i class="fas fa-comment"></i>
+                                                </a>
+                                            </div> 
+                                        @endauth
                                         @guest
                                             <div class="sc-btn-top mg-r-12" id="site-header">
                                                 <a href="javascript:void(0)" id="connectbtn" class="pt_btn sc-button header-slider style style-1 wallet fl-button pri-1"><span>Connect Wallet
                                                 </span></a>
                                             </div>
-                                        @endguest
+                                        @endguest 
                                         @auth
                                             <div class="sc-btn-top mg-r-12">
                                                 <a href="javascript:void(0)" onclick="openNav()" class="pt_btn sc-button header-slider style style-1 fl-button pri-1">

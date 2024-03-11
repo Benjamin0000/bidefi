@@ -53,6 +53,8 @@ Route::get('/adsfasd/{id}', [HomeController::class, 'increase_blog_views']);
 
 Route::get('/faq', [HomeController::class, 'faq']); 
 
+Route::post('/dikkej', [HomeController::class, 'send_message']); 
+
 //---admin start
 Route::prefix('admin')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'index']); 

@@ -19,3 +19,7 @@ Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
 
 
 Broadcast::channel('main-channel'); 
+
+Broadcast::channel('chat', function ($user) {
+    return ['id' => $user->id];
+});

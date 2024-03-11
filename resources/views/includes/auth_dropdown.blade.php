@@ -18,7 +18,7 @@
             </div> 
             <div class="avatar_popup2 mt-20">
                 <div class="show mg-bt-18 text-center" style="margin-top:-10px;">
-                    <h5 style="color:white;">Supported Networks</h5>
+                    <h5 style="color:white;font-size:15px;">Supported Networks</h5>
                 </div>
                 
                 @foreach(all_networks() as $net_no)
@@ -151,7 +151,58 @@
             </div>
         @endforeach
     </div> 
-    
+</div>
+
+<div id="side_chat">
+    <div style="padding: 10px;">
+        <div class="row">
+            <div class="col" style="text-align: left; padding-top:10px;">
+                <h4>Chat</h4>
+            </div>
+            <div class="col" style="text-align: right">
+                <a href="javascript:void(0)" style="color:#111;font-size:40px;" class="closebtn" onclick="closeChat()">&times;</a>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div id="chat_con">
+        @foreach($msgs as $msg)
+            <div class="chat_msg">
+                <b>{{get_user_fname($msg['user_id'])}}:</b> {{$msg['msg']}}
+            </div>
+        @endforeach
+    </div>
+
+    <form id="chat_input">
+        <div id="chat_input_con">
+            <div class="row">
+                <div class="col-10">
+                    {{-- <input type="text"  id="chat_input_text" placeholder="Type your message"> --}}
+                    <textarea name="msg" rows="1" id="chat_input_text" placeholder="Type Message"></textarea>
+                </div>
+                <div class="col-2" style="margin-top:18px">
+                    
+                    <a href="javascript:void(0)" id="emoji_btn">😍</a>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-6 text-left">
+                {{-- <h5 style="font-size: 13px;margin-top:5px;"><span class="text-success fas fa-user"></span> Online: 5</h5> --}}
+            </div>
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-6 text-right" style="padding-top:10px;">
+                        <h6 id="msg_count">160</h6>
+                    </div>
+                    <div class="col-6">
+                        <button class="btn btn-primary" style="color:white !important" id="msg_send_btn">Send</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
 </div>
 
 <script>
@@ -159,10 +210,20 @@ function openNav() {
   document.getElementById("side_pt").style.display = "block";
   document.getElementById("side_pt").style.width = "400px";
 }
-
 /* Set the width of the side navigation to 0 */
 function closeNav() {
   document.getElementById("side_pt").style.width = "0";
   document.getElementById("side_pt").style.display = "none";
+}
+function openChat() {
+  document.getElementById("side_chat").style.display = "block";
+  document.getElementById("side_chat").style.width = "400px";
+  var objDiv = document.getElementById("chat_con");
+  objDiv.scrollTop = 9999999;
+}
+/* Set the width of the side navigation to 0 */
+function closeChat() {
+  document.getElementById("side_chat").style.width = "0";
+  document.getElementById("side_chat").style.display = "none";
 }
 </script>
