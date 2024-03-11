@@ -52,9 +52,11 @@
                                                 </h6>
                                             </div>
                                             <div class="col-6 text-right">
+                                                <h6>
                                                 @if($item->network == 42161)
                                                     {{ get_ab($item->price) }} ARB
                                                 @endif 
+                                                </h6>
                                             </div>
                                         </div>
 
