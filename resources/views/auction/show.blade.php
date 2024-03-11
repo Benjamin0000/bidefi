@@ -51,7 +51,7 @@
                                                     ${{ $price ? number_format($price) : number_format($item->price)}}
                                                 </h6>
                                             </div>
-                                            <div class="col-6 text-right">
+                                            <div class="col-6" style="float: right">
                                                 <h6>
                                                 @if($item->network == 42161)
                                                     {{ get_ab($item->price) }} ARB
