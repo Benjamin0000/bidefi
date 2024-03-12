@@ -101,12 +101,12 @@ window.Echo.join('chat.1')
     .joining((user) => {
         // A new user has joined
         console.log('user joined');
-        console.log(users)
+        console.log(user)
     })
     .leaving((user) => {
         // A user has left
         console.log('user left');
-        console.log(users)
+        console.log(user)
     }).listen('Chat', (e)=>{
         console.log('new message')
         let user = e.username; 

@@ -146,7 +146,7 @@ class HomeController extends Controller
             'user_id'=>$user->id,
             'msg'=>$msg
         ]); 
-        Chat::dispatch(get_user_fname($user->id), $msg);
+        broadcast( new Chat(get_user_fname($user->id), $msg) ); 
         return ['done'=>1]; 
     }
 }
