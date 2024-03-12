@@ -157,7 +157,7 @@
     <div style="padding: 10px;">
         <div class="row">
             <div class="col" style="text-align: left; padding-top:10px;">
-                <h4>Chat</h4>
+                <h4>BiDeFi Townsquare</h4>
             </div>
             <div class="col" style="text-align: right">
                 <a href="javascript:void(0)" style="color:#111;font-size:40px;" class="closebtn" onclick="closeChat()">&times;</a>
