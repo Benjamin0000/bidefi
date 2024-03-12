@@ -134,7 +134,7 @@
 
     <div id="side_content"> 
         <br>
-        @foreach($points as $point)
+        @foreach($points2 as $point)
             <div class="row q-rr @if($user->task_completed($point->id)) done_task @endif">
                 <div class="col-3 q-rr-col-one text-center" style="color:white;">
                     <div class="f-q-rr-con @if($user->task_completed($point->id)) done_task @else f-q-rr-con-color @endif "> 

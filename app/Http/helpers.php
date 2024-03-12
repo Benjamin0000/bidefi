@@ -218,7 +218,7 @@ function get_price($name, $prize=0)
         return $price * $prize; 
 
     }else if( !is_bool(strpos($name, "arb")) ){
-        $price = (float)get_register('eth_price');
+        $price = (float)get_register('arb_price');
         return $price * $prize; 
     }else if( !is_bool(strpos($name, "uni")) ){
         $price = (float)get_register('uni_price');

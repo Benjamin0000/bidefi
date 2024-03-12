@@ -1,6 +1,21 @@
 @php 
     $user = Auth::user(); 
     $points = App\Models\Point::orderBy('reward', 'asc')->get(); 
+    $points2 = [];
+
+    if($user){
+        foreach ($points as $point) {
+            if( !$user->task_completed($point->id) ){
+                array_push($points2, $point); 
+            }
+        }
+        foreach ($points as $point) {
+            if( $user->task_completed($point->id) ){
+                array_push($points2, $point); 
+            }
+        }
+    }
+
     $msgs = array_reverse(App\Models\ChatMsg::latest()->take(30)->get()->all(), true); 
 @endphp 
 <!DOCTYPE html>
@@ -205,7 +220,7 @@
             position: absolute;
             z-index: 3;
             background: #eee; 
-            bottom:240px;
+            margin-top:-250px;
             display: none;  
             width: 342px;
             overflow: hidden;

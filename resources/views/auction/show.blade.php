@@ -39,30 +39,23 @@
                         </div>
                         <div class="client-infor sc-card-product">
                             <div class="meta-info">
-                                {{-- <div class="author">
-                                    <div class="info"> --}}
-                                        <div class="row">
-                                            <div class="col-6">
-                                                <span>Price</span>
-                                                <br>
-                                                @php 
-                                                    $price = get_price($item->symbol, $item->prize);
-                                                @endphp 
-                                                <h6>
-                                                    ${{ $price ? number_format($price) : number_format($item->price)}}
-                                                </h6>
-                                            </div>
-                                            <div class="col-6" style="float: right">
-                                                <h6>
-                                                @if($item->network == 42161)
-                                                    {{ get_ab($item->price) }} ARB
-                                                @endif 
-                                                </h6>
-                                            </div>
-                                        </div>
-
-                                    {{-- </div>
-                                </div> --}}
+                                <div class="row" style="width: 100%">
+                                    <div class="col-6">
+                                        <h6>Price</h6>
+                                        <br>
+                                        @php 
+                                            $price = get_price($item->symbol, $item->prize);
+                                            $price = $price ?: $item->price; 
+                                        @endphp 
+                                        <h6>${{ number_format($price) }}</h6>
+                                    </div>
+                                    <div class="col-6 text-right">
+                                        @if($item->network == 42161)
+                                            <br>
+                                            <h6> {{ get_ab($price) }} ARB </h6>
+                                        @endif 
+                                    </div>
+                                </div>
                             </div>
                             <div class="meta-info">
                                 <div id="the_author" class="author">
@@ -74,6 +67,7 @@
                         <p>{{$item->description}}</p>
                         <div class="meta-item-details style2">
                             <div class="item meta-price">
+                                
                                 <span class="heading">Current Bid</span>
                                 <div class="price">
                                     <div class="price-box">
