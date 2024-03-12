@@ -18,7 +18,9 @@ Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
 });
 
 
-Broadcast::channel('main-channel'); 
+Broadcast::channel('main-channel', function(){
+    
+}); 
 
 Broadcast::channel('chat.{roomId}', function ($user, $roomId) {
     return $roomId == 1 ? ['id' => $user->id] : '';
