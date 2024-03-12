@@ -92,7 +92,7 @@ window.Echo.channel(`main-channel`)
     }
 })
 
-window.Echo.join('chat')
+window.Echo.join('chat') 
     .here((users) => {
         // `users` is an array of online users
         console.log('users here');
