@@ -97,16 +97,15 @@ window.Echo.join('chat.1')
         // `users` is an array of online users
         console.log('users here');
         console.log(users)
+        $("#on_u").html(users.length)
     })
     .joining((user) => {
-        // A new user has joined
-        console.log('user joined');
-        console.log(user)
+        let old = Number($("#on_u").html())
+        $("#on_u").html(old+1) 
     })
     .leaving((user) => {
-        // A user has left
-        console.log('user left');
-        console.log(user)
+        let old = Number($("#on_u").html())
+        $("#on_u").html(old-1)
     }).listen('Chat', (e)=>{
         console.log('new message')
         let user = e.username; 

@@ -189,7 +189,7 @@
         <br>
         <div class="row">
             <div class="col-6 text-left">
-                {{-- <h5 style="font-size: 13px;margin-top:5px;"><span class="text-success fas fa-user"></span> Online: 5</h5> --}}
+                <h5 style="font-size: 13px;margin-top:5px;"><span class="text-success fas fa-user"></span> Online: <span id="on_u">0</span></h5>
             </div>
             <div class="col-6">
                 <div class="row">
