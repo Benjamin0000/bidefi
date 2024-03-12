@@ -43,7 +43,7 @@ class Chat
     public function broadcastOn(): array
     {
         return [
-            new Channel('chat'),
+            new PresenceChannel('chat'),
         ];
     }
 }
