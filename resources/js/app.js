@@ -943,8 +943,9 @@ $(document).on('click', '.up_category', function(e){
 }); 
 
 
-$(document).on('keyup', '#chat_input_text', function(e){
-  let len = e.target.value.length; 
+
+function cal_msg_total() {
+  let len = $('#chat_input_text').val().length; 
   let value = 160; 
   let fvalue = value - len; 
   if(fvalue < 0){
@@ -955,6 +956,10 @@ $(document).on('keyup', '#chat_input_text', function(e){
     $("#msg_send_btn").attr('disabled', false); 
   }
   $("#msg_count").html(fvalue)
+}
+
+$(document).on('input', '#chat_input_text', function(e){
+  cal_msg_total()
 })
 
 $(document).on('submit', '#chat_input', function(e){
@@ -969,6 +974,13 @@ $(document).on('submit', '#chat_input', function(e){
   }).catch(error=>{
     $("#msg_send_btn").attr('disabled', false); 
   })
+})
+
+$(document).on("click", ".emoji-item", function() {
+  let val = $(this).html(); 
+  typeInTextarea($("#chat_input_text"), val)
+  cal_msg_total(); 
+  return false
 })
 
 //end sorting

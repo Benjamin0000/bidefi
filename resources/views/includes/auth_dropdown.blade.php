@@ -1,4 +1,15 @@
 
+@php 
+    $emojis = [
+        "💰", "💎", "📈", "📉", "💹", "💲", "🔥", "🚀", "💡", "🔍",
+        "🛠️", "🛒", "😀", "😎", "😊", "😋", "😏", "😮", "🤔", "😌",
+        "🤑", "👍", "👎", "👋", "👋🏼", "🖐️", "🙌", "👐", "🤞", "🤝",
+        "🔒", "🔓", "🔐", "📊", "📄", "📃", "💼", "💻", "📱", "📡",
+        "🔬", "🧪", "🔮", "🏆", "🥇", "🥈", "🥉", "🎯", "🏹", "🎲",
+        "💖", "💓", "💘", "💝", "💗", "💞", "💕", "💟", "💫", "🌀",
+        "✨", "🌟", "₿"
+    ]; 
+@endphp 
 <div class="" id="header_admin" style="padding-top:6px;">
     <div class="header_avatar">
         <div class="popup-notification">
@@ -174,6 +185,22 @@
     </div>
 
     <form id="chat_input">
+        <div id="emoji_con">
+            <div class="row" style="padding: 5px; ">
+                <div class="col-6">
+                    <br>
+                    <h5>Emojis</h5>
+                </div>
+                <div class="col-6 text-right">
+                    <a href="javascript:void(0)" style="color:#111;font-size:40px;" class="closebtn" onclick="closeEmoji()">&times;</a>
+                </div>
+            </div>
+            <div id="emoji_con2">
+                @foreach($emojis as $emoji)
+                    <a href="javascript:void(0)" class="emoji-item">{{$emoji}}</a>
+                @endforeach
+            </div>
+        </div> 
         <div id="chat_input_con">
             <div class="row">
                 <div class="col-10">
@@ -182,7 +209,7 @@
                 </div>
                 <div class="col-2" style="margin-top:18px">
                     
-                    <a href="javascript:void(0)" id="emoji_btn">😍</a>
+                    <a href="javascript:void(0)" onclick="openEmoji()" id="emoji_btn">😍</a>
                 </div>
             </div>
         </div>
@@ -194,9 +221,10 @@
             <div class="col-6">
                 <div class="row">
                     <div class="col-6 text-right" style="padding-top:10px;">
-                        <h6 id="msg_count">160</h6>
+                        <b id="msg_count" style="font-size: 15px;margin-right:10px">160</b>
+                        {{-- <a href="javascript:void(0)" style="font-size: 15px;"><span class="fas fa-book"></span></a> --}}
                     </div>
-                    <div class="col-6">
+                    <div class="col-6 text-right">
                         <button class="btn btn-primary" style="color:white !important" id="msg_send_btn">Send</button>
                     </div>
                 </div>
@@ -204,6 +232,25 @@
         </div>
     </form>
 </div>
+
+
+        
+<div class="modal fade popup" id="chat_rules" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <div class="modal-body space-y-20 pd-40">
+                <h3><i class="fas fa-book"></i>Chat Rules</h3>
+
+                
+            </div>
+        </div>
+    </div>
+</div> 
+
+
 
 <script>
 function openNav() {
@@ -218,6 +265,7 @@ function closeNav() {
 function openChat() {
   document.getElementById("side_chat").style.display = "block";
   document.getElementById("side_chat").style.width = "400px";
+  document.getElementById("wrapper").style.marginRight = "400px";
   var objDiv = document.getElementById("chat_con");
   objDiv.scrollTop = 9999999;
 }
@@ -225,5 +273,24 @@ function openChat() {
 function closeChat() {
   document.getElementById("side_chat").style.width = "0";
   document.getElementById("side_chat").style.display = "none";
+  document.getElementById("wrapper").style.marginRight= "0";
 }
+function openEmoji(){
+    document.getElementById("emoji_con").style.display = "block";  
+}
+function closeEmoji(){
+    document.getElementById("emoji_con").style.display = "none";  
+}
+
+function typeInTextarea(el, newText) {
+    var start = el.prop("selectionStart")
+    var end = el.prop("selectionEnd")
+    var text = el.val()
+    var before = text.substring(0, start)
+    var after  = text.substring(end, text.length)
+    el.val(before + newText + after)
+    el[0].selectionStart = el[0].selectionEnd = start + newText.length
+    el.focus()
+}
+
 </script>

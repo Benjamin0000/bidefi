@@ -201,6 +201,31 @@
         #emoji_btn{
             font-size:20px; 
         }
+        #emoji_con{
+            position: absolute;
+            z-index: 3;
+            background: #eee; 
+            bottom:240px;
+            display: none;  
+            width: 342px;
+            overflow: hidden;
+            border:1px solid black; 
+            margin-left:15px; 
+        }
+        #emoji_con2{
+            min-height:200px; 
+            height: 200px; 
+            width: 350px;
+            overflow-y: scroll;
+            text-align: center;
+            border-top:1px solid black; 
+        }
+        .emoji-item{
+            display: inline-block;
+            text-decoration: none; 
+            font-size: 25px;
+            margin:5px;  
+        }
     </style>
 </head>
 <body class="body header-fixed is_dark">

@@ -94,9 +94,6 @@ window.Echo.channel(`main-channel`)
 
 window.Echo.join('chat.1') 
     .here((users) => {
-        // `users` is an array of online users
-        console.log('users here');
-        console.log(users)
         $("#on_u").html(users.length)
     })
     .joining((user) => {
@@ -107,10 +104,11 @@ window.Echo.join('chat.1')
         let old = Number($("#on_u").html())
         $("#on_u").html(old-1)
     }).listen('Chat', (e)=>{
-        console.log('new message')
         let user = e.username; 
         let msg = e.msg; 
         $('#chat_con').append("<div class='chat_msg'><b>"+user+":</b> "+msg+"</div>")
+        var objDiv = document.getElementById("chat_con");
+        objDiv.scrollTop = 9999999;
     }) .error((error) => {
         console.log('an error occured')
         console.error(error);
