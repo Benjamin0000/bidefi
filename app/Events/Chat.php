@@ -25,16 +25,6 @@ class Chat
         $this->username = $username; 
         $this->msg = $msg; 
     }
-
-    /**
-     * The event's broadcast name.
-     *
-     * @return string
-     */
-    public function broadcastAs()
-    {
-        return 'ccc';
-    }
     /**
      * Get the channels the event should broadcast on.
      *

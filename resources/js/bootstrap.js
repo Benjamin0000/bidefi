@@ -107,7 +107,8 @@ window.Echo.join('chat.1')
         // A user has left
         console.log('user left');
         console.log(users)
-    }).listen('.ccc', (e)=>{
+    }).listen('Chat', (e)=>{
+        console.log('new message')
         let user = e.username; 
         let msg = e.msg; 
         $('#chat_con').append("<div class='chat_msg'><b>"+user+":</b> "+msg+"</div>")
