@@ -52,6 +52,7 @@
                                     <div class="col-6 text-right">
                                         @if($item->network == 42161)
                                             <br>
+                                            <br>
                                             <h6> {{ get_ab($price) }} ARB </h6>
                                         @endif 
                                     </div>
