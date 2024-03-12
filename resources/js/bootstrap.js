@@ -92,7 +92,7 @@ window.Echo.channel(`main-channel`)
     }
 })
 
-window.Echo.join('chat') 
+window.Echo.join('chat.1') 
     .here((users) => {
         // `users` is an array of online users
         console.log('users here');
@@ -101,12 +101,17 @@ window.Echo.join('chat')
     .joining((user) => {
         // A new user has joined
         console.log('user joined');
+        console.log(users)
     })
     .leaving((user) => {
         // A user has left
         console.log('user left');
+        console.log(users)
     }).listen('.ccc', (e)=>{
         let user = e.username; 
         let msg = e.msg; 
         $('#chat_con').append("<div class='chat_msg'><b>"+user+":</b> "+msg+"</div>")
-    })
+    }) .error((error) => {
+        console.log('an error occured')
+        console.error(error);
+    });
