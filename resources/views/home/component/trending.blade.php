@@ -37,6 +37,7 @@
                                             <button style="float:right" class="wishlist-button heart @if( $user && liked($trending->id, $user->id) ) active @endif"><span  onclick="likeItem({{$trending->id}})" class="number-like">{{$trending->likes}}</span></button>
                                              --}}
                                             @if($trending->points >= $trending->start_points && $trending->status < 2)
+                                            <br><br><br><br>
                                                 <div class="featured-countdown style2">
                                                     <span class="slogan"></span>
                                                     <span id="timer{{$trending->id}}">

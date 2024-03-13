@@ -25,6 +25,7 @@
                 </div>
             </a>
             @if($auction->points >= $auction->start_points && $auction->status < 2)
+            <br><br><br><br>
                 <div class="featured-countdown style2">
                     <span class="slogan"></span>
                     <span id="timer{{$auction->id}}">
