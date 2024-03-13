@@ -97,12 +97,10 @@
             box-shadow: 0px 0px 2px 2px #eee;
         }
 
-        .side_chat_light{
-            background-color: #fff; 
-        }
 
         .side_chat_dark{
             background-color: #111 !important;
+            box-shadow: 0px 0px 2px 2px #111 !important; 
         }
 
         .side_chat_dark .closebtn{

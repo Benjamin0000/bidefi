@@ -164,7 +164,7 @@
 </div>
 
 <div id="side_chat">
-    <div style="padding: 10px;">
+    <div style="padding: 10px;border-bottom:1px solid #bbb">
         <div class="row">
             <div class="col" style="text-align: left; padding-top:10px;">
                 <h4>BiDeFi Townsquare</h4>
@@ -174,7 +174,7 @@
             </div>
         </div>
     </div>
-    <hr>
+    <br>
     <div id="chat_con">
         @foreach($msgs as $msg)
             <div class="chat_msg">
