@@ -126,23 +126,26 @@
 </div>
 
 <div id="side_pt">
-    <div style="background: #eee; height:50px;">
+    <div style="background: #eee; height:50px;" id="pt_header">
         <a href="javascript:void(0)" style="color:#111;" class="closebtn" onclick="closeNav()">&times;</a>
         <br>
-        <h4 style="margin-bottom: 20px;color:#111;margin-left:10px;">Quests</h4>
+        <h4 class="quest_title" style="margin-bottom: 20px;color:#111;margin-left:10px;">Quests</h4>
     </div> 
 
     <div id="side_content"> 
         <br>
         @foreach($points2 as $point)
-            <div class="row q-rr @if($user->task_completed($point->id)) done_task @endif">
-                <div class="col-3 q-rr-col-one text-center" style="color:white;">
-                    <div class="f-q-rr-con @if($user->task_completed($point->id)) done_task @else f-q-rr-con-color @endif "> 
+            @php 
+                $completed =  $user->task_completed($point->id); 
+            @endphp 
+            <div class="row q-rr">
+                <div class="col-3 q-rr-col-one text-center @if($completed) done_task @endif" style="color:white;">
+                    <div class="f-q-rr-con @if($completed) done_task @else f-q-rr-con-color @endif "> 
                         <h5>{{$point->reward}}</h5>
                         <div>B-Points</div>
                     </div> 
                 </div>
-                <div class="col-9 q-rr-col-two">
+                <div class="col-9 q-rr-col-two @if($completed) done_task @endif">
                     <b>{{$point->title}}</b>
                     <br>
                     <br>
@@ -153,11 +156,7 @@
                         <span class="badge" style="background: #ddd;color:black;">{{$user->get_completed_task($point->id)}} / {{$point->bid}}</span>
                         <span style="font-size:13px;">{{$point->created_at->isoFormat('ll')}} - {{$point->expiry_date->isoFormat('ll')}}</span>
                     </div>
-                    {{-- @if($user->task_completed($point->id))
-                        <div>
-                            <span class="badge bg-success">completed</span>
-                        </div> 
-                    @endif  --}}
+
                 </div>
             </div>
         @endforeach

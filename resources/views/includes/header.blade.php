@@ -102,9 +102,25 @@
         }
 
         .side_chat_dark{
-            background-color: #111;
+            background-color: #111 !important;
         }
 
+        .side_chat_dark .closebtn{
+            color:white !important; 
+        }
+
+        .side_chat_dark .chat_msg{
+            background:#333; 
+        }
+        .side_chat_dark #chat_input{
+            background-color: #111 !important;
+        }
+        .side_chat_dark #chat_input_text{
+            color:white; 
+        }
+        .side_chat_dark #emoji_con{
+            background:#333;
+        }
         #side_chat{
             background: #fff; 
             height: 100vh; /* 100% Full-height */
@@ -162,8 +178,8 @@
             color:#222;
         }
         .done_task{
-            background:#eee; 
-            color:black; 
+            background:#eee !important; 
+            color:black !important; 
         }
         .net_drop_show{
             padding:5px;
@@ -241,6 +257,28 @@
             font-size: 25px;
             margin:5px;  
         }
+
+        .dark_side_content {
+            background: black !important; 
+            box-shadow: 0px 0px 2px 2px #111 !important;
+        }
+        .dark_side_content #pt_header{
+            background: black !important;
+        }
+        .dark_side_content .quest_title{
+            color:white !important; 
+        }
+        .dark_side_content .closebtn{
+            color:white !important; 
+        }
+        .dark_side_content .q-rr-col-one{
+            background: #333; 
+            color:white; 
+        }
+        .dark_side_content .q-rr-col-two{
+            background: #333; 
+            color:white; 
+        }
     </style>
 </head>
 <body class="body header-fixed is_dark">
@@ -309,7 +347,7 @@
                 </div>
                 <div class="mode_switcher" style="margin-top:4px;">
                     <h6>Dark mode <strong>Available</strong></h6>
-                    <a href="#" class="light d-flex align-items-center">
+                    <a href="#" class="mmode d-flex align-items-center">
                         <img src="/assets/images/icon/sun.png" alt="">
                     </a>
                     {{-- <a href="#" class="dark d-flex align-items-center is_active">
