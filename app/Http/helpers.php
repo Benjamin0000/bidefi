@@ -635,3 +635,31 @@ function remove_expired_points()
         }
     }
 }
+
+function baned_words(){
+    $new_words = []; 
+    $words = explode(',', get_register('baned_words'));
+
+    foreach($words as $word){
+        array_push($new_words, strtolower(trim($word))); 
+    }
+    return $new_words; 
+}
+
+function baned_word_exists($message)
+{
+    $message = strtolower($message); 
+    $words = baned_words(); 
+    foreach($words as $word){
+        if( strpos($message, $word) !== false )
+            return true; 
+    }
+    return false; 
+}
+
+function contains_link($text)
+{
+    if( strpos($text, 'http') !== false || strpos($text, 'www.') !== false )
+        return true; 
+    return false; 
+}

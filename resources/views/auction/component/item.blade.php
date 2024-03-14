@@ -83,7 +83,11 @@
                     @endif
                 </div>
                 <div class="info">
-                    <span>Last bidder</span>
+                    <span>
+
+                        Last bidder
+
+                    </span>
                     <h6> <a href="{{route('auction.show', $auction->id)}}">{{get_bidder($auction->bidder_id)}}</a> </h6>
                 </div>
             </div>

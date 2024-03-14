@@ -16,6 +16,7 @@ use App\Models\Bidder;
 use App\Models\Likes;  
 use App\Models\BidHistory; 
 use App\Models\Winner;
+use App\Models\ChatMsg;
 
 class AdminController extends Controller
 {
@@ -399,6 +400,41 @@ class AdminController extends Controller
         $point = Point::findOrFail($id); 
         $point->delete(); 
         return back()->with('success', 'Point deleted');
+    }
+
+    public function chat()
+    {
+        $msgs = ChatMsg::latest()->paginate(10); 
+        return view('admin.chat.index', compact('msgs')); 
+    }
+
+    public function save_baned_words(Request $request)
+    {
+        $words = $request->input('words'); 
+        set_register('baned_words', $words); 
+        return back()->with('success', 'words added'); 
+    }
+
+    public function delete_msg($id)
+    {
+        $msg = ChatMsg::findOrFail($id); 
+        $msg->delete(); 
+        return back()->with('success', "Message deleted");
+    }
+
+    public function ban_user($id)
+    {
+        $msg = ChatMsg::findOrFail($id); 
+        $user = User::findOrFail($msg->user_id); 
+        if($user->msg_ban == 0){
+            $user->msg_ban = 1; 
+            $msgs = "User has been banned"; 
+        }else{
+            $user->msg_ban = 0; 
+            $msgs = "User has been unbanned"; 
+        }
+        $user->save(); 
+        return back()->with('success', $msgs);
     }
 
 }

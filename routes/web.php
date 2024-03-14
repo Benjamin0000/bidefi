@@ -102,5 +102,11 @@ Route::prefix('admin')->group(function () {
     Route::get('/points', [AdminController::class, 'points'])->name('admin.points.index'); 
     Route::post('/points', [AdminController::class, 'create_points'])->name('admin.points.create_points'); 
     Route::delete('/points/{id}', [AdminController::class, 'delete_points'])->name('admin.points.delete_points'); 
+
+    #chat
+    Route::get('/chat', [AdminController::class, 'chat']); 
+    Route::post('/chat-word-ban', [AdminController::class, 'save_baned_words'])->name('word_ban'); 
+    Route::delete('/chat/{id}', [AdminController::class, 'delete_msg'])->name('delete_msg'); 
+    Route::patch('chat-ban/{id}', [AdminController::class, 'ban_user'])->name('user_chat_ban');
 });
 //---end admin  

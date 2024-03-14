@@ -178,7 +178,12 @@
     <div id="chat_con">
         @foreach($msgs as $msg)
             <div class="chat_msg">
-                <b>{{get_user_fname($msg['user_id'])}}:</b> {{$msg['msg']}}
+                <b>{{get_user_fname($msg['user_id'])}}:</b> 
+                @if($msg->user->admin)
+                    {!!$msg['msg']!!}
+                @else 
+                    {{ $msg['msg'] }}
+                @endif 
             </div>
         @endforeach
     </div>
@@ -200,7 +205,9 @@
                 @endforeach
             </div>
         </div> 
+        <div id="chat_error" class="text-center"></div>
         <div id="chat_input_con">
+             
             <div class="row">
                 <div class="col-10">
                     {{-- <input type="text"  id="chat_input_text" placeholder="Type your message"> --}}

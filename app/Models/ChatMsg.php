@@ -14,4 +14,9 @@ class ChatMsg extends Model
         'user_id',
         'msg'
     ]; 
+
+    public function user()
+    {
+        return $this->belongsTo(User::class); 
+    }
 }

@@ -138,10 +138,21 @@ class HomeController extends Controller
     public function send_message(Request $request)
     {
         $msg = $request->input('msg'); 
+        $user = Auth::user();
         if( strlen($msg) > 160 || strlen($msg) <= 0)
             return ['error'=>''];
 
-        $user = Auth::user(); 
+        if($user->msg_ban)
+            return ['error'=>"<div class='text-danger' style='font-size:15px'>Can't send message</div>"];
+
+        if(baned_word_exists($msg))
+            return ['error'=>"<div class='text-danger' style='font-size:15px'>Your message contains a Foul word</div>"];
+
+        if(!$user->admin){
+            if(contains_link($msg))
+                return ['error'=>"<div class='text-danger' style='font-size:15px'>Remove the link in your message</div>"];
+        }
+            
         ChatMsg::create([
             'user_id'=>$user->id,
             'msg'=>$msg

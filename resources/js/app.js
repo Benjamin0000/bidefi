@@ -966,11 +966,15 @@ $(document).on('submit', '#chat_input', function(e){
   e.preventDefault(); 
   let text = $("#chat_input_text").val(); 
   $("#msg_send_btn").attr('disabled', true); 
+  $("#chat_error").html("")
   axios.post('/dikkej', {'msg': text}).then(res=>{
     $("#msg_send_btn").attr('disabled', false);
     if(res.data.done){
       $("#chat_input_text").val("")
+    }else if(res.data.error){
+      $("#chat_error").html(res.data.error)
     }
+    cal_msg_total()
   }).catch(error=>{
     $("#msg_send_btn").attr('disabled', false); 
   })

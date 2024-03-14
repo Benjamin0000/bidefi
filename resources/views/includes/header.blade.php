@@ -277,6 +277,12 @@
             background: #333; 
             color:white; 
         }
+        .chat_msg{
+            word-break:break-all;
+        }
+        .chat_msg a{
+            color:#4B50E6; 
+        }
     </style>
 </head>
 <body class="body header-fixed is_dark">

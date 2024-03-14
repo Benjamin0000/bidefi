@@ -100,6 +100,11 @@
                     <span class="nav-text">Settings</span></a>
             </li>
             <li class="">
+                <a href="/admin/chat">
+                    <span><i class="ri-heart-line"></i></span>
+                    <span class="nav-text">Chat</span></a>
+            </li>
+            <li class="">
                 <a href="/">
                     <span><i class="ri-logout-circle-line"></i></span>
                     <span class="nav-text">Leave</span>
