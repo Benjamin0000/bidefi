@@ -157,7 +157,7 @@ function generateRefCode()
 
 function get_pct($min, $max)
 {
-    return round($min/$max *100); 
+    return round($min/$max *100, 2); 
 }
 
 function cal_pct($total, $pct)
