@@ -19,7 +19,7 @@ use App\Models\Point;
 use App\Models\TaskPoint; 
 
 function all_networks(){
-   return [42161,1,324,59144,8453,56,10];
+   return [42161,1,324,59144,8453,56,10,534352,7777777,34443];
 }
 
 function get_user_fname($user_id)
@@ -52,7 +52,12 @@ function get_network_name($id)
         $name = "OPtimism"; 
     elseif($id == 97)
         $name = "BSC Testnet";
-
+    elseif($id == 534352)
+        $name =  "Scroll"; 
+    elseif($id == 7777777)
+        $name = "Zora";
+    elseif($id == 34443)
+        $name = 'Mode Mainnet'; 
     return $name; 
 }
 
@@ -75,7 +80,12 @@ function get_logo($id)
         $logo = "/icon/optimism.png"; 
     elseif($id == 97)
         $logo = "/icon/bnb.png";
-
+    elseif($id == 534352)
+        $logo = "/icon/scroll.png";
+    elseif($id == 7777777)
+        $logo = "/icon/zora.png";
+    elseif($id == 34443)
+        $logo = "/icon/mode.jpg"; 
     return $logo;
 }
 
@@ -98,6 +108,12 @@ function get_end_points($id)
         $url = "https://optimism-mainnet.blastapi.io/".env('BLAST_KEY'); 
     elseif($id == 97)
         $url = "https://bsc-testnet.blastapi.io/".env('BLAST_KEY');
+    elseif($id == 534352)
+        $url = "https://scroll-mainnet.blastapi.io/".env('BLAST_KEY');
+    elseif($id == 7777777)
+        $url = "https://rpc.zora.energy";
+    elseif($id == 34443)
+        $url = "https://mode-mainnet.blastapi.io/".env('BLAST_KEY');
     return $url;     
 }
 
@@ -121,6 +137,12 @@ function get_contract_adress($id)
         $address = "0x88842fa0Af9266cfAe10B7470A9A80384195746c"; 
     elseif($id == 97)
         $address = "0xb0634bb4857bab45ac4fc440fee6e715824a96ef"; 
+    elseif($id == 534352)
+        $address = "0xD7FA1680045A75bce5fAE7FbF97024d34f5259b5"; 
+    elseif($id == 7777777)
+        $address = "0xD7FA1680045A75bce5fAE7FbF97024d34f5259b5";
+    elseif($id == 34443)
+        $address = "0xD7FA1680045A75bce5fAE7FbF97024d34f5259b5";
     return $address;
 }
 
@@ -144,6 +166,12 @@ function get_locked_url($id)
         $url = "https://optimistic.etherscan.io/address/$address"; 
     // elseif($id == 97)
     //     $url = "0xb0634bb4857bab45ac4fc440fee6e715824a96ef"; 
+    elseif($id == 534352)
+        $url = "https://scrollscan.com/address/$address"; 
+    elseif($id == 7777777)
+        $url = "https://explorer.zora.energy/address/$address"; 
+    elseif($id == 34443)
+        $url = "https://explorer.mode.network/address/$address";
     return $url;
 }
 

@@ -283,6 +283,14 @@
         .chat_msg a{
             color:#4B50E6; 
         }
+        #chat_sup{
+            color:red;
+            font-weight: bold;
+        }
+        .p_text{
+            background: #4B50E6 !important; 
+            color:white !important; 
+        }
     </style>
 </head>
 <body class="body header-fixed is_dark">
@@ -324,7 +332,7 @@
                                         @auth 
                                             <div class="sc-btn-top mg-r-12">
                                                 <a href="javascript:void(0)" onclick="openChat()" class="pt_btn sc-button header-slider style style-1 fl-button pri-1">
-                                                    <i class="fas fa-comment"></i>
+                                                    <i class="fas fa-comment"></i> <sup id="chat_sup">0</sup>
                                                 </a>
                                             </div> 
                                         @endauth

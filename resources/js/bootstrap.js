@@ -106,9 +106,25 @@ window.Echo.join('chat.1')
     }).listen('Chat', (e)=>{
         let user = e.username; 
         let msg = e.msg; 
-        $('#chat_con').append("<div class='chat_msg'><b>"+user+":</b> "+msg+"</div>")
+        let online = e.online; 
+        let mclass = ''; 
+        if(online == user){
+            mclass = 'p_text'; 
+        }
+        $('#chat_con').append("<div class='"+mclass+" chat_msg'><b>"+user+":</b> "+msg+"</div>")
+
+
         var objDiv = document.getElementById("chat_con");
         objDiv.scrollTop = 9999999;
+        let chat = localStorage.getItem("chat");
+
+        if(chat == "0"){
+            let total = Number(localStorage.getItem("unread"));
+            total+=1;
+            localStorage.setItem("unread", total);
+            $("#chat_sup").html(total); 
+        }
+
     }) .error((error) => {
         console.log('an error occured')
         console.error(error);

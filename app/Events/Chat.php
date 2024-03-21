@@ -9,6 +9,7 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Auth; 
 
 class Chat implements ShouldBroadcast
 {
@@ -16,6 +17,7 @@ class Chat implements ShouldBroadcast
 
     public $username; 
     public $msg; 
+    public $online; 
 
     /**
      * Create a new event instance.
@@ -24,6 +26,7 @@ class Chat implements ShouldBroadcast
     {
         $this->username = $username; 
         $this->msg = $msg; 
+        $this->online = get_user_fname(Auth::id()); 
     }
     /**
      * Get the channels the event should broadcast on.

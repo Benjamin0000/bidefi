@@ -177,7 +177,7 @@
     <br>
     <div id="chat_con">
         @foreach($msgs as $msg)
-            <div class="chat_msg">
+            <div class="chat_msg @if($msg->user_id == $user->id) p_text @endif">
                 <b>{{get_user_fname($msg['user_id'])}}:</b> 
                 @if($msg->user->admin)
                     {!!$msg['msg']!!}
@@ -262,11 +262,13 @@
 function openNav() {
   document.getElementById("side_pt").style.display = "block";
   document.getElementById("side_pt").style.width = "400px";
+  document.getElementById("wrapper").style.marginRight = "400px";
 }
 /* Set the width of the side navigation to 0 */
 function closeNav() {
   document.getElementById("side_pt").style.width = "0";
   document.getElementById("side_pt").style.display = "none";
+  document.getElementById("wrapper").style.marginRight= "0";
 }
 function openChat() {
   document.getElementById("side_chat").style.display = "block";
@@ -274,12 +276,16 @@ function openChat() {
   document.getElementById("wrapper").style.marginRight = "400px";
   var objDiv = document.getElementById("chat_con");
   objDiv.scrollTop = 9999999;
+  localStorage.setItem("chat", "1");
+  localStorage.setItem("unread", "0");
+  $("#chat_sup").html('0'); 
 }
 /* Set the width of the side navigation to 0 */
 function closeChat() {
   document.getElementById("side_chat").style.width = "0";
   document.getElementById("side_chat").style.display = "none";
   document.getElementById("wrapper").style.marginRight= "0";
+  localStorage.setItem("chat", "0");
 }
 function openEmoji(){
     document.getElementById("emoji_con").style.display = "block";  

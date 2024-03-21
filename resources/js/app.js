@@ -28,7 +28,10 @@ var supported_networks = [
   56,
   42161,
   10,
-  97
+  97,
+  534352,
+  7777777,
+  34443
 ]; 
 
 $(document).on('click', '#connectbtn', () => {
@@ -46,7 +49,10 @@ function get_contract() {
   let base = "0x88842fa0Af9266cfAe10B7470A9A80384195746c"; 
   let bsc = '0x1EE4CC90e11a42635C1e7829Aa08d5e3FC5eDe8C'; 
   let bsc2 = '0xb0634bb4857bab45ac4fc440fee6e715824a96ef';
-  
+  let scroll = '0xD7FA1680045A75bce5fAE7FbF97024d34f5259b5'; 
+  let zora = '0xD7FA1680045A75bce5fAE7FbF97024d34f5259b5';
+  let mode = '0xD7FA1680045A75bce5fAE7FbF97024d34f5259b5';
+
   if(id == 1){
     return main; 
   }else if (id == 324) {
@@ -63,6 +69,12 @@ function get_contract() {
     return optimism; 
   }else if(id == 97){
     return bsc2;
+  }else if(id == 534352){
+    return scroll;
+  }else if(id == 7777777){
+    return zora;
+  }else if(id == 34443){
+    return mode; 
   }
 }
 
@@ -785,6 +797,11 @@ $(document).ready(function () {
         btn.attr('disabled', false)
       });
   }); 
+  localStorage.setItem("chat", "0");
+  let total = localStorage.getItem("unread")
+  if(total){
+    $("#chat_sup").html(total);
+  }
 });
 
 $(document).on('click', '.net_drop_show', (event) => {
