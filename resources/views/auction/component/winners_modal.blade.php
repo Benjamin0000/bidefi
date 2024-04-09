@@ -9,9 +9,9 @@
             </button>
             <div class="modal-body space-y-20 pd-40">
                 <h3>Winners</h3>
-                <div style="overflow-y: scroll">
+                <div style="overflow-y: scroll; height:400px">
                     @foreach($winners as $winner)
-                        <div style="display: inline-block">
+                        <div style="display:flex">
                             <div>
                                 @if($avatar = $winner->user->avatar)
                                     <img width="50" class="rounded-circle" src="{{Storage::url($avatar)}}" alt="" >

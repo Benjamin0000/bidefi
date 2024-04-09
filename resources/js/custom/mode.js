@@ -2,7 +2,7 @@
 const mode = {
     id: 34443,
     name: "Mode",
-    network: "Mode-Mainnet",
+    network: "mode",
     nativeCurrency: {
         decimals: 18,
         name: "ETH",

@@ -177,6 +177,6 @@
 </script>
 @if($user)
 @include('auction.component.bid_modal')
-@include('auction.component.winners_modal')
 @endif 
+@include('auction.component.winners_modal')
 @include('includes.footer')
