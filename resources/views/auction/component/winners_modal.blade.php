@@ -20,10 +20,10 @@
                                 @endif 
                             </div>
                             <div>
-                                <h6>{{$winner->user->get_name()}}</h6>
+                                <h6 style="margin-top:20px; margin-left:5px">{{$winner->user->get_name()}}</h6>
                             </div>
                         </div>
-                        <hr>
+                        <div style="background:#ccc; height:2px; margin-top:5px"></div>
                     @endforeach
                 </div>
             </div>
