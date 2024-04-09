@@ -9,19 +9,23 @@
             </button>
             <div class="modal-body space-y-20 pd-40">
                 <h3>Winners</h3>
-                @foreach($winners as $winner)
-
-                    <div>
-                        @if($avatar = $winner->user->avatar)
-                            <img width="50" src="{{Storage::url($avatar)}}" alt="" >
-                        @else 
-                            <img width="50" src="/assets/images/avatar/avt-2.jpg" alt="">
-                        @endif 
-                    </div>
-                    <h6>{{$winner->user->get_name()}}</h6>
-                    
-                    <hr>
-                @endforeach
+                <div style="overflow-y: scroll">
+                    @foreach($winners as $winner)
+                        <div style="display: inline-block">
+                            <div>
+                                @if($avatar = $winner->user->avatar)
+                                    <img width="50" class="rounded-circle" src="{{Storage::url($avatar)}}" alt="" >
+                                @else 
+                                    <img width="50" class="rounded-circle" src="/assets/images/avatar/avt-2.jpg" alt="">
+                                @endif 
+                            </div>
+                            <div>
+                                <h6>{{$winner->user->get_name()}}</h6>
+                            </div>
+                        </div>
+                        <hr>
+                    @endforeach
+                </div>
             </div>
         </div>
     </div>
