@@ -23,7 +23,7 @@
                                 <h6 style="margin-top:20px; margin-left:5px">{{$winner->user->get_name()}}</h6>
                             </div>
                         </div>
-                        <div style="background:#ccc; height:2px; margin-top:5px"></div>
+                        <hr>
                     @endforeach
                 </div>
             </div>
