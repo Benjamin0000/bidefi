@@ -123,7 +123,9 @@
                             <br>
                         @endif 
                         @if(!$user)
-                            <h5 class="text-center text-danger">Connect wallet to bid</h5>
+                            <h5 class="text-center text-danger">
+                                <a href="javascript:void(0)" class="connectbtn">Connect wallet to bid</a>
+                            </h5>
                             <br>
                         @else 
                             @if($item->status == 0)

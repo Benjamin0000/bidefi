@@ -1,23 +1,23 @@
 {
-  "_events-78c88473.js": {
-    "file": "assets/events-78c88473.js",
+  "_events-3746fccf.js": {
+    "file": "assets/events-3746fccf.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_index-7b541c55.js": {
-    "file": "assets/index-7b541c55.js",
+  "_index-ac6486a7.js": {
+    "file": "assets/index-ac6486a7.js",
     "imports": [
       "resources/js/app.js",
-      "_events-78c88473.js"
+      "_events-3746fccf.js"
     ],
     "isDynamicEntry": true
   },
-  "_index-80b6205b.js": {
+  "_index-c7efcd42.js": {
     "dynamicImports": [
       "node_modules/@walletconnect/modal-ui/dist/index.js"
     ],
-    "file": "assets/index-80b6205b.js",
+    "file": "assets/index-c7efcd42.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -25,27 +25,27 @@
   },
   "node_modules/@walletconnect/ethereum-provider/dist/index.es.js": {
     "dynamicImports": [
-      "_index-80b6205b.js"
+      "_index-c7efcd42.js"
     ],
-    "file": "assets/index.es-87e66d6a.js",
+    "file": "assets/index.es-18e93e40.js",
     "imports": [
       "resources/js/app.js",
-      "_events-78c88473.js"
+      "_events-3746fccf.js"
     ],
     "isDynamicEntry": true,
     "src": "node_modules/@walletconnect/ethereum-provider/dist/index.es.js"
   },
   "node_modules/@walletconnect/modal-ui/dist/index.js": {
-    "file": "assets/index-c95f4140.js",
+    "file": "assets/index-cda2e291.js",
     "imports": [
-      "_index-80b6205b.js",
+      "_index-c7efcd42.js",
       "resources/js/app.js"
     ],
     "isDynamicEntry": true,
     "src": "node_modules/@walletconnect/modal-ui/dist/index.js"
   },
   "node_modules/@web3modal/ui/dist/esm/index.js": {
-    "file": "assets/index-52e55298.js",
+    "file": "assets/index-b0c3a2d7.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -53,7 +53,7 @@
     "src": "node_modules/@web3modal/ui/dist/esm/index.js"
   },
   "node_modules/viem/_esm/ens/index.js": {
-    "file": "assets/index-d12cbd95.js",
+    "file": "assets/index-f7f994d4.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -61,7 +61,7 @@
     "src": "node_modules/viem/_esm/ens/index.js"
   },
   "node_modules/viem/_esm/utils/ccip.js": {
-    "file": "assets/ccip-3136b97a.js",
+    "file": "assets/ccip-f75a7de7.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -78,10 +78,10 @@
       "node_modules/viem/_esm/utils/ccip.js",
       "node_modules/viem/_esm/ens/index.js",
       "node_modules/@web3modal/ui/dist/esm/index.js",
-      "_index-7b541c55.js",
+      "_index-ac6486a7.js",
       "node_modules/@walletconnect/ethereum-provider/dist/index.es.js"
     ],
-    "file": "assets/app-517ab773.js",
+    "file": "assets/app-7eb91be8.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   }

@@ -34,7 +34,7 @@ var supported_networks = [
   34443
 ]; 
 
-$(document).on('click', '#connectbtn', () => {
+$(document).on('click', '.connectbtn', () => {
   web3Modal.open() 
 });
 

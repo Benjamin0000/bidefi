@@ -338,7 +338,7 @@
                                         @endauth
                                         @guest
                                             <div class="sc-btn-top mg-r-12" id="site-header">
-                                                <a href="javascript:void(0)" id="connectbtn" class="pt_btn sc-button header-slider style style-1 wallet fl-button pri-1"><span>Connect Wallet
+                                                <a href="javascript:void(0)" class="connectbtn pt_btn sc-button header-slider style style-1 wallet fl-button pri-1"><span>Connect Wallet
                                                 </span></a>
                                             </div>
                                         @endguest 
