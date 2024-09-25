@@ -8,7 +8,7 @@ const metadata = {
   icons: ['https://avatars.githubusercontent.com/u/37784886']
 }
 
-const projectId = '25050e2a2f9d7c534f9432098aa3d9c0'
+const projectId = '86e9c44cea75bc46b1970044efabe907'
 const chains = [mainnet, bsc, arbitrum, base, linea, optimism, zkSync, bscTestnet, zora, scroll, mode]; 
 const wagmiConfig = defaultWagmiConfig({ chains, projectId, metadata })
 // 3. Create modal

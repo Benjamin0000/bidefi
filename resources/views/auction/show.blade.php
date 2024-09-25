@@ -124,7 +124,7 @@
                         @endif 
                         @if(!$user)
                             <h5 class="text-center text-danger">
-                                <a href="javascript:void(0)" class="connectbtn">Connect wallet to bid</a>
+                                <a style="background: #5142FC; border-color:#5142FC;color:white;" href="javascript:void(0)" class="btn btn-primary connectbtn">Connect wallet to bid</a>
                             </h5>
                             <br>
                         @else 
@@ -173,7 +173,7 @@
 <script>
     setTimeout(() => {
         window.count_views({{$item->id}})
-    }, 2000);
+    }, 3000);
     window.show_id = {{$item->id}}
     window.user_id = "{{$user ? $user->id : 0}}"
 </script>
